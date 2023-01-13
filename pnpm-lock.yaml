@@ -2,7 +2,9 @@ lockfileVersion: 5.4
 
 specifiers:
   '@heroicons/react': 2.0.13
+  '@next/font': 13.1.2
   '@tailwindcss/forms': 0.5.3
+  '@types/leaflet': 1.9.0
   '@types/ms': 0.7.31
   '@types/node': 18.11.18
   '@types/react': 18.0.26
@@ -16,6 +18,7 @@ specifiers:
   dinero.js: 2.0.0-alpha.8
   eslint: 8.31.0
   eslint-config-next: 13.1.2
+  leaflet: 1.9.3
   lint-staged: 13.1.0
   next: 13.1.2
   postcss: 8.4.21
@@ -24,23 +27,28 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   styled-components: 6.0.0-beta.2
+  tailwind-merge: 1.8.1
   tailwindcss: 3.2.4
   typescript: 4.9.4
   use-count-up: 3.0.1
 
 dependencies:
   '@heroicons/react': 2.0.13_react@18.2.0
+  '@next/font': 13.1.2
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
   clsx: 1.2.1
   date-fns: 2.29.3
   dinero.js: 2.0.0-alpha.8
+  leaflet: 1.9.3
   next: 13.1.2_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   styled-components: 6.0.0-beta.2_biqbaboplfbrettd7655fr4n2y
+  tailwind-merge: 1.8.1
   use-count-up: 3.0.1_react@18.2.0
 
 devDependencies:
+  '@types/leaflet': 1.9.0
   '@types/ms': 0.7.31
   '@types/node': 18.11.18
   '@types/react': 18.0.26
@@ -1858,6 +1866,13 @@ packages:
       glob: 7.1.7
     dev: true
 
+  /@next/font/13.1.2:
+    resolution:
+      {
+        integrity: sha512-NXGXGFGiOKEnvBIHq9cdFTKbHO2/4B3Zd9K27M7j1DioIQVar7oVRqZMYs0h3XMVEZLwjjkdAtqRPCzzd3RtXg==,
+      }
+    dev: false
+
   /@next/swc-android-arm-eabi/13.1.2:
     resolution:
       {
@@ -2093,6 +2108,13 @@ packages:
       tailwindcss: 3.2.4_postcss@8.4.21
     dev: false
 
+  /@types/geojson/7946.0.10:
+    resolution:
+      {
+        integrity: sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==,
+      }
+    dev: true
+
   /@types/json-schema/7.0.11:
     resolution:
       {
@@ -2105,6 +2127,15 @@ packages:
       {
         integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==,
       }
+    dev: true
+
+  /@types/leaflet/1.9.0:
+    resolution:
+      {
+        integrity: sha512-7LeOSj7EloC5UcyOMo+1kc3S1UT3MjJxwqsMT1d2PTyvQz53w0Y0oSSk9nwZnOZubCmBvpSNGceucxiq+ZPEUw==,
+      }
+    dependencies:
+      '@types/geojson': 7946.0.10
     dev: true
 
   /@types/ms/0.7.31:
@@ -4333,6 +4364,13 @@ packages:
       language-subtag-registry: 0.3.22
     dev: true
 
+  /leaflet/1.9.3:
+    resolution:
+      {
+        integrity: sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ==,
+      }
+    dev: false
+
   /levn/0.4.1:
     resolution:
       {
@@ -5661,6 +5699,13 @@ packages:
       '@pkgr/utils': 2.3.1
       tslib: 2.4.1
     dev: true
+
+  /tailwind-merge/1.8.1:
+    resolution:
+      {
+        integrity: sha512-+fflfPxvHFr81hTJpQ3MIwtqgvefHZFUHFiIHpVIRXvG/nX9+gu2P7JNlFu2bfDMJ+uHhi/pUgzaYacMoXv+Ww==,
+      }
+    dev: false
 
   /tailwindcss/3.2.4_postcss@8.4.21:
     resolution:

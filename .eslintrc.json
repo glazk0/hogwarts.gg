@@ -2,6 +2,7 @@
   "extends": ["plugin:@typescript-eslint/recommended", "next/core-web-vitals"],
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/consistent-type-imports": "error"
   }
 }

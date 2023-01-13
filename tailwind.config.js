@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -24,6 +25,10 @@ module.exports = {
           orange: '#F5A623',
           violet: '#7928CA',
         },
+      },
+      fontFamily: {
+        serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
+        sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: ({ theme }) => ({
         'vc-border-gradient': `radial-gradient(at left top, ${theme(
