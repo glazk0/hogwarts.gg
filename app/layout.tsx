@@ -25,12 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       )}
     >
       <head />
-      <body>
-        <div className="h-screen w-screen fixed">
-          {/* <Map center={[0, 0]} /> */}
-        </div>
-        <div className="relative">{children}</div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
