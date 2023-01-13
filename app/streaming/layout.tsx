@@ -1,5 +1,8 @@
 import { NextLogo } from '#/ui/NextLogo';
-import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/solid';
+import {
+  MagnifyingGlassIcon,
+  ShoppingCartIcon,
+} from '@heroicons/react/20/solid';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             <div className="relative flex-1">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <SearchIcon className="h-5 w-5 text-gray-300" />
+                <MagnifyingGlassIcon className="h-5 w-5 text-gray-300" />
               </div>
               <input
                 aria-label="Search"
