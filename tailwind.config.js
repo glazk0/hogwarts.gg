@@ -17,6 +17,8 @@ module.exports = {
       animation: {
         fadeInFromLeft: 'fadeInFromLeft 200ms ease-in',
         fadeOutToLeft: 'fadeOutToLeft 200ms ease-in',
+        fadeIn: 'fadeIn 100ms ease-in',
+        fadeOut: 'fadeOut 100ms ease-in',
       },
       // https://vercel.com/design/color
       colors: {
@@ -54,6 +56,14 @@ module.exports = {
         fadeOutToLeft: {
           '0%': { left: 0, opacity: 1 },
           '100%': { left: -400, opacity: 0 },
+        },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
         },
         rerender: {
           '0%': {

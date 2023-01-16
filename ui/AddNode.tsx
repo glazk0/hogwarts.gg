@@ -7,6 +7,7 @@ const AddNode = () => {
   return (
     <Drawer
       title="Add Node"
+      tooltip="Add Node"
       trigger={
         <button>
           <IconMapPin />

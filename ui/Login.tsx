@@ -30,6 +30,7 @@ function Login() {
 
   return (
     <Popover
+      tooltip={session ? 'Sign in for all features' : 'Welcome back'}
       trigger={
         <button
           className={cn(

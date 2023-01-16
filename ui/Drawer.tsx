@@ -2,17 +2,26 @@ import { cn } from '#/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { IconX } from '@tabler/icons';
 import type { ReactNode } from 'react';
+import Tooltip from './Tooltip';
 
 type DrawerProps = {
   title: ReactNode;
+  tooltip: ReactNode;
   trigger: ReactNode;
   children: ReactNode;
 };
 
-export default function Drawer({ title, trigger, children }: DrawerProps) {
+export default function Drawer({
+  title,
+  tooltip,
+  trigger,
+  children,
+}: DrawerProps) {
   return (
     <DialogPrimitive.Root modal={false}>
-      <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
+      <Tooltip label={tooltip}>
+        <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
+      </Tooltip>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Content
           className={cn(
