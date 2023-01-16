@@ -13,6 +13,11 @@ module.exports = {
   },
   theme: {
     extend: {
+      // https://tailwindcss.com/docs/animation#using-custom-values
+      animation: {
+        fadeInFromLeft: 'fadeInFromLeft 200ms ease-in',
+        fadeOutToLeft: 'fadeOutToLeft 200ms ease-in',
+      },
       // https://vercel.com/design/color
       colors: {
         gray: colors.zinc,
@@ -26,6 +31,12 @@ module.exports = {
           violet: '#7928CA',
         },
       },
+      data: {
+        // https://www.radix-ui.com/docs/primitives/overview/animation#animating-with-css-animation
+        // https://tailwindcss.com/docs/hover-focus-and-other-states#data-attributes
+        open: 'state~="open"',
+        closed: 'state~="closed"',
+      },
       fontFamily: {
         serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
@@ -36,6 +47,14 @@ module.exports = {
         )}, 50px, ${theme('colors.gray.800')} 50%)`,
       }),
       keyframes: ({ theme }) => ({
+        fadeInFromLeft: {
+          '0%': { left: -400, opacity: 0 },
+          '100%': { left: 0, opacity: 1 },
+        },
+        fadeOutToLeft: {
+          '0%': { left: 0, opacity: 1 },
+          '100%': { left: -400, opacity: 0 },
+        },
         rerender: {
           '0%': {
             ['border-color']: theme('colors.vercel.pink'),
