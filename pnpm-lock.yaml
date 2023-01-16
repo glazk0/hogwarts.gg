@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@heroicons/react': 2.0.13
+  '@hookform/resolvers': 2.9.10
   '@next/font': 13.1.2
   '@radix-ui/react-alert-dialog': 1.0.2
   '@radix-ui/react-dialog': 1.0.2
@@ -34,6 +35,7 @@ specifiers:
   prettier-plugin-tailwindcss: 0.2.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: 7.42.1
   server-only: 0.0.1
   styled-components: 6.0.0-beta.2
   supabase: 1.33.0
@@ -41,9 +43,11 @@ specifiers:
   tailwindcss: 3.2.4
   typescript: 4.9.4
   use-count-up: 3.0.1
+  zod: 3.20.2
 
 dependencies:
   '@heroicons/react': 2.0.13_react@18.2.0
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.42.1
   '@next/font': 13.1.2
   '@radix-ui/react-alert-dialog': 1.0.2_ib3m5ricvtkl2cll7qpr2f6lvq
   '@radix-ui/react-dialog': 1.0.2_ib3m5ricvtkl2cll7qpr2f6lvq
@@ -61,10 +65,12 @@ dependencies:
   next: 13.1.2_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.42.1_react@18.2.0
   server-only: 0.0.1
   styled-components: 6.0.0-beta.2_biqbaboplfbrettd7655fr4n2y
   tailwind-merge: 1.8.1
   use-count-up: 3.0.1_react@18.2.0
+  zod: 3.20.2
 
 devDependencies:
   '@types/leaflet': 1.9.0
@@ -1816,6 +1822,17 @@ packages:
       react: '>= 16'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hookform/resolvers/2.9.10_react-hook-form@7.42.1:
+    resolution:
+      {
+        integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==,
+      }
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.42.1_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -6004,6 +6021,18 @@ packages:
       scheduler: 0.23.0
     dev: false
 
+  /react-hook-form/7.42.1_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-2UIGqwMZksd5HS55crTT1ATLTr0rAI4jS7yVuqTaoRVDhY2Qc4IyjskCmpnmdYqUNOYFy04vW253tb2JRVh+IQ==,
+      }
+    engines: { node: '>=12.22.0' }
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-is/16.13.1:
     resolution:
       {
@@ -7200,3 +7229,10 @@ packages:
       }
     engines: { node: '>=10' }
     dev: true
+
+  /zod/3.20.2:
+    resolution:
+      {
+        integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==,
+      }
+    dev: false

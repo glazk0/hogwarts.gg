@@ -7,12 +7,12 @@ const Map = dynamic(() => import('#/ui/ExampleMap'), { ssr: false });
 export default function Page() {
   return (
     <div className="h-screen w-screen fixed">
-      <FixedBox className="right-6 top-6 flex space-x-4">
-        <AddNode />
-        <Login />
-      </FixedBox>
-
-      <Map />
+      <Map>
+        <FixedBox className="right-6 top-6 flex space-x-4">
+          <AddNode />
+          <Login />
+        </FixedBox>
+      </Map>
     </div>
   );
 }

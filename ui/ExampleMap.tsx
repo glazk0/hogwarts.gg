@@ -4,6 +4,7 @@ import Marker from '#/ui/Marker';
 import TileLayer, { BLANK_TILE } from '#/ui/TileLayer';
 import type { Coords } from 'leaflet';
 import leaflet from 'leaflet';
+import type { ReactNode } from 'react';
 
 const aeternumCRS = leaflet.extend({}, leaflet.CRS.Simple, {
   transformation: new leaflet.Transformation(1 / 16, 0, -1 / 16, 0),
@@ -39,7 +40,10 @@ function AeternumLayer() {
   return <TileLayer getTileUrl={getTileUrl} getTileSize={getTileSize} />;
 }
 
-const ExampleMap = () => {
+type ExampleMapProps = {
+  children: ReactNode;
+};
+const ExampleMap = ({ children }: ExampleMapProps) => {
   return (
     <Map center={[7000, 7000]} crs={aeternumCRS}>
       <AeternumLayer />
@@ -52,6 +56,7 @@ const ExampleMap = () => {
         src="https://aeternum-map.gg/pois/gold.webp"
         latLng={[7010, 7020]}
       />
+      {children}
     </Map>
   );
 };

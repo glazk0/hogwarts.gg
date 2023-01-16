@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@heroicons/react": "2.0.13",
+    "@hookform/resolvers": "2.9.10",
     "@next/font": "13.1.2",
     "@radix-ui/react-alert-dialog": "1.0.2",
     "@radix-ui/react-dialog": "1.0.2",
@@ -42,10 +43,12 @@
     "next": "13.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "7.42.1",
     "server-only": "0.0.1",
     "styled-components": "6.0.0-beta.2",
     "tailwind-merge": "1.8.1",
-    "use-count-up": "3.0.1"
+    "use-count-up": "3.0.1",
+    "zod": "3.20.2"
   },
   "devDependencies": {
     "@types/leaflet": "1.9.0",
