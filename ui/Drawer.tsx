@@ -2,7 +2,6 @@ import { cn } from '#/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { IconX } from '@tabler/icons';
 import type { ReactNode } from 'react';
-import { useState } from 'react';
 
 type DrawerProps = {
   title: ReactNode;
@@ -11,11 +10,9 @@ type DrawerProps = {
 };
 
 export default function Drawer({ title, trigger, children }: DrawerProps) {
-  const [open, setOpen] = useState(false);
-
   return (
-    <DialogPrimitive.Root modal={false} open={open} onOpenChange={setOpen}>
-      <DialogPrimitive.Trigger>{trigger}</DialogPrimitive.Trigger>
+    <DialogPrimitive.Root modal={false}>
+      <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Content
           className={cn(
@@ -25,9 +22,9 @@ export default function Drawer({ title, trigger, children }: DrawerProps) {
         >
           <div className="flex justify-between">
             {title}
-            <button onClick={() => setOpen(false)}>
+            <DialogPrimitive.Trigger>
               <IconX />
-            </button>
+            </DialogPrimitive.Trigger>
           </div>
           {children}
         </DialogPrimitive.Content>

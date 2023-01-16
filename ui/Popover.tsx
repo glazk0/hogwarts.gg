@@ -1,29 +1,25 @@
-import { cn } from '#/lib/utils';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
-type PopoverProps = PopoverPrimitive.PopoverProps;
+type PopoverProps = {
+  trigger: ReactNode;
+  children: ReactNode;
+};
 
-export default function Popover({ ...props }: PopoverProps) {
-  return <PopoverPrimitive.Root {...props} />;
-}
-
-Popover.Content = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
->(function PopoverContent({ className, ...props }, ref) {
+export default function Popover({ trigger, children }: PopoverProps) {
   return (
-    <PopoverPrimitive.Content
-      className={cn('p-4 rounded bg-black w-96', className)}
-      sideOffset={5}
-      collisionPadding={8}
-      {...props}
-      ref={ref}
-    />
+    <PopoverPrimitive.Root>
+      <PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
+      <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+          className="p-4 rounded bg-zinc-900 w-96"
+          sideOffset={5}
+          collisionPadding={8}
+        >
+          {children}
+          <PopoverPrimitive.Arrow className="fill-zinc-900" />
+        </PopoverPrimitive.Content>
+      </PopoverPrimitive.Portal>
+    </PopoverPrimitive.Root>
   );
-});
-
-Popover.Root = PopoverPrimitive.Root;
-Popover.Trigger = PopoverPrimitive.Trigger;
-Popover.Portal = PopoverPrimitive.Portal;
-Popover.Arrow = PopoverPrimitive.Arrow;
+}

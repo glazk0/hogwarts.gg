@@ -5,7 +5,14 @@ import Drawer from './Drawer';
 
 const AddNode = () => {
   return (
-    <Drawer title="Add Node" trigger={<IconMapPin />}>
+    <Drawer
+      title="Add Node"
+      trigger={
+        <button>
+          <IconMapPin />
+        </button>
+      }
+    >
       TBA
     </Drawer>
   );
