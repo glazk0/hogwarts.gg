@@ -1,5 +1,6 @@
 'use client';
 
+import { getNodeType, nodeTypes } from '#/lib/node-types';
 import { nodeSchema } from '#/lib/validations/node';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconMapPin } from '@tabler/icons';
@@ -9,6 +10,7 @@ import type z from 'zod';
 import Drawer from './Drawer';
 import { useMap } from './Map';
 import Marker from './Marker';
+import Select from './Select';
 
 type FormData = z.infer<typeof nodeSchema>;
 
@@ -32,7 +34,7 @@ export default AddNode;
 
 const NodeForm = () => {
   const map = useMap();
-  const { register, control, handleSubmit } = useForm<FormData>({
+  const { register, control, handleSubmit, watch } = useForm<FormData>({
     resolver: zodResolver(nodeSchema),
     defaultValues: {
       title: '',
@@ -55,15 +57,21 @@ const NodeForm = () => {
           <>
             <input placeholder={field.value.toString()} />
             <Marker
-              src="https://aeternum-map.gg/pois/gold.webp"
+              src={
+                getNodeType(watch('type'))?.icon ??
+                'https://aeternum-map.gg/unknown.webp'
+              }
               latLng={field.value as LatLngExpression}
               highlight
               draggable
+              title={watch('title')}
               onLatLngChange={field.onChange}
             />
           </>
         )}
       />
+
+      <Select options={nodeTypes} {...register('type')} />
 
       <input
         autoFocus

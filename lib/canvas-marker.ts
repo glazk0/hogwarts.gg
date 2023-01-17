@@ -57,12 +57,20 @@ class CanvasMarker extends leaflet.CircleMarker {
     options.renderer = renderer;
     super(latLng, options);
     this._renderer = renderer;
+    this._setImageElement(options.src);
+  }
 
-    if (!imageElements[options.src]) {
-      imageElements[options.src] = document.createElement('img');
-      imageElements[options.src].src = options.src;
+  _setImageElement(src: string) {
+    if (!imageElements[src]) {
+      imageElements[src] = document.createElement('img');
+      imageElements[src].src = src;
     }
-    this.imageElement = imageElements[options.src];
+    this.imageElement = imageElements[src];
+  }
+
+  setSrc(src: string) {
+    this._setImageElement(src);
+    this.redraw();
   }
 
   _redraw() {

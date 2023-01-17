@@ -1,4 +1,5 @@
 import CanvasMarker from '#/lib/canvas-marker';
+import useDidUpdate from '#/lib/hooks/use-did-update';
 import type leaflet from 'leaflet';
 import { useEffect, useState } from 'react';
 import { useMap } from './Map';
@@ -6,6 +7,7 @@ import { useMap } from './Map';
 export type MarkerProps = {
   latLng: leaflet.LatLngExpression;
   src: string;
+  title?: string;
   highlight?: boolean;
   draggable?: boolean;
   onLatLngChange?: (latLng: leaflet.LatLngExpression) => void;
@@ -14,6 +16,7 @@ export type MarkerProps = {
 function Marker({
   latLng,
   src,
+  title,
   highlight,
   draggable,
   onLatLngChange,
@@ -28,21 +31,6 @@ function Marker({
       highlight,
     });
     marker.addTo(map);
-    console.log('memo');
-
-    if (draggable) {
-      const handleMapMouseMove = (event: leaflet.LeafletMouseEvent) => {
-        onLatLngChange?.([event.latlng.lat, event.latlng.lng]);
-      };
-      marker.on('mousedown', () => {
-        map.dragging.disable();
-        map.on('mousemove', handleMapMouseMove);
-        map.once('mouseup', () => {
-          map.off('mousemove', handleMapMouseMove);
-          map.dragging.enable();
-        });
-      });
-    }
     setMarker(marker);
 
     return () => {
@@ -50,11 +38,56 @@ function Marker({
     };
   }, []);
 
-  useEffect(() => {
-    if (marker) {
-      marker.setLatLng(latLng);
+  useDidUpdate(() => {
+    if (!marker) {
+      return;
     }
+    marker.setLatLng(latLng);
   }, [latLng, marker]);
+
+  useDidUpdate(() => {
+    if (!marker) {
+      return;
+    }
+    marker.setSrc(src);
+  }, [latLng, src]);
+
+  useDidUpdate(() => {
+    if (!marker) {
+      return;
+    }
+    if (title) {
+      marker.bindTooltip(title, {
+        direction: 'top',
+        offset: [0, -8],
+        permanent: draggable,
+      });
+    } else {
+      marker.unbindTooltip();
+    }
+  }, [title, marker]);
+
+  useDidUpdate(() => {
+    if (!draggable || !marker) {
+      return;
+    }
+    const handleMapMouseMove = (event: leaflet.LeafletMouseEvent) => {
+      onLatLngChange?.([event.latlng.lat, event.latlng.lng]);
+    };
+    const handleMouseDown = () => {
+      map.dragging.disable();
+      map.on('mousemove', handleMapMouseMove);
+      map.once('mouseup', () => {
+        map.off('mousemove', handleMapMouseMove);
+        map.dragging.enable();
+      });
+    };
+    marker.on('mousedown', handleMouseDown);
+    return () => {
+      marker.off('mousedown', handleMouseDown);
+      map.off('mousemove', handleMapMouseMove);
+    };
+  }, [draggable, marker]);
 
   return <></>;
 }
