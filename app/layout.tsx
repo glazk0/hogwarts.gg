@@ -3,6 +3,7 @@ import 'server-only';
 import createClient from '#/lib/supabase-server';
 import { cn } from '#/lib/utils';
 import '#/styles/globals.css';
+import Footer from '#/ui/Footer';
 import SupabaseListener from '#/ui/SupabaseListener';
 import { Work_Sans as WorkSans } from '@next/font/google';
 import localFont from '@next/font/local';
@@ -38,7 +39,10 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       <head />
       <body>
         <SupabaseListener accessToken={session?.access_token} />
-        <SupabaseProvider session={session}>{children}</SupabaseProvider>
+        <SupabaseProvider session={session}>
+          {children}
+          <Footer />
+        </SupabaseProvider>
       </body>
     </html>
   );
