@@ -1,18 +1,15 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-const RELEASE_DATE = new Date('2023-02-10T00:00:00.000Z');
-
-const Countdown = () => {
-  const [timeLeft, setTimeLeft] = useState(
-    () => RELEASE_DATE.getTime() - Date.now(),
-  );
+type CountdownProps = {
+  initialTimeLeft: number;
+  releaseTime: number;
+};
+const Countdown = ({ initialTimeLeft, releaseTime }: CountdownProps) => {
+  const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
 
   useEffect(() => {
-    const id = setInterval(
-      () => setTimeLeft(RELEASE_DATE.getTime() - Date.now()),
-      1000,
-    );
+    const id = setInterval(() => setTimeLeft(releaseTime - Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
 

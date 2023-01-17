@@ -1,5 +1,8 @@
 import Countdown from '#/ui/Countdown';
 import DiscordLink from '#/ui/DiscordLink';
+import 'server-only';
+
+const RELEASE_DATE = new Date('2023-02-10T00:00:00.000Z');
 
 export default function Page() {
   return (
@@ -10,7 +13,10 @@ export default function Page() {
       <p className="font-medium text-xl drop-shadow-md">
         Hogwarts Legacy Map and Tools
       </p>
-      <Countdown />
+      <Countdown
+        releaseTime={RELEASE_DATE.getTime()}
+        initialTimeLeft={RELEASE_DATE.getTime() - Date.now()}
+      />
       <DiscordLink />
     </div>
   );
