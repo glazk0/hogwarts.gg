@@ -19,9 +19,11 @@ export const getUser = async (
     )
     .eq('id', userId)
     .maybeSingle();
+
   if (error) {
     throw error;
   }
+
   if (!user) {
     return null;
   }
@@ -30,6 +32,7 @@ export const getUser = async (
   ok(!Array.isArray(user.user_role));
 
   const role = user.user_role ? user.user_role.role : 'User';
+
   return {
     id: user.id,
     username: user.username,

@@ -36,10 +36,12 @@ export default function EditorInput({
   postId,
   value,
   onChange,
+  className,
 }: {
   postId: number;
   value?: string;
   onChange: (value: string) => void;
+  className?: string;
 }) {
   const editor = useEditor({
     extensions: [
@@ -60,7 +62,7 @@ export default function EditorInput({
   });
 
   return (
-    <div>
+    <div className={cn('w-full', className)}>
       <MenuBar editor={editor} postId={postId} />
       <EditorContent
         editor={editor}
