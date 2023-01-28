@@ -12,7 +12,7 @@ create table
   );
 
 
-comment on table public.posts is 'Map nodes.';
+comment on table public.nodes is 'Map nodes.';
 
 
 -- Secure the tables
