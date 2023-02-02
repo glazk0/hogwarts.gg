@@ -37,32 +37,26 @@ export interface Database {
       comments: {
         Row: {
           body: string
-          created_at: string
-          downvotes: number
+          created_at: string | null
           id: number
           node_id: number | null
           post_id: number | null
-          upvotes: number
           user_id: string
         }
         Insert: {
           body: string
-          created_at?: string
-          downvotes?: number
+          created_at?: string | null
           id?: number
           node_id?: number | null
           post_id?: number | null
-          upvotes?: number
           user_id?: string
         }
         Update: {
           body?: string
-          created_at?: string
-          downvotes?: number
+          created_at?: string | null
           id?: number
           node_id?: number | null
           post_id?: number | null
-          upvotes?: number
           user_id?: string
         }
       }
@@ -94,45 +88,45 @@ export interface Database {
       }
       posts: {
         Row: {
-          body: string | null;
-          group_id: number | null;
-          id: number;
-          image: string | null;
-          language: string;
-          published: boolean | null;
-          published_at: string | null;
-          short: string | null;
-          slug: string | null;
-          title: string | null;
-          user_id: string;
-        };
+          body: string | null
+          group_id: number | null
+          id: number
+          image: string | null
+          language: string
+          published: boolean | null
+          published_at: string | null
+          short: string | null
+          slug: string | null
+          title: string | null
+          user_id: string
+        }
         Insert: {
-          body?: string | null;
-          group_id?: number | null;
-          id?: number;
-          image?: string | null;
-          language?: string;
-          published?: boolean | null;
-          published_at?: string | null;
-          short?: string | null;
-          slug?: string | null;
-          title?: string | null;
-          user_id?: string;
-        };
+          body?: string | null
+          group_id?: number | null
+          id?: number
+          image?: string | null
+          language?: string
+          published?: boolean | null
+          published_at?: string | null
+          short?: string | null
+          slug?: string | null
+          title?: string | null
+          user_id?: string
+        }
         Update: {
-          body?: string | null;
-          group_id?: number | null;
-          id?: number;
-          image?: string | null;
-          language?: string;
-          published?: boolean | null;
-          published_at?: string | null;
-          short?: string | null;
-          slug?: string | null;
-          title?: string | null;
-          user_id?: string;
-        };
-      };
+          body?: string | null
+          group_id?: number | null
+          id?: number
+          image?: string | null
+          language?: string
+          published?: boolean | null
+          published_at?: string | null
+          short?: string | null
+          slug?: string | null
+          title?: string | null
+          user_id?: string
+        }
+      }
       role_permissions: {
         Row: {
           id: number

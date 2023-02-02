@@ -5,8 +5,6 @@ create table
     post_id bigint references public.posts, 
     node_id bigint references public.nodes,
     body text not null,
-    upvotes bigint not null default '0'::bigint,
-    downvotes bigint not null default '0'::bigint,
     created_at timestamp with time zone default now()
 );
 
@@ -14,36 +12,30 @@ comment on table public.comments is 'Comments of posts & nodes.';
 
 alter table "public"."comments" enable row level security;
 
-create policy "Enable delete for authorized users"
+create policy "Allow individual delete access"
 on "public"."comments"
-as permissive
 for delete
-to public
-using (authorize('comments.delete'::app_permission, auth.uid()));
+using (auth.uid() = user_id);
 
 
-create policy "Enable insert for authenticated users only"
+create policy "Allow authenticated insert access"
 on "public"."comments"
 as permissive
 for insert
 to authenticated
 with check (true);
 
+create policy "Allow individual update access" 
+on "public"."comments" 
+for update
+using (auth.uid() = user_id);
 
-create policy "Enable read access for all users"
+create policy "Allow public read access"
 on "public"."comments"
 as permissive
 for select
 to public
 using (true);
-
-
-create policy "Enable update for authorized users"
-on "public"."comments"
-as permissive
-for update
-to public
-using (authorize('comments.edit'::app_permission, auth.uid()));
 
 
 insert into
