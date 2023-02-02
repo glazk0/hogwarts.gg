@@ -16,6 +16,8 @@ import {
   IconH4,
   IconH5,
   IconItalic,
+  IconLink,
+  IconLinkOff,
   IconList,
   IconListNumbers,
   IconPageBreak,
@@ -26,6 +28,7 @@ import {
 } from '@tabler/icons';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
 import Youtube from '@tiptap/extension-youtube';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
@@ -52,6 +55,9 @@ export default function EditorInput({
         modestBranding: true,
         width: 480,
         height: 270,
+      }),
+      Link.configure({
+        openOnClick: false,
       }),
     ],
     content: value,
@@ -107,6 +113,37 @@ const MenuBar = ({
         isActive={editor.isActive('strike')}
       >
         <IconStrikethrough />
+      </EditorButton>
+      <EditorButton
+        onClick={() => {
+          const previousUrl = editor.getAttributes('link').href;
+          const url = prompt('Enter URL', previousUrl);
+
+          if (url === null) {
+            return;
+          }
+
+          if (url === '') {
+            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+            return;
+          }
+          editor
+            .chain()
+            .focus()
+            .extendMarkRange('link')
+            .setLink({ href: url, target: '_blank' })
+            .run();
+        }}
+        isActive={editor.isActive('link')}
+      >
+        <IconLink />
+      </EditorButton>
+      <EditorButton
+        onClick={() => editor.chain().focus().unsetLink().run()}
+        disabled={!editor.isActive('link')}
+      >
+        <IconLinkOff />
       </EditorButton>
       <EditorButton
         onClick={() => editor.chain().focus().toggleCode().run()}
@@ -262,7 +299,7 @@ const EditorButton = ({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={cn('p-1 rounded', {
+      className={cn('p-1 rounded disabled:text-gray-500', {
         'bg-gray-800': isActive,
       })}
     >
