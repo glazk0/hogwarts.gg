@@ -49,7 +49,10 @@
   },
   "post": {
     "writtenBy": "Written by",
-    "backToBlog": "Back to Blog"
+    "backToBlog": "Back to Blog",
+    "commentSubmit": "Submit",
+    "commentEdit": "Edit",
+    "commentDelete": "Delete"
   },
   "globalNav": {
     "blog": "Blog",

@@ -49,7 +49,10 @@
   },
   "post": {
     "writtenBy": "Geschrieben von",
-    "backToBlog": "Zurück zum Blog"
+    "backToBlog": "Zurück zum Blog",
+    "commentSubmit": "Submit",
+    "commentEdit": "Edit",
+    "commentDelete": "Delete"
   },
   "globalNav": {
     "blog": "Blog",
