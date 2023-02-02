@@ -33,16 +33,18 @@ import Youtube from '@tiptap/extension-youtube';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
 
 export default function EditorInput({
   postId,
   value,
+  isSubmitting,
   onChange,
   className,
 }: {
   postId: number;
   value?: string;
+  isSubmitting?: boolean;
   onChange: (value: string) => void;
   className?: string;
 }) {
@@ -66,6 +68,12 @@ export default function EditorInput({
       onChange(html);
     },
   });
+
+  useEffect(() => {
+    if (isSubmitting) {
+      editor?.chain().focus().setContent('').run();
+    }
+  }, [isSubmitting]);
 
   return (
     <div className={cn('w-full', className)}>
