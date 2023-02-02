@@ -1,23 +1,29 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
+import supabase from '#/lib/supabase-browser';
 import { ok } from 'assert';
 import type { Database } from './database.types';
 import type { User } from './users';
 
-export const getComments = async (
-  supabase: SupabaseClient<Database>,
-  {
-    postId,
-    nodeId,
-  }: {
-    postId?: number | null;
-    nodeId?: number | null;
-  },
-): Promise<Comment[]> => {
-  const { data: comments, error } = await supabase
+export const getComments = async ({
+  postId,
+  nodeId,
+}: {
+  postId?: number | null;
+  nodeId?: number | null;
+}): Promise<Comment[]> => {
+  const request = supabase
     .from('comments')
     .select('*, user:users(username)')
-    .order('created_at', { ascending: false })  
-    .match({ post_id: postId, node_id: nodeId });
+    .order('created_at', { ascending: false });
+
+  if (postId) {
+    request.eq('post_id', postId);
+  } else if (nodeId) {
+    request.eq('node_id', nodeId);
+  } else {
+    throw new Error('Either `postId` or `nodeId` must be provided');
+  }
+
+  const { data: comments, error } = await request;
 
   if (error) {
     throw error;
@@ -40,14 +46,6 @@ export const getComments = async (
   });
 };
 
-export type Comment = {
-  id: number;
-  post_id: number | null;
-  node_id: number | null;
-  user_id: string;
-  body: string;
-  upvotes: number;
-  downvotes: number;
-  created_at: string | null;
+export type Comment = Database['public']['Tables']['comments']['Row'] & {
   user: Pick<User, 'username'>;
 };
