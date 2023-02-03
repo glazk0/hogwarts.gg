@@ -1,10 +1,10 @@
 {
   "home": {
     "subtitle": "Hogwarts Legacy Map & Tools",
-    "underContstruction": "This site is under construction",
-    "lookingForContributors": "We are looking for writers, content creators and contributors.",
-    "pleaseJoinOur": "Please join our:",
-    "openSourceNote": "This project is Open Source! Contributors are highly welcome!"
+    "underContstruction": "Ce site est en cours de construction",
+    "lookingForContributors": "Nous recherchons des rédacteurs, des créateurs de contenu et des contributeurs.",
+    "pleaseJoinOur": "Rejoignez notre:",
+    "openSourceNote": "Ce projet est Open Source! Les contributeurs sont les bienvenus!"
   },
   "auth": {
     "signIn": "Se connecter à votre compte",
