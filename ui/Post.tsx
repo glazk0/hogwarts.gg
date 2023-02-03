@@ -48,11 +48,11 @@ export default function Post({
 
   return (
     <>
-      <div className="container mx-auto px-6 pt-16 pb-8 text-center">
-        <div className="mx-auto max-w-4xl">
+      <div className="container mx-auto px-6 pt-16 pb-8">
+        <div className="mx-auto max-w-4xl space-y-4">
           <h1 className="text-3xl font-bold lg:text-4xl">{post.title}</h1>
           <PostHTML html={post.short!} />
-          <div className="flex gap-2 justify-center text-gray-400 text-sm pt-2">
+          <div className="flex gap-2 text-gray-400 text-sm">
             <p>{labels[post.language]}</p>|
             <p>
               {translations.writtenBy}{' '}
@@ -72,18 +72,18 @@ export default function Post({
         </div>
       </div>
 
-      <div className="container mx-auto max-w-4xl px-2 md:px-0 py-8 grid gap-2 space-y-6">
+      <div className="container mx-auto max-w-4xl px-2 md:px-0 py-4 grid gap-2 space-y-6">
         <PostHTML html={post.body!} />
         <hr className="border-gray-200/50" />
         <div className="flex flex-col space-y-4">
-          <h2 className="text-2xl font-bold">About the author</h2>
+          <h2 className="text-2xl font-bold">{translations.aboutTheAuthor}</h2>
           <div className="flex justify-between">
             <div className="flex">
               <Avatar name={post.user.username} size={42} />
               <div className="ml-2 w-full">
                 <p className="font-semibold">{post.user.username}</p>
                 <p className="text-gray-400 text-sm">
-                 No about me yet.
+                 No about me yet. (TODO)
                 </p>
               </div>
             </div>
@@ -101,9 +101,9 @@ export default function Post({
         <div className="flex flex-col space-y-6">
           <CommentForm post={post} translations={translations} />
           {!commentsLoading && comments && comments.length > 0 && (
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-6">
               {comments.map((comment) => (
-                <div key={comment.id} className="flex flex-col space-y-2">
+                <div key={comment.id} className="flex flex-col space-y-">
                   <div className="flex justify-between">
                     <div className="flex w-full">
                       <Avatar name={comment.user.username} size={42} />

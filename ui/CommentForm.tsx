@@ -72,7 +72,7 @@ export default function CommentForm({
             />
           )}
         />
-        <Button type="submit" kind="brand" disabled={isSubmitting}>
+        <Button type="submit" kind="default" disabled={isSubmitting}>
           {translations.commentSubmit}
         </Button>
       </div>

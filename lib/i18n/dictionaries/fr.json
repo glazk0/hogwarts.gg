@@ -49,7 +49,9 @@
   },
   "post": {
     "writtenBy": "Rédigé par",
-    "backToBlog": "Retour au Blog"
+    "backToBlog": "Retour au Blog",
+    "aboutTheAuthor": "À propos de l'auteur",
+    "commentSubmit": "Envoyer"
   },
   "globalNav": {
     "blog": "Blog",

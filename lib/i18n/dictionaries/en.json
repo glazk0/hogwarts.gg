@@ -50,9 +50,8 @@
   "post": {
     "writtenBy": "Written by",
     "backToBlog": "Back to Blog",
-    "commentSubmit": "Submit",
-    "commentEdit": "Edit",
-    "commentDelete": "Delete"
+    "aboutTheAuthor": "About the author",
+    "commentSubmit": "Submit"
   },
   "globalNav": {
     "blog": "Blog",
