@@ -55,7 +55,8 @@
     "writtenBy": "Rédigé par",
     "backToBlog": "Retour au Blog",
     "aboutTheAuthor": "À propos de l'auteur",
-    "commentSubmit": "Envoyer"
+    "commentSubmit": "Envoyer",
+    "commentDeleteConfirmation": "Êtes-vous sûr de vouloir supprimer ce commentaire?"
   },
   "globalNav": {
     "blog": "Blog",

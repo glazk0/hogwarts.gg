@@ -6,7 +6,6 @@ import type { Post } from '#/lib/posts';
 import supabase from '#/lib/supabase-browser';
 import { commentSchema } from '#/lib/validations/comment';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconWhirl } from '@tabler/icons';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
@@ -38,6 +37,7 @@ export default function CommentForm({
     },
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const { mutate } = useSWRConfig();
 
   async function onSubmit(data: FormData) {
@@ -51,8 +51,13 @@ export default function CommentForm({
     if (error) {
       setError('body', { message: error.message });
     }
+    setIsValid(true);
     setIsSubmitting(false);
-    mutate(`comments/${post?.group_id || post?.id}`);
+    // TODO: This is a hack to make the editor re-render
+    setTimeout(() => {
+      setIsValid(false);
+    }, 200);
+    mutate(`comments/posts/${post?.group_id || post?.id}`);
   }
 
   return (
@@ -65,11 +70,7 @@ export default function CommentForm({
           name="body"
           control={control}
           render={({ field }) => (
-            <EditorInput
-              postId={post!.id}
-              isSubmitting={isSubmitting}
-              {...field}
-            />
+            <EditorInput postId={post!.id} isValid={isValid} {...field} />
           )}
         />
         <Button type="submit" kind="default" disabled={isSubmitting}>

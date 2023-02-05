@@ -24,7 +24,7 @@ export const getPostBySlug = async (
     .maybeSingle();
 
   const { data: post, error } = await request;
-  
+
   if (error) {
     throw error;
   }

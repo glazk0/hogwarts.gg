@@ -1,17 +1,16 @@
 'use client';
 
-import { useComments } from '#/lib/hooks/use-comments';
+import { usePostComments } from '#/lib/hooks/use-comments';
 import useLanguage from '#/lib/hooks/use-language';
-import { useMe } from '#/lib/hooks/use-me';
 import { usePostBySlug } from '#/lib/hooks/use-post';
 import { labels } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
-import { IconArrowNarrowLeft, IconEdit, IconTrash } from '@tabler/icons';
+import Comment from '#/ui/Comment';
+import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import { notFound, redirect } from 'next/navigation';
 import AppLink from './AppLink';
 import Avatar from './Avatar';
-import Button from './Button';
 import CommentForm from './CommentForm';
 import PostHTML from './PostHTML';
 
@@ -24,10 +23,9 @@ export default function Post({
 }) {
   const language = useLanguage();
   const { data: post, isLoading: postLoading } = usePostBySlug(slug);
-  const { data: comments, isLoading: commentsLoading } = useComments({
-    postId: post?.group_id || post?.id,
-  });
-  const { data: me, isLoading: meLoading } = useMe();
+  const { data: comments, isLoading: commentsLoading } = usePostComments(
+    post!.group_id || post!.id,
+  );
 
   if (!post && postLoading) {
     return <></>;
@@ -75,74 +73,39 @@ export default function Post({
       <div className="container mx-auto max-w-4xl px-2 md:px-0 py-4 grid gap-2 space-y-6">
         <PostHTML html={post.body!} />
         <hr className="border-gray-200/50" />
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-2">
           <h2 className="text-2xl font-bold">{translations.aboutTheAuthor}</h2>
-          <div className="flex justify-between">
-            <div className="flex">
+          <div className="flex items-center space-x-2">
+            <div className="flex-shrink-0">
               <Avatar name={post.user.username} size={42} />
-              <div className="ml-2 w-full">
+            </div>
+            <div className="flex-1 space-y-2">
+              <div className="flex flex-col item-center">
                 <p className="font-semibold">{post.user.username}</p>
-                <p className="text-gray-400 text-sm">
-                 No about me yet. (TODO)
-                </p>
+                <div className="prose prose-sm max-w-none">
+                  <p>No about me yet</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <AppLink
-          href="/blog"
-          className="flex py-4 text-sky-400 hover:underline"
-        >
+        <AppLink href="/blog" className="flex py-2 text-brand hover:underline">
           <IconArrowNarrowLeft /> {translations.backToBlog}
         </AppLink>
       </div>
 
-      <div className="container mx-auto max-w-4xl px-2 md:px-0 grid gap-2">
+      <div className="container mx-auto max-w-4xl px-2 md:px-0 grid gap-2 pb-16">
         <div className="flex flex-col space-y-6">
           <CommentForm post={post} translations={translations} />
           {!commentsLoading && comments && comments.length > 0 && (
             <div className="flex flex-col space-y-6">
               {comments.map((comment) => (
-                <div key={comment.id} className="flex flex-col space-y-">
-                  <div className="flex justify-between">
-                    <div className="flex w-full">
-                      <Avatar name={comment.user.username} size={42} />
-                      <div className="ml-2 w-full flex flex-col">
-                        <div className="flex justify-between">
-                          <p className="font-semibold">
-                            {comment.user.username}
-                          </p>
-                          {me?.id === comment.user_id && (
-                          <div className="flex space-x-2">
-                            <IconEdit className='cursor-pointer' size={20} onClick={() => console.log('salut')} />
-                            <IconTrash className='cursor-pointer' size={20} onClick={() => console.log('salut')} />
-                          </div>
-                          )}
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                          <time dateTime={comment.created_at!}>
-                            {format(
-                              new Date(comment.created_at!),
-                              'MMMM dd, yyyy',
-                            )}{' '}
-                            (
-                            {formatDistance(
-                              new Date(comment.created_at!),
-                              new Date(),
-                              {
-                                addSuffix: true,
-                              },
-                            )}
-                            )
-                          </time>
-                        </p>
-                        <div className="text-sm">
-                          <PostHTML html={comment.body} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Comment
+                  key={comment.id}
+                  post={post}
+                  comment={comment}
+                  translations={translations}
+                />
               ))}
             </div>
           )}

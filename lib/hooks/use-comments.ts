@@ -1,11 +1,10 @@
 import useSWR from 'swr';
 import { getComments } from '../comments';
 
-export function useComments({
-    postId,
-    nodeId,
-}: { postId?: number | null; nodeId?: number | null }) {
+export function useNodeComments(nodeId: number) {
+  return useSWR(`comments/nodes/${nodeId}`, () => getComments({ nodeId }));
+}
 
-    return useSWR(`comments/${postId || nodeId}`, () => getComments({ postId, nodeId }));
-    // return useSWR(['comments', postId, nodeId], () => getComments({ postId, nodeId }));
+export function usePostComments(postId: number) {
+  return useSWR(`comments/posts/${postId}`, () => getComments({ postId }));
 }

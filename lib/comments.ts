@@ -7,9 +7,8 @@ export const getComments = async ({
   postId,
   nodeId,
 }: {
-  postId?: number | null;
-} | {
-  nodeId?: number | null;
+  postId?: number;
+  nodeId?: number;
 }): Promise<Comment[]> => {
   const request = supabase
     .from('comments')
@@ -20,8 +19,6 @@ export const getComments = async ({
     request.eq('post_id', postId);
   } else if (nodeId) {
     request.eq('node_id', nodeId);
-  } else {
-    throw new Error('Either `postId` or `nodeId` must be provided');
   }
 
   const { data: comments, error } = await request;

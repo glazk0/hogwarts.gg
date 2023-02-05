@@ -88,45 +88,45 @@ export interface Database {
       }
       posts: {
         Row: {
-          body: string | null;
-          group_id: number | null;
-          id: number;
-          image: string | null;
-          language: string;
-          published: boolean;
-          published_at: string | null;
-          short: string | null;
-          slug: string | null;
-          title: string | null;
-          user_id: string;
-        };
+          body: string | null
+          group_id: number | null
+          id: number
+          image: string | null
+          language: string
+          published: boolean
+          published_at: string | null
+          short: string | null
+          slug: string | null
+          title: string | null
+          user_id: string
+        }
         Insert: {
-          body?: string | null;
-          group_id?: number | null;
-          id?: number;
-          image?: string | null;
-          language?: string;
-          published?: boolean;
-          published_at?: string | null;
-          short?: string | null;
-          slug?: string | null;
-          title?: string | null;
-          user_id?: string;
-        };
+          body?: string | null
+          group_id?: number | null
+          id?: number
+          image?: string | null
+          language?: string
+          published?: boolean
+          published_at?: string | null
+          short?: string | null
+          slug?: string | null
+          title?: string | null
+          user_id?: string
+        }
         Update: {
-          body?: string | null;
-          group_id?: number | null;
-          id?: number;
-          image?: string | null;
-          language?: string;
-          published?: boolean;
-          published_at?: string | null;
-          short?: string | null;
-          slug?: string | null;
-          title?: string | null;
-          user_id?: string;
-        };
-      };
+          body?: string | null
+          group_id?: number | null
+          id?: number
+          image?: string | null
+          language?: string
+          published?: boolean
+          published_at?: string | null
+          short?: string | null
+          slug?: string | null
+          title?: string | null
+          user_id?: string
+        }
+      }
       role_permissions: {
         Row: {
           id: number

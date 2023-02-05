@@ -33,18 +33,18 @@ import Youtube from '@tiptap/extension-youtube';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { type ReactNode, useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 
 export default function EditorInput({
   postId,
   value,
-  isSubmitting,
+  isValid,
   onChange,
   className,
 }: {
-  postId: number;
+  postId?: number;
   value?: string;
-  isSubmitting?: boolean;
+  isValid?: boolean;
   onChange: (value: string) => void;
   className?: string;
 }) {
@@ -70,10 +70,10 @@ export default function EditorInput({
   });
 
   useEffect(() => {
-    if (isSubmitting) {
-      editor?.chain().focus().setContent('').run();
+    if (isValid) {
+      editor?.chain().focus().clearContent().run();
     }
-  }, [isSubmitting]);
+  }, [isValid]);
 
   return (
     <div className={cn('w-full', className)}>
@@ -93,7 +93,7 @@ const MenuBar = ({
   postId,
 }: {
   editor: Editor | null;
-  postId: number;
+  postId?: number;
 }) => {
   if (!editor) {
     return null;
@@ -196,38 +196,40 @@ const MenuBar = ({
       >
         <IconH5 />
       </EditorButton>
-      <label className={cn('p-1 rounded cursor-pointer')}>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={async (event) => {
-            if (!event.target.files?.length) {
-              return;
-            }
-            const file = event.target.files[0];
-            const { error } = await supabase.storage
-              .from('posts')
-              .upload(`post_${postId}/${file.name}`, file, {
-                cacheControl: '3600',
-                upsert: true,
-              });
-            console.log(file.name, error);
-            if (error) {
-              console.error(error);
-              return;
-            }
+      {postId && (
+        <label className={cn('p-1 rounded cursor-pointer')}>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={async (event) => {
+              if (!event.target.files?.length) {
+                return;
+              }
+              const file = event.target.files[0];
+              const { error } = await supabase.storage
+                .from('posts')
+                .upload(`post_${postId}/${file.name}`, file, {
+                  cacheControl: '3600',
+                  upsert: true,
+                });
+              console.log(file.name, error);
+              if (error) {
+                console.error(error);
+                return;
+              }
 
-            const { data } = supabase.storage
-              .from('posts')
-              .getPublicUrl(`post_${postId}/${file.name}`);
-            console.log(data);
+              const { data } = supabase.storage
+                .from('posts')
+                .getPublicUrl(`post_${postId}/${file.name}`);
+              console.log(data);
 
-            editor.chain().focus().setImage({ src: data.publicUrl }).run();
-          }}
-          className={cn('hidden')}
-        />
-        <IconPhoto />
-      </label>
+              editor.chain().focus().setImage({ src: data.publicUrl }).run();
+            }}
+            className={cn('hidden')}
+          />
+          <IconPhoto />
+        </label>
+      )}
       <EditorButton
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         isActive={editor.isActive('bulletList')}

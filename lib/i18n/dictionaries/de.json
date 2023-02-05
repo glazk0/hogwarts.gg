@@ -55,7 +55,8 @@
     "writtenBy": "Geschrieben von",
     "backToBlog": "Zurück zum Blog",
     "aboutTheAuthor": "Über den Author",
-    "commentSubmit": "Abschicken"
+    "commentSubmit": "Abschicken",
+    "commentDeleteConfirmation": "Are you sure you want to delete this comment?"
   },
   "globalNav": {
     "blog": "Blog",
