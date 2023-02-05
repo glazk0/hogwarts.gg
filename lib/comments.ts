@@ -8,6 +8,7 @@ export const getComments = async ({
   nodeId,
 }: {
   postId?: number | null;
+} | {
   nodeId?: number | null;
 }): Promise<Comment[]> => {
   const request = supabase
