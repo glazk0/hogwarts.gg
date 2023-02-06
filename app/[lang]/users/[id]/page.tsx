@@ -1,24 +1,26 @@
-import { languages } from '#/lib/i18n/settings';
+import { languages, loadDictionary } from '#/lib/i18n/settings';
 import { getUser, getUsers } from '#/lib/users';
 import SWRFallback from '#/ui/SWRFallback';
-import User from '#/ui/User';
+import User from '#/ui/users/User';
 import { notFound } from 'next/navigation';
 
 export default async function Page({
-  params: { id },
+  params: { id, lang },
 }: {
   params: {
     id: string;
+    lang: string;
   };
 }) {
   const user = await getUser(id);
   if (!user) {
     notFound();
   }
+  const { user: translations } = await loadDictionary(lang);
 
   return (
     <SWRFallback fallback={{ [`users/${id}`]: user }}>
-      <User id={id} />
+      <User id={id} translations={translations} />
     </SWRFallback>
   );
 }

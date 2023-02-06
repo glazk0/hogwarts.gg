@@ -160,14 +160,17 @@ export interface Database {
       };
       users: {
         Row: {
+          description: string | null;
           id: string;
           username: string;
         };
         Insert: {
+          description?: string | null;
           id: string;
           username: string;
         };
         Update: {
+          description?: string | null;
           id?: string;
           username?: string;
         };
