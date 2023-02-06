@@ -1,0 +1,70 @@
+{
+  "home": {
+    "subtitle": "Hogwarts Legacy Mapas y herramientas",
+    "underContstruction": "Este sitio web esta bajo construcción",
+    "lookingForContributors": "Estamos buscando autores, creadores de contenido, y contribuyentes.",
+    "pleaseJoinOur": "Por favor únete a nuestro:",
+    "openSourceNote": "¡Este proyecto es Código Abierto, contribuyentes son bienvenidos!"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signUp": "Crea una cuenta nueva",
+    "discord": "Continuar con Discord",
+    "gitHub": "Continuar con GitHub",
+    "or": "o",
+    "awaitingConfirmation": "Esperando confirmación.",
+    "sentEmail": "Acabamos de enviar un correo electrónico aÑ",
+    "followLink": "Sigue el enlace o ingrese el codigo:",
+    "submit": "Ingrese",
+    "email": "Correo Electronico",
+    "noAccountAssociated": "No hay niguna cuenta asociada con este correo electronico.",
+    "signUpQuestion": "¿Inscribirse?",
+    "continueWithEmail": "Continuar con correo electronico",
+    "privacyPolicyMessage": "Al hacer clic en continuar, acepta la",
+    "privacyPolicy": "política de privacidad",
+    "withoutAccount": "¿No tiene cuenta?",
+    "withAccount": "¿Tiene cuenta?",
+    "signInNow": "Iniciar sesión ahora",
+    "signUpNow": "Inscribirse ahora"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Las noticias mas recientes sobre Hogwarts Legacy y Hogwarts.gg"
+  },
+  "dashboard": {
+    "posts": "Publicaciones",
+    "writtenBy": "Escrito por",
+    "noPosts": "No se han creado publicaciones",
+    "create": "Crear",
+    "back": "De vuelta",
+    "published": "Publicado",
+    "draft": "Borrador",
+    "delete": "Borrar esta publicacion",
+    "save": "Guardar",
+    "slug": "Slug",
+    "title": "Titulo",
+    "short": "Corto",
+    "full": "Lleno",
+    "dangerZone": "Region de peligro"
+  },
+  "posts": {
+    "writtenBy": "Escrito por",
+    "readMore": "Leer más"
+  },
+  "post": {
+    "writtenBy": "Escrito por",
+    "backToBlog": "De vuelta al blog"
+  },
+  "globalNav": {
+    "blog": "Blog",
+    "map": "Mapa",
+    "menu": "Menu",
+    "comingSoon": "(Veniendo Pronto)",
+    "aboutMe": "Sobre mi",
+    "profile": "Perfil",
+    "moderators": "Moderadores",
+    "posts": "Publicaciones",
+    "logOut": "Cerrar sesión",
+    "signIn": "Iniciar sesión"
+  }
+}
