@@ -13,6 +13,17 @@ export default async function Head({
     return <DefaultTags />;
   }
 
+  const alternativeLangs = post.posts.map((post) => (
+    <link
+      key={post.id}
+      rel="alternate"
+      href={`/${post.language}/blog/${post.slug}`}
+      hrefLang={post.language}
+      type="text/html"
+      title={post.title!}
+    />
+  ));
+
   return (
     <>
       <DefaultTags />
@@ -49,6 +60,7 @@ export default async function Head({
         content="Get all the Hogwarts Legacy locations, secrets, chests, entrances and more."
       />
       <meta property="twitter:image" content="/assets/social.jpg" />
+      {alternativeLangs}
     </>
   );
 }

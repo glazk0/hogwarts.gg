@@ -1,6 +1,24 @@
+import { languages } from '#/lib/i18n/settings';
 import { DefaultTags } from '#/ui/DefaultTags';
 
-export default function Head() {
+export default function Head({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
+  const alternativeLangs = languages
+    .filter((language) => language !== lang)
+    .map((language) => (
+      <link
+        key={language}
+        rel="alternate"
+        href={`/${language}`}
+        hrefLang={language}
+        type="text/html"
+        title="Blog - Hogwarts Legacy Map and Tools - Hogwarts.gg"
+      />
+    ));
+
   return (
     <>
       <DefaultTags />
@@ -37,6 +55,7 @@ export default function Head() {
         content="Get all the Hogwarts Legacy locations, secrets, chests, entrances and more."
       />
       <meta property="twitter:image" content="/assets/social.jpg" />
+      {alternativeLangs}
     </>
   );
 }
