@@ -1,9 +1,10 @@
 'use client';
 
+import { insertComment } from '#/lib/comments';
+import { useMe } from '#/lib/hooks/use-me';
 import type { Translations } from '#/lib/i18n/types';
 import type { Node } from '#/lib/nodes';
 import type { Post } from '#/lib/posts';
-import supabase from '#/lib/supabase-browser';
 import { commentSchema } from '#/lib/validations/comment';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -16,14 +17,17 @@ import EditorInput from './EditorInput';
 type FormData = z.infer<typeof commentSchema>;
 
 export default function CommentForm({
-  post,
-  node,
   translations,
-}: {
-  post?: Post;
-  node?: Node;
-  translations: Translations;
-}) {
+  ...props
+}: (
+  | {
+      post: Post;
+    }
+  | {
+      node: Node;
+    }
+) & { translations: Translations }) {
+  const me = useMe();
   const {
     control,
     handleSubmit,
@@ -43,10 +47,13 @@ export default function CommentForm({
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
     clearErrors();
-    const { error } = await supabase.from('comments').insert({
+    const idProps =
+      'post' in props
+        ? { post_id: props.post.group_id ?? props.post.id }
+        : { node_id: props.node.id };
+    const { error } = await insertComment({
       ...data,
-      post_id: post?.group_id || post?.id,
-      node_id: node?.id,
+      ...idProps,
     });
     if (error) {
       setError('body', { message: error.message });
@@ -57,7 +64,15 @@ export default function CommentForm({
     setTimeout(() => {
       setIsValid(false);
     }, 200);
-    mutate(`comments/posts/${post?.group_id || post?.id}`);
+    if ('post_id' in idProps) {
+      mutate(`comments/posts/${idProps.post_id}`);
+    } else {
+      // not implemented
+    }
+  }
+
+  if (!me.data) {
+    return <></>;
   }
 
   return (
@@ -70,7 +85,14 @@ export default function CommentForm({
           name="body"
           control={control}
           render={({ field }) => (
-            <EditorInput postId={post!.id} isValid={isValid} {...field} />
+            <EditorInput
+              imageUpload={{
+                storage: 'comments',
+                folder: me.data!.id,
+              }}
+              isValid={isValid}
+              {...field}
+            />
           )}
         />
         <Button type="submit" kind="default" disabled={isSubmitting}>

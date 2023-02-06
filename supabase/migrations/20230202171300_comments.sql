@@ -7,7 +7,17 @@ create table
     body text not null,
     created_at timestamp
     with
-      time zone default now()
+      time zone default now(),
+      constraint only_one_value check (
+        (
+          post_id is null
+          or node_id is null
+        )
+        and not (
+          post_id is null
+          and node_id is null
+        )
+      )
   );
 
 
@@ -51,3 +61,10 @@ values
   ('admin', 'comments.edit'),
   ('moderator', 'comments.delete'),
   ('moderator', 'comments.edit');
+
+
+-- Add comments bucket
+insert into
+  storage.buckets (id, name, public)
+values
+  ('comments', 'comments', true);

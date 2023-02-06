@@ -6,22 +6,27 @@ import type { Post } from '#/lib/posts';
 import supabase from '#/lib/supabase-browser';
 import { IconTrash } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
-import { mutate } from 'swr';
+import { useSWRConfig } from 'swr';
 import Avatar from './Avatar';
 import PostHTML from './PostHTML';
 
 export default function Comment({
-  post,
-  node,
   comment,
   translations,
-}: {
-  post?: Post;
-  node?: Node;
+  ...props
+}: (
+  | {
+      post: Post;
+    }
+  | {
+      node: Node;
+    }
+) & {
   comment: CommentType;
   translations: Translations;
 }) {
   const { data: me, isLoading } = useMe();
+  const { mutate } = useSWRConfig();
 
   async function onDelete() {
     const ok = confirm(translations.commentDeleteConfirmation);
@@ -31,7 +36,11 @@ export default function Comment({
 
     await supabase.from('comments').delete().eq('id', comment.id);
 
-    mutate(`comments/posts/${post?.group_id || post?.id}`);
+    if ('post' in props) {
+      mutate(`comments/posts/${props.post.group_id || props.post.id}`);
+    } else {
+      // Not implemented
+    }
   }
 
   // TODO: onEdit
