@@ -13,7 +13,7 @@ export default function Posts({
 }: {
   translations: Translations;
 }) {
-  const { data: posts = [], isLoading } = usePosts();
+  const { data: posts = [], isLoading } = usePosts({ language: 'en' });
 
   return (
     <div className="space-y-2">
@@ -28,7 +28,10 @@ export default function Posts({
           >
             <div className="flex flex-col h-full rounded-lg border border-gray-700 px-5 py-2.5 text-sm font-medium text-white hover:border-gray-400 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 disabled:opacity-50 transition-colors">
               <h2 className="text-lg">{post.title}</h2>
-              <PostHTML className="h-32" html={post.short!} />
+              <PostHTML
+                className="h-32 text-ellipsis overflow-hidden"
+                html={post.short || ''}
+              />
               <div className="flex gap-2">
                 <p>{post.id}</p>|<p>{labels[post.language]}</p>|
                 <p>

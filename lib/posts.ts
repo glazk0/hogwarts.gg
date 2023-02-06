@@ -110,7 +110,6 @@ export const getPosts = async ({
   language,
   published,
 }: { language?: string; published?: boolean } = {}): Promise<Post[]> => {
-  const filterByLanguage = language && language !== fallbackLang;
   const request = supabase
     .from('posts')
     .select(
@@ -118,7 +117,7 @@ export const getPosts = async ({
     )
     .order('published_at', { ascending: false });
 
-  if (filterByLanguage) {
+  if (language) {
     request.in('language', [language, fallbackLang]);
   }
   if (published) {
@@ -136,7 +135,7 @@ export const getPosts = async ({
   }
 
   let filteredPosts;
-  if (filterByLanguage) {
+  if (language) {
     // Remove fallback posts if language post exists
     filteredPosts = posts.filter((post) => {
       return post.group_id || !posts.some((p) => p.group_id === post.id);
@@ -169,3 +168,14 @@ export type Post = Database['public']['Tables']['posts']['Row'] & {
     published: boolean;
   }[];
 };
+
+export async function updatePost(
+  id: number,
+  payload: Partial<Omit<Post, 'id'>>,
+) {
+  return await supabase.from('posts').update(payload).eq('id', id);
+}
+
+export function toSlug(title: string) {
+  return title.replaceAll(' ', '-').toLowerCase();
+}

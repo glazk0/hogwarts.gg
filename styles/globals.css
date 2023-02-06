@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .post {
+    @apply w-full overflow-hidden;
+  }
   .post h1 {
     @apply text-3xl;
   }
@@ -27,7 +30,7 @@
   }
 
   .post p {
-    @apply my-2;
+    @apply my-2 text-ellipsis overflow-hidden;
   }
 
   .post ul {
