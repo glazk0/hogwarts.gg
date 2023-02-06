@@ -33,16 +33,23 @@ import Youtube from '@tiptap/extension-youtube';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import type { ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 
 export default function EditorInput({
-  postId,
+  imageUpload,
   value,
+  isValid,
   onChange,
+  className,
 }: {
-  postId: number;
+  imageUpload: {
+    storage: string;
+    folder: string;
+  };
   value?: string;
+  isValid?: boolean;
   onChange: (value: string) => void;
+  className?: string;
 }) {
   const editor = useEditor({
     extensions: [
@@ -65,9 +72,15 @@ export default function EditorInput({
     },
   });
 
+  useEffect(() => {
+    if (isValid) {
+      editor?.chain().focus().clearContent().run();
+    }
+  }, [isValid]);
+
   return (
-    <div>
-      <MenuBar editor={editor} postId={postId} />
+    <div className={cn('w-full', className)}>
+      <MenuBar editor={editor} imageUpload={imageUpload} />
       <EditorContent
         editor={editor}
         className={cn(
@@ -80,10 +93,13 @@ export default function EditorInput({
 
 const MenuBar = ({
   editor,
-  postId,
+  imageUpload,
 }: {
   editor: Editor | null;
-  postId: number;
+  imageUpload: {
+    storage: string;
+    folder: string;
+  };
 }) => {
   if (!editor) {
     return null;
@@ -195,22 +211,21 @@ const MenuBar = ({
               return;
             }
             const file = event.target.files[0];
+            const filePath = `${imageUpload.folder}/${file.name}`;
             const { error } = await supabase.storage
-              .from('posts')
-              .upload(`post_${postId}/${file.name}`, file, {
+              .from(imageUpload.storage)
+              .upload(filePath, file, {
                 cacheControl: '3600',
                 upsert: true,
               });
-            console.log(file.name, error);
             if (error) {
               console.error(error);
               return;
             }
 
             const { data } = supabase.storage
-              .from('posts')
-              .getPublicUrl(`post_${postId}/${file.name}`);
-            console.log(data);
+              .from(imageUpload.storage)
+              .getPublicUrl(filePath);
 
             editor.chain().focus().setImage({ src: data.publicUrl }).run();
           }}

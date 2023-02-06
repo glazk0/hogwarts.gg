@@ -159,7 +159,15 @@ export default function PostForm({
         <Controller
           name="short"
           control={control}
-          render={({ field }) => <EditorInput postId={post.id} {...field} />}
+          render={({ field }) => (
+            <EditorInput
+              imageUpload={{
+                storage: 'posts',
+                folder: `post_${post.id}`,
+              }}
+              {...field}
+            />
+          )}
         />
         {errors.short && (
           <p className="text-xs	text-orange-500">{errors.short.message}</p>
@@ -170,7 +178,15 @@ export default function PostForm({
         <Controller
           name="body"
           control={control}
-          render={({ field }) => <EditorInput postId={post.id} {...field} />}
+          render={({ field }) => (
+            <EditorInput
+              imageUpload={{
+                storage: 'posts',
+                folder: `post_${post.id}`,
+              }}
+              {...field}
+            />
+          )}
         />
         {errors.body && (
           <p className="text-xs	text-orange-500">{errors.body.message}</p>

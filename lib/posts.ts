@@ -22,7 +22,9 @@ export const getPostBySlug = async (
     )
     .match(match)
     .maybeSingle();
+
   const { data: post, error } = await request;
+
   if (error) {
     throw error;
   }
@@ -33,9 +35,11 @@ export const getPostBySlug = async (
 
   // It will never be an array because the `users.id` is unique
   ok(!Array.isArray(post.user));
+
   // The author should exists
   ok(post.user !== null);
   ok(Array.isArray(post.posts));
+
   if (post.parent) {
     post.posts.push(
       post.parent as {
@@ -46,6 +50,7 @@ export const getPostBySlug = async (
       },
     );
   }
+
   return {
     ...post,
     user: post.user,
@@ -55,9 +60,11 @@ export const getPostBySlug = async (
 
 export const getPostById = async (postId: string): Promise<Post | null> => {
   const id = +postId;
+
   if (Number.isNaN(id)) {
     return null;
   }
+
   const { data: post, error } = await supabase
     .from('posts')
     .select(
@@ -65,6 +72,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
     )
     .eq('id', id)
     .maybeSingle();
+
   if (error) {
     throw error;
   }
@@ -75,9 +83,11 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
 
   // It will never be an array because the `users.id` is unique
   ok(!Array.isArray(post.user));
+
   // The author should exists
   ok(post.user !== null);
   ok(Array.isArray(post.posts));
+
   if (post.parent) {
     post.posts.push(
       post.parent as {
@@ -107,12 +117,14 @@ export const getPosts = async ({
       '*, user:users(username), posts(id, language, slug, published), parent:group_id(id, language, slug)',
     )
     .order('published_at', { ascending: false });
+
   if (filterByLanguage) {
     request.in('language', [language, fallbackLang]);
   }
   if (published) {
     request.eq('published', published);
   }
+
   const { data: posts, error } = await request;
 
   if (error) {
