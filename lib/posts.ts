@@ -168,3 +168,14 @@ export type Post = Database['public']['Tables']['posts']['Row'] & {
     published: boolean;
   }[];
 };
+
+export async function updatePost(
+  id: number,
+  payload: Partial<Omit<Post, 'id'>>,
+) {
+  return await supabase.from('posts').update(payload).eq('id', id);
+}
+
+export function toSlug(title: string) {
+  return title.replaceAll(' ', '-').toLowerCase();
+}

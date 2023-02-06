@@ -4,6 +4,7 @@ import useLanguage from '#/lib/hooks/use-language';
 import { labels } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import type { Post } from '#/lib/posts';
+import { toSlug, updatePost } from '#/lib/posts';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import { postPatchSchema } from '#/lib/validations/post';
@@ -41,7 +42,6 @@ export default function PostForm({
   } = useForm<FormData>({
     resolver: zodResolver(postPatchSchema),
     defaultValues: {
-      slug: post.slug ?? '',
       title: post.title ?? '',
       short: post.short ?? '',
       body: post.body ?? '',
@@ -56,13 +56,12 @@ export default function PostForm({
   async function onSubmit(data: FormData) {
     setIsLoading(true);
     clearErrors();
-    const { error } = await supabase
-      .from('posts')
-      .update({
-        ...data,
-        published_at: new Date().toISOString(),
-      })
-      .eq('id', post.id);
+    const { error } = await updatePost(post.id, {
+      ...data,
+      slug: toSlug(data.title),
+      published_at: post.published_at || new Date().toISOString(),
+    });
+
     if (error) {
       setError('title', { message: error.message });
     }
@@ -148,11 +147,6 @@ export default function PostForm({
         error={errors.title?.message}
         autoFocus
         {...register('title')}
-      />
-      <Input
-        label={translations.slug}
-        error={errors.slug?.message}
-        {...register('slug')}
       />
       <section>
         <label>{translations.short}</label>
