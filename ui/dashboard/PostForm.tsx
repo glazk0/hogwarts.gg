@@ -56,9 +56,11 @@ export default function PostForm({
   async function onSubmit(data: FormData) {
     setIsLoading(true);
     clearErrors();
+    const title = data.title.trim();
     const { error } = await updatePost(post.id, {
       ...data,
-      slug: toSlug(data.title),
+      title,
+      slug: toSlug(title),
       published_at: post.published_at || new Date().toISOString(),
     });
 
