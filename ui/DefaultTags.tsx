@@ -1,5 +1,10 @@
+'use client';
+import { usePathname } from 'next/navigation';
+
 // Default <head> tags we want shared across the app
 export function DefaultTags() {
+  const pathname = usePathname();
+
   return (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,6 +27,7 @@ export function DefaultTags() {
       />
       <link href="/favicon/site.webmanifest" rel="manifest" />
       <link href="/favicon.ico" rel="shortcut icon" />
+      <link rel="canonical" href={pathname!} />
     </>
   );
 }
