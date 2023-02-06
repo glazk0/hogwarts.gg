@@ -59,11 +59,11 @@
     "commentDeleteConfirmation": "Êtes-vous sûr de vouloir supprimer ce commentaire?"
   },
   "user": {
-    "editProfile": "Edit Profile",
-    "username": "Username",
+    "editProfile": "Modifier le profil",
+    "username": "Nom d'utilisateur",
     "description": "Description",
-    "submit": "Submit",
-    "cancel": "Cancel"
+    "submit": "Envoyer",
+    "cancel": "Annuler"
   },
   "globalNav": {
     "blog": "Blog",
