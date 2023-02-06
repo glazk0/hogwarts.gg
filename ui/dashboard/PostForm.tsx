@@ -148,7 +148,7 @@ export default function PostForm({
         autoFocus
         {...register('title')}
       />
-      <section>
+      <section className="w-full overflow-hidden">
         <label>{translations.short}</label>
         <Controller
           name="short"
@@ -167,7 +167,7 @@ export default function PostForm({
           <p className="text-xs	text-orange-500">{errors.short.message}</p>
         )}
       </section>
-      <section>
+      <section className="w-full overflow-hidden">
         <label>{translations.full}</label>
         <Controller
           name="body"
