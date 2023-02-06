@@ -7,8 +7,7 @@ export const getUser = async (userId: string): Promise<User | null> => {
     .from('users')
     .select(
       `
-      id,
-      username, 
+      *,
       user_role:user_roles (
         role
       )
@@ -29,10 +28,8 @@ export const getUser = async (userId: string): Promise<User | null> => {
   ok(!Array.isArray(user.user_role));
 
   const role = user.user_role ? user.user_role.role : 'User';
-
   return {
-    id: user.id,
-    username: user.username,
+    ...user,
     role,
   };
 };
@@ -40,8 +37,7 @@ export const getUser = async (userId: string): Promise<User | null> => {
 export const getUsers = async (): Promise<User[]> => {
   const { data: users, error } = await supabase.from('users').select(
     `
-        id,
-        username, 
+        *, 
         user_role:user_roles (
           role
         )
@@ -67,4 +63,11 @@ export const getUsers = async (): Promise<User[]> => {
 
 export type User = Database['public']['Tables']['users']['Row'] & {
   role: string;
+};
+
+export const updateUser = async (
+  id: string,
+  payload: Partial<Omit<User, 'id' | 'role'>>,
+) => {
+  return await supabase.from('users').update(payload).eq('id', id);
 };

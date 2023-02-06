@@ -75,19 +75,21 @@ export default function Post({
         <hr className="border-gray-200/50" />
         <div className="flex flex-col space-y-2">
           <h2 className="text-2xl font-bold">{translations.aboutTheAuthor}</h2>
-          <div className="flex items-center space-x-2">
-            <div className="flex-shrink-0">
-              <Avatar name={post.user.username} size={42} />
-            </div>
-            <div className="flex-1 space-y-2">
-              <div className="flex flex-col item-center">
-                <p className="font-semibold">{post.user.username}</p>
-                <div className="prose prose-sm max-w-none">
-                  <p>No about me yet</p>
+          <AppLink href={`/users/${post.user_id}`}>
+            <div className="flex items-center space-x-2">
+              <div className="flex-shrink-0">
+                <Avatar name={post.user.username} size={42} />
+              </div>
+              <div className="flex-1 space-y-2">
+                <div className="flex flex-col item-center">
+                  <p className="font-semibold">{post.user.username}</p>
+                  <div className="prose prose-sm max-w-none">
+                    <p>{post.user.description}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </AppLink>
         </div>
         <AppLink href="/blog" className="flex py-2 text-brand hover:underline">
           <IconArrowNarrowLeft /> {translations.backToBlog}

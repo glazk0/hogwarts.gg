@@ -58,6 +58,13 @@
     "commentSubmit": "Envoyer",
     "commentDeleteConfirmation": "Êtes-vous sûr de vouloir supprimer ce commentaire?"
   },
+  "user": {
+    "editProfile": "Edit Profile",
+    "username": "Username",
+    "description": "Description",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
   "globalNav": {
     "blog": "Blog",
     "map": "Map",

@@ -58,6 +58,13 @@
     "commentSubmit": "Abschicken",
     "commentDeleteConfirmation": "Bist du dir sicher, dass du den Kommentar löschen möchtest?"
   },
+  "user": {
+    "editProfile": "Profile bearbeiten",
+    "username": "Name",
+    "description": "Beschreibung",
+    "submit": "Abschicken",
+    "cancel": "Abbrechen"
+  },
   "globalNav": {
     "blog": "Blog",
     "map": "Map",
