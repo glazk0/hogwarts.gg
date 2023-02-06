@@ -45,7 +45,7 @@ export default function Post({
   }
 
   return (
-    <>
+    <article>
       <div className="container mx-auto px-6 pt-16 pb-8">
         <div className="mx-auto max-w-4xl space-y-4">
           <h1 className="text-3xl font-bold lg:text-4xl">{post.title}</h1>
@@ -75,7 +75,7 @@ export default function Post({
         <hr className="border-gray-200/50" />
         <div className="flex flex-col space-y-2">
           <h2 className="text-2xl font-bold">{translations.aboutTheAuthor}</h2>
-          <AppLink href={`/users/${post.user_id}`}>
+          <AppLink href={`/users/${post.user_id}`} rel="author">
             <div className="flex items-center space-x-2">
               <div className="flex-shrink-0">
                 <Avatar name={post.user.username} size={42} />
@@ -96,7 +96,7 @@ export default function Post({
         </AppLink>
       </div>
 
-      <div className="container mx-auto max-w-4xl px-2 md:px-0 grid gap-2 pb-16">
+      <aside className="container mx-auto max-w-4xl px-2 md:px-0 grid gap-2 pb-16">
         <div className="flex flex-col space-y-6">
           <CommentForm post={post} translations={translations} />
           {!commentsLoading && comments && comments.length > 0 && (
@@ -112,7 +112,7 @@ export default function Post({
             </div>
           )}
         </div>
-      </div>
-    </>
+      </aside>
+    </article>
   );
 }
