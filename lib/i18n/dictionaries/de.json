@@ -53,7 +53,10 @@
   },
   "post": {
     "writtenBy": "Geschrieben von",
-    "backToBlog": "Zurück zum Blog"
+    "backToBlog": "Zurück zum Blog",
+    "aboutTheAuthor": "Über den Autor",
+    "commentSubmit": "Abschicken",
+    "commentDeleteConfirmation": "Bist du dir sicher, dass du den Kommentar löschen möchtest?"
   },
   "globalNav": {
     "blog": "Blog",
