@@ -13,7 +13,7 @@ export default function Posts({
 }: {
   translations: Translations;
 }) {
-  const { data: posts = [], isLoading } = usePosts();
+  const { data: posts = [], isLoading } = usePosts({ language: 'en' });
 
   return (
     <div className="space-y-2">
