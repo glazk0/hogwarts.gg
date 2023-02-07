@@ -7,6 +7,7 @@ import supabase from '#/lib/supabase-browser';
 import { IconTrash } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import { useSWRConfig } from 'swr';
+import AppLink from './AppLink';
 import Avatar from './Avatar';
 import PostHTML from './PostHTML';
 
@@ -46,14 +47,20 @@ export default function Comment({
   // TODO: onEdit
 
   return (
-    <div className="flex flex-col space-y-2">
+    <article className="flex flex-col space-y-2">
       <div className="flex items-center space-x-2">
         <div className="flex-shrink-0">
           <Avatar name={comment.user.username} size={42} />
         </div>
         <div className="flex-1 space-y-2">
           <div className="flex item-center justify-between">
-            <p className="text-sm font-medium">{comment.user.username}</p>
+            <AppLink
+              href={`/users/${comment.user_id}`}
+              rel="author"
+              className="text-sm font-medium"
+            >
+              {comment.user.username}
+            </AppLink>
             {me?.id === comment.user_id && !isLoading && (
               <div className="flex space-x-2">
                 <IconTrash
@@ -78,6 +85,6 @@ export default function Comment({
       <div className="prose prose-sm max-w-none">
         <PostHTML html={comment.body} />
       </div>
-    </div>
+    </article>
   );
 }

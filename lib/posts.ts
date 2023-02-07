@@ -18,7 +18,7 @@ export const getPostBySlug = async (
   const request = supabase
     .from('posts')
     .select(
-      '*, user:users(username, description), posts(id, language, slug, published), parent:group_id(id, language, slug)',
+      '*, user:users(username, description), posts(id, language, title, slug, published), parent:group_id(id, language, slug)',
     )
     .match(match)
     .maybeSingle();
@@ -45,6 +45,7 @@ export const getPostBySlug = async (
       post.parent as {
         id: number;
         language: string;
+        title: string;
         slug: string;
         published: boolean;
       },
@@ -68,7 +69,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
   const { data: post, error } = await supabase
     .from('posts')
     .select(
-      '*, user:users(username, description), posts(id, language, slug, published), parent:group_id(id, language, slug)',
+      '*, user:users(username, description), posts(id, language, title, slug, published), parent:group_id(id, language, slug)',
     )
     .eq('id', id)
     .maybeSingle();
@@ -93,6 +94,7 @@ export const getPostById = async (postId: string): Promise<Post | null> => {
       post.parent as {
         id: number;
         language: string;
+        title: string;
         slug: string;
         published: boolean;
       },
@@ -113,7 +115,7 @@ export const getPosts = async ({
   const request = supabase
     .from('posts')
     .select(
-      '*, user:users(username, description), posts(id, language, slug, published), parent:group_id(id, language, slug)',
+      '*, user:users(username, description), posts(id, language, title, slug, published), parent:group_id(id, language, slug)',
     )
     .order('published_at', { ascending: false });
 
@@ -164,6 +166,7 @@ export type Post = Database['public']['Tables']['posts']['Row'] & {
   posts: {
     id: number;
     language: string;
+    title: string | null;
     slug: string | null;
     published: boolean;
   }[];
