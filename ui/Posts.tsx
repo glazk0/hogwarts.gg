@@ -4,7 +4,7 @@ import useLanguage from '#/lib/hooks/use-language';
 import { usePosts } from '#/lib/hooks/use-posts';
 import { labels } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
-import { IconArrowNarrowRight } from '@tabler/icons';
+import { IconArrowNarrowRight } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import AppLink from './AppLink';
 import PostHTML from './PostHTML';

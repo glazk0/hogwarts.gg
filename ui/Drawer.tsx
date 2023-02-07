@@ -1,6 +1,6 @@
 import { cn } from '#/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { IconX } from '@tabler/icons';
+import { IconX } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 import Tooltip from './Tooltip';
 

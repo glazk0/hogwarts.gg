@@ -5,7 +5,7 @@ import type { NavItem } from '#/lib/nav-items';
 import { navItems } from '#/lib/nav-items';
 import { cn } from '#/lib/utils';
 import Icon from '#/public/assets/icon.png';
-import { IconMenu2, IconX } from '@tabler/icons';
+import { IconMenu2, IconX } from '@tabler/icons-react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useSelectedLayoutSegment } from 'next/navigation';
