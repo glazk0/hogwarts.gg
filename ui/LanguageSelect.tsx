@@ -1,7 +1,7 @@
 import useLanguage from '#/lib/hooks/use-language';
 import { labels, languages } from '#/lib/i18n/settings';
 import { cn } from '#/lib/utils';
-import { IconLanguage } from '@tabler/icons';
+import { IconLanguage } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';

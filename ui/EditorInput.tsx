@@ -25,7 +25,7 @@ import {
   IconSection,
   IconSeparator,
   IconStrikethrough,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';

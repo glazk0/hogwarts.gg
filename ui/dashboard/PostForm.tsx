@@ -9,7 +9,7 @@ import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import { postPatchSchema } from '#/lib/validations/post';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconChevronLeft, IconWhirl } from '@tabler/icons';
+import { IconChevronLeft, IconWhirl } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';

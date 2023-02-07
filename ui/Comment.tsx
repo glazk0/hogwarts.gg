@@ -4,7 +4,7 @@ import type { Translations } from '#/lib/i18n/types';
 import type { Node } from '#/lib/nodes';
 import type { Post } from '#/lib/posts';
 import supabase from '#/lib/supabase-browser';
-import { IconTrash } from '@tabler/icons';
+import { IconTrash } from '@tabler/icons-react';
 import { format, formatDistance } from 'date-fns';
 import { useSWRConfig } from 'swr';
 import AppLink from './AppLink';

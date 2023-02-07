@@ -4,7 +4,7 @@ import { useMe } from '#/lib/hooks/use-me';
 import type { Translations } from '#/lib/i18n/types';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
-import { IconHeartHandshake, IconLogout, IconUser } from '@tabler/icons';
+import { IconHeartHandshake, IconLogout, IconUser } from '@tabler/icons-react';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';

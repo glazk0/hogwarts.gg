@@ -6,7 +6,7 @@ import { usePostBySlug } from '#/lib/hooks/use-post';
 import { labels } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import Comment from '#/ui/Comment';
-import { IconArrowNarrowLeft } from '@tabler/icons';
+import { IconArrowNarrowLeft } from '@tabler/icons-react';
 import { format, formatDistance } from 'date-fns';
 import { notFound, redirect } from 'next/navigation';
 import AppLink from './AppLink';

@@ -4,7 +4,7 @@ import { getNodeType, nodeTypes } from '#/lib/node-types';
 import supabase from '#/lib/supabase-browser';
 import { nodeSchema } from '#/lib/validations/node';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconMapPin } from '@tabler/icons';
+import { IconMapPin } from '@tabler/icons-react';
 import type { LatLngExpression } from 'leaflet';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
