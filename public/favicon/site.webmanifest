@@ -1,9 +1,10 @@
 {
   "name": "Hogwarts Legacy Map and Tools - Hogwarts.gg",
   "short_name": "Hogwarts.gg",
+  "start_url": "https://www.hogwarts.gg",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
