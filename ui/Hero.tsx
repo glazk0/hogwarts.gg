@@ -11,7 +11,7 @@ export default function Hero({
 }) {
   return (
     <>
-      <div className="relative px-6border-b border-gray-800 bg-[url('/assets/bg.png')] bg-cover bg-top">
+      <div className="relative px-6border-b border-gray-800 bg-[url('/assets/bg.webp')] bg-cover bg-top">
         <div className="container mx-auto max-w-lg text-center">
           <h1 className="relative tracking-wide font-bold font-serif text-xl sm:text-2xl text-brand">
             <Image src={LogoTemplate} alt="" />
