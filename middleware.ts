@@ -10,6 +10,10 @@ const cookieName = 'i18next';
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
+  const url = new URL(req.url);
+  if (url.pathname === '/sitemap.xml') {
+    return NextResponse.redirect(new URL('/api/sitemap.xml', req.url));
+  }
   const userLanguage = getUserLanguage(req);
   const pathLanguage = getPathLanguage(req.nextUrl.pathname);
   if (!languages.includes(pathLanguage)) {
