@@ -3,10 +3,9 @@ import { getURL } from '#/lib/utils';
 import { usePathname } from 'next/navigation';
 
 // Default <head> tags we want shared across the app
-const url = getURL();
 export function DefaultTags() {
   const pathname = usePathname();
-  const href = url.slice(0, url.length - 1) + pathname!;
+  const href = getURL(pathname!);
   return (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1" />

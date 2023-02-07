@@ -1,4 +1,5 @@
 import { getPostBySlug } from '#/lib/posts';
+import { getURL } from '#/lib/utils';
 import { DefaultTags } from '#/ui/DefaultTags';
 
 export default async function Head({
@@ -17,7 +18,7 @@ export default async function Head({
     <link
       key={post.id}
       rel="alternate"
-      href={`/${post.language}/blog/${post.slug}`}
+      href={getURL(`/${post.language}/blog/${post.slug}`)}
       hrefLang={post.language}
       type="text/html"
       title={post.title!}

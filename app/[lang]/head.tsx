@@ -1,4 +1,5 @@
 import { languages } from '#/lib/i18n/settings';
+import { getURL } from '#/lib/utils';
 import { DefaultTags } from '#/ui/DefaultTags';
 
 export default function Head({
@@ -12,7 +13,7 @@ export default function Head({
       <link
         key={language}
         rel="alternate"
-        href={`/${language}`}
+        href={getURL(`/${language}`)}
         hrefLang={language}
         type="text/html"
         title="Hogwarts Legacy Map and Tools - Hogwarts.gg"
