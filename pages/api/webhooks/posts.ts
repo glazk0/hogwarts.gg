@@ -19,7 +19,7 @@ export default async function handler(
   const webhook = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
 
   if (!webhook) {
-    return res.status(400).json({ error: 'No webhook URL provided' });
+    return res.status(500).json({ error: 'No webhook URL provided' });
   }
 
   if (!req.body.record) {
