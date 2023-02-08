@@ -41,6 +41,7 @@ export default AddNode;
 
 const NodeForm = () => {
   const map = useMap();
+  const mapCenter = map.getCenter();
   const {
     register,
     reset,
@@ -55,16 +56,22 @@ const NodeForm = () => {
       title: '',
       description: '',
       type: '',
+      world: 'hogwarts',
       coordinates: [map.getCenter().lat, map.getCenter().lng],
     },
   });
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  async function onSubmit(data: FormData) {
+  async function onSubmit({ coordinates, ...data }: FormData) {
     setIsLoading(true);
-
-    const { error } = await supabase.from('nodes').insert(data);
+    const node = {
+      ...data,
+      x: coordinates[1],
+      y: coordinates[0],
+      z: 0,
+    };
+    const { error } = await supabase.from('nodes').insert(node);
     setIsLoading(false);
     if (error) {
       setError('title', { message: error.message });

@@ -9,8 +9,14 @@ type MapProps = {
   center: leaflet.LatLngExpression;
   crs?: leaflet.CRS;
   children?: ReactNode;
+  bounds: leaflet.LatLngBoundsExpression;
 };
-const Map = ({ center, children, crs = leaflet.CRS.Simple }: MapProps) => {
+const Map = ({
+  center,
+  children,
+  crs = leaflet.CRS.Simple,
+  bounds,
+}: MapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<leaflet.Map | null>(null);
 
@@ -18,15 +24,17 @@ const Map = ({ center, children, crs = leaflet.CRS.Simple }: MapProps) => {
     const map = leaflet.map(containerRef.current!, {
       zoomControl: false,
       attributionControl: false,
+      minZoom: -100,
+      maxZoom: 100,
       crs,
     });
-    map.setView(center, 4);
+    map.fitBounds(bounds);
     setMap(map);
 
     return () => {
       map.remove();
     };
-  }, [center, crs]);
+  }, [center, crs, bounds]);
 
   return (
     <>
