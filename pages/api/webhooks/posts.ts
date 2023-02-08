@@ -36,7 +36,7 @@ export default async function handler(
       {
         title: title,
         description: short?.replace(/(<([^>]+)>)/gi, ''),
-        url: getURL() + `${language}/blog/${slug}`,
+        url: getURL( `/${language}/blog/${slug}`),
         color: 11377794,
         footer: {
           text: `Published by ${user.username}`,
