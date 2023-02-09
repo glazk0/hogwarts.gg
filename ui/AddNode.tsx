@@ -1,8 +1,9 @@
 'use client';
 
 import { useMe } from '#/lib/hooks/use-me';
+import { getZRange } from '#/lib/map';
 import { creatableNodeTypes, getNodeType } from '#/lib/node-types';
-import { getZRange, insertNode } from '#/lib/nodes';
+import { insertNode } from '#/lib/nodes';
 import { createNodeTooltip } from '#/lib/tooltips';
 import { nodeSchema } from '#/lib/validations/node';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +21,7 @@ import { useMap } from './Map';
 import Marker from './Marker';
 import Select from './Select';
 import Stack from './Stack';
+import Text from './Text';
 
 type FormData = z.infer<typeof nodeSchema>;
 
@@ -91,39 +93,49 @@ const NodeForm = ({ level }: { level: string }) => {
       mutate(`nodes/hogwarts/${level}`);
     }
   }
-
+  const type = watch('type');
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack>
         <Controller
           name="coordinates"
           control={control}
-          render={({ field }) => (
-            <>
-              <Input
-                label="Coordinates"
-                description="Move the marker to change the coordinates"
-                value={`${field.value[0]} ${field.value[1]} ${z[0]}`}
-                required
-                error={errors.coordinates?.message}
-                disabled
-              />
-
-              <Marker
-                src={
-                  getNodeType(watch('type'))?.icon ??
-                  'https://aeternum-map.gg/unknown.webp'
-                }
-                latLng={field.value as LatLngExpression}
-                draggable
-                tooltip={createNodeTooltip({
-                  title: watch('title'),
-                  type: watch('type'),
-                })}
-                onLatLngChange={field.onChange}
-              />
-            </>
-          )}
+          render={({ field }) => {
+            const nodeType = getNodeType(type);
+            const title = watch('title');
+            return (
+              <>
+                <Input
+                  label="Coordinates"
+                  description="Move the marker to change the coordinates"
+                  value={`${field.value[0]} ${field.value[1]} ${z[0]}`}
+                  required
+                  error={errors.coordinates?.message}
+                  disabled
+                />
+                {nodeType.value === 'text' ? (
+                  <Text
+                    latLng={field.value as LatLngExpression}
+                    draggable
+                    onLatLngChange={field.onChange}
+                  >
+                    {title || 'Enter title'}
+                  </Text>
+                ) : (
+                  <Marker
+                    src={nodeType.icon}
+                    latLng={field.value as LatLngExpression}
+                    draggable
+                    tooltip={createNodeTooltip({
+                      title,
+                      type,
+                    })}
+                    onLatLngChange={field.onChange}
+                  />
+                )}
+              </>
+            );
+          }}
         />
         <Select
           label="Type"
@@ -132,15 +144,18 @@ const NodeForm = ({ level }: { level: string }) => {
           error={errors.type?.message}
           {...register('type')}
         />
-        {/* Will be added when we have nodes which requires title/description
-        <Input
-          autoFocus
-          label="Title"
-          description="Does the node has a specific name?"
-          placeholder="A node might have a title"
-          error={errors.title?.message}
-          {...register('title')}
-        />
+
+        {type === 'text' && (
+          <Input
+            autoFocus
+            label="Title"
+            description="Does the node has a specific name?"
+            placeholder="A node might have a title"
+            error={errors.title?.message}
+            {...register('title')}
+          />
+        )}
+        {/* 
         <Textarea
           label="Description"
           description="Additional information about this node"
