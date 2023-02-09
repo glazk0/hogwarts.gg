@@ -1,14 +1,17 @@
 'use client';
 
-import { getNodeType, nodeTypes } from '#/lib/node-types';
-import supabase from '#/lib/supabase-browser';
+import { useMe } from '#/lib/hooks/use-me';
+import { creatableNodeTypes, getNodeType } from '#/lib/node-types';
+import { getZRange, insertNode } from '#/lib/nodes';
+import { createNodeTooltip } from '#/lib/tooltips';
 import { nodeSchema } from '#/lib/validations/node';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconMapPin } from '@tabler/icons-react';
 import type { LatLngExpression } from 'leaflet';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useSWRConfig } from 'swr';
 import type z from 'zod';
 import Button from './Button';
 import Drawer from './Drawer';
@@ -17,11 +20,17 @@ import { useMap } from './Map';
 import Marker from './Marker';
 import Select from './Select';
 import Stack from './Stack';
-import Textarea from './Textarea';
 
 type FormData = z.infer<typeof nodeSchema>;
 
 const AddNode = () => {
+  const { data: me } = useMe();
+  const searchParams = useSearchParams();
+  const level = searchParams.get('level')!;
+
+  if (!me || !['admin', 'moderator'].includes(me.role)) {
+    return <></>;
+  }
   return (
     <Drawer
       title="Add Node"
@@ -32,16 +41,17 @@ const AddNode = () => {
         </button>
       }
     >
-      <NodeForm />
+      <NodeForm level={level} />
     </Drawer>
   );
 };
 
 export default AddNode;
 
-const NodeForm = () => {
+const NodeForm = ({ level }: { level: string }) => {
   const map = useMap();
   const mapCenter = map.getCenter();
+
   const {
     register,
     reset,
@@ -55,43 +65,36 @@ const NodeForm = () => {
     defaultValues: {
       title: '',
       description: '',
-      type: '',
+      type: creatableNodeTypes[0].value,
       world: 'hogwarts',
-      coordinates: [map.getCenter().lat, map.getCenter().lng],
+      coordinates: [mapCenter.lat, mapCenter.lng],
     },
   });
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { mutate } = useSWRConfig();
 
+  const z = getZRange(level);
   async function onSubmit({ coordinates, ...data }: FormData) {
     setIsLoading(true);
     const node = {
       ...data,
       x: coordinates[1],
       y: coordinates[0],
-      z: 0,
+      z: z[0],
     };
-    const { error } = await supabase.from('nodes').insert(node);
+    const { error } = await insertNode(node);
     setIsLoading(false);
     if (error) {
       setError('title', { message: error.message });
     } else {
       reset();
-      router.refresh();
+      mutate(`nodes/hogwarts/${level}`);
     }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack>
-        <Input
-          autoFocus
-          label="Title"
-          placeholder="A node needs a title"
-          required
-          error={errors.title?.message}
-          {...register('title')}
-        />
         <Controller
           name="coordinates"
           control={control}
@@ -100,7 +103,7 @@ const NodeForm = () => {
               <Input
                 label="Coordinates"
                 description="Move the marker to change the coordinates"
-                value={field.value.toString()}
+                value={`${field.value[0]} ${field.value[1]} ${z[0]}`}
                 required
                 error={errors.coordinates?.message}
                 disabled
@@ -113,26 +116,37 @@ const NodeForm = () => {
                 }
                 latLng={field.value as LatLngExpression}
                 draggable
-                title={watch('title')}
+                tooltip={createNodeTooltip({
+                  title: watch('title'),
+                  type: watch('type'),
+                })}
                 onLatLngChange={field.onChange}
               />
             </>
           )}
         />
-
         <Select
           label="Type"
-          options={nodeTypes}
+          options={creatableNodeTypes}
           required
           error={errors.type?.message}
           {...register('type')}
+        />
+        {/* Will be added when we have nodes which requires title/description
+        <Input
+          autoFocus
+          label="Title"
+          description="Does the node has a specific name?"
+          placeholder="A node might have a title"
+          error={errors.title?.message}
+          {...register('title')}
         />
         <Textarea
           label="Description"
           description="Additional information about this node"
           error={errors.description?.message}
           {...register('description')}
-        />
+        /> */}
         <Button type="submit" kind="brand" disabled={isLoading}>
           Save
         </Button>

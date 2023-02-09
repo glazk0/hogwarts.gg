@@ -67,6 +67,12 @@ After changing the schema, it's time to regenerate the types with [gen types](ht
 supabase gen types typescript --local > lib/database.types.ts
 ```
 
+If you are using PowerShell, you could copy it directly to clipboard:
+
+```sh
+supabase gen types typescript --local | clip
+```
+
 ## Licensing
 
 MIT
