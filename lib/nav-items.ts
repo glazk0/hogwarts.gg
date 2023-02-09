@@ -1,7 +1,6 @@
 export type NavItem = {
   name: string;
   slug: string;
-  disabled?: boolean;
 };
 
 export const navItems: NavItem[] = [
@@ -11,7 +10,6 @@ export const navItems: NavItem[] = [
   },
   {
     name: 'Map',
-    slug: 'map',
-    disabled: true,
+    slug: 'map/hogwarts?level=1',
   },
 ];

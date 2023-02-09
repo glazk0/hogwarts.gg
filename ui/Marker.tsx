@@ -65,7 +65,7 @@ function Marker({
       return;
     }
 
-    marker.bindTooltip(`<div class="text-center">${tooltip}</div>`, {
+    marker.bindTooltip(tooltip, {
       direction: 'top',
       offset: [0, -8],
       permanent: draggable,

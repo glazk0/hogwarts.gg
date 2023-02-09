@@ -20,8 +20,28 @@ export const creatableNodeTypes = [
 export const nodeTypes = [
   ...creatableNodeTypes,
   {
-    value: 'treasureChest',
-    title: 'Treasure Chest',
+    value: 'disillusionmentChest',
+    title: 'Disillusionment Chest',
+    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+  },
+  {
+    value: 'conjurationsRecipeChest',
+    title: 'Conjurations Recipe Chest',
+    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+  },
+  {
+    value: 'largeGoldSuperChest',
+    title: 'Large Gold Super Chest',
+    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+  },
+  {
+    value: 'mediumGearChest',
+    title: 'Medium Gear Chest',
+    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+  },
+  {
+    value: 'wandskinChest',
+    title: 'Wandskin Chest',
     icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
   },
 ];
