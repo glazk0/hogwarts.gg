@@ -22,6 +22,12 @@ export default async function handler(
     return res.status(500).json({ error: 'No webhook URL provided' });
   }
 
+  const token = process.env.NEXT_PUBLIC_WEBHOOK_TOKEN;
+
+  if (!token || req.headers.token !== token) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   if (!req.body.record) {
     return res.status(400).json({ error: 'No record provided' });
   }
@@ -36,7 +42,7 @@ export default async function handler(
       {
         title: title,
         description: short?.replace(/(<([^>]+)>)/gi, ''),
-        url: getURL( `/${language}/blog/${slug}`),
+        url: getURL(`/${language}/blog/${slug}`),
         color: 11377794,
         footer: {
           text: `Published by ${user.username}`,
@@ -45,8 +51,7 @@ export default async function handler(
       },
     ],
     username: 'Hogwarts.gg',
-    avatar_url:
-      'https://media.discordapp.net/attachments/1064862000150237264/1071114716962902137/icon.png',
+    avatar_url: 'https://www.hogwarts.gg/assets/icon.png',
   };
 
   const response = await fetch(webhook, {
