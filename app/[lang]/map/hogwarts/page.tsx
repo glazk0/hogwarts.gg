@@ -40,7 +40,3 @@ export default async function Page({
     </div>
   );
 }
-
-export async function generateStaticParams() {
-  return [];
-}
