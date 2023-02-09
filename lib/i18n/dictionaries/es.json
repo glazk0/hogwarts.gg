@@ -21,7 +21,7 @@
     "signUpQuestion": "¿Inscribirse?",
     "continueWithEmail": "Continuar con correo electronico",
     "privacyPolicyMessage": "Al hacer clic en continuar, acepta la",
-    "privacyPolicy": "política de privacidad",
+    "privacyPolicy": "Política de privacidad",
     "withoutAccount": "¿No tiene cuenta?",
     "withAccount": "¿Tiene cuenta?",
     "signInNow": "Iniciar sesión ahora",
@@ -53,16 +53,16 @@
   "post": {
     "writtenBy": "Escrito por",
     "backToBlog": "De vuelta al blog",
-    "aboutTheAuthor": "About the author",
-    "commentSubmit": "Submit",
-    "commentDeleteConfirmation": "Are you sure you want to delete this comment?"
+    "aboutTheAuthor": "Sobre el autor",
+    "commentSubmit": "Ingresar",
+    "commentDeleteConfirmation": "¿Estas seguro que quires borrar este comentario?"
   },
   "user": {
-    "editProfile": "Edit Profile",
-    "username": "Username",
-    "description": "Description",
-    "submit": "Submit",
-    "cancel": "Cancel"
+    "editProfile": "Editar Perfil",
+    "username": "Usario",
+    "description": "Descripción",
+    "submit": "Ingresar",
+    "cancel": "Cancelar"
   },
   "globalNav": {
     "blog": "Blog",

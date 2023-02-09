@@ -1,20 +1,15 @@
+const unknown = {
+  value: 'unknown',
+  title: 'unknownLanguageKey',
+  icon: '/assets/icons/unknown.webp',
+};
 export const nodeTypes = [
   {
-    value: 'jobberknoll-feather',
-    title: 'Jobberknoll Feather',
-    icon: 'https://aeternum-map.gg/pois/gold.webp',
-  },
-  {
-    value: 'niffler-fur',
-    title: 'Niffler Fur',
-    icon: 'https://aeternum-map.gg/pois/silver.webp',
-  },
-  {
-    value: 'toad-warts',
-    title: 'Toad Warts',
-    icon: 'https://aeternum-map.gg/pois/iron.webp',
+    value: 'treasureChest',
+    title: 'treasureChestLanguageKey',
+    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
   },
 ];
 
 export const getNodeType = (value: string) =>
-  nodeTypes.find((nodeType) => nodeType.value === value);
+  nodeTypes.find((nodeType) => nodeType.value === value) || unknown;
