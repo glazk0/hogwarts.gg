@@ -8,18 +8,20 @@ import { useMap } from './Map';
 export type MarkerProps = {
   latLng: leaflet.LatLngExpression;
   src: string;
-  title?: string;
+  tooltip?: string;
   highlight?: boolean;
   draggable?: boolean;
+  onContextMenu?: false | (() => void);
   onLatLngChange?: (latLng: leaflet.LatLngExpression) => void;
 };
 
 function Marker({
   latLng,
   src,
-  title,
+  tooltip,
   highlight,
   draggable,
+  onContextMenu,
   onLatLngChange,
 }: MarkerProps) {
   const map = useMap();
@@ -55,29 +57,44 @@ function Marker({
       return;
     }
     marker.setSrc(src);
+    marker._redraw();
   }, [latLng, src]);
 
   useDidUpdate(() => {
-    if (!marker) {
+    if (!marker || !tooltip) {
       return;
     }
-    if (title) {
-      marker.bindTooltip(title, {
-        direction: 'top',
-        offset: [0, -8],
-        permanent: draggable,
-      });
-    } else {
+
+    marker.bindTooltip(`<div class="text-center">${tooltip}</div>`, {
+      direction: 'top',
+      offset: [0, -8],
+      permanent: draggable,
+    });
+
+    return () => {
       marker.unbindTooltip();
+    };
+  }, [tooltip, marker]);
+
+  useDidUpdate(() => {
+    if (!marker || !onContextMenu) {
+      return;
     }
-  }, [title, marker]);
+    marker.on('contextmenu', onContextMenu);
+    return () => {
+      marker.off('contextmenu');
+    };
+  }, [onContextMenu, marker]);
 
   useDidUpdate(() => {
     if (!draggable || !marker) {
       return;
     }
     const handleMapMouseMove = (event: leaflet.LeafletMouseEvent) => {
-      onLatLngChange?.([event.latlng.lat, event.latlng.lng]);
+      onLatLngChange?.([
+        +event.latlng.lat.toFixed(2),
+        +event.latlng.lng.toFixed(2),
+      ]);
     };
     const handleMouseDown = () => {
       map.dragging.disable();

@@ -6,12 +6,10 @@ export const getNodes = async ({
 }: {
   level: number;
 }): Promise<Node[]> => {
-  const bottomZValue = bottomZValues[level.toString()] ?? -100000;
-  const topZValue = bottomZValues[(level + 1).toString()] ?? 0;
-
+  const [bottomZValue, topZValue] = getZRange(level.toString());
   const { data: nodes, error } = await supabase
     .from('nodes')
-    .select()
+    .select('*')
     .gte('z', bottomZValue)
     .lt('z', topZValue)
     .eq('world', 'hogwarts');
@@ -26,8 +24,39 @@ export const getNodes = async ({
   return nodes;
 };
 
+export const insertNode = async (
+  node: Omit<
+    Database['public']['Tables']['nodes']['Insert'],
+    'id' | 'created_at'
+  >,
+) => {
+  return await supabase.from('nodes').insert(node);
+};
+
 export type Node = Database['public']['Tables']['nodes']['Row'];
 
+export const getZRange = (level: string) => {
+  const bottom = bottomZValues[level] ?? -100000;
+  const top = bottomZValues[(+level + 1).toString()] ?? 0;
+  return [bottom, top];
+};
+
+export const getLevelByZ = (z: number) => {
+  const entry = Object.entries(bottomZValues).find(([level, bottomZ]) => {
+    if (bottomZ > z) {
+      return false;
+    }
+    const nextLevel = bottomZValues[(+level + 1).toString()];
+    if (nextLevel && nextLevel <= z) {
+      return false;
+    }
+    return true;
+  });
+  if (entry) {
+    return entry[1];
+  }
+  return 1;
+};
 // Phoenix/Content/UI/Map/UI_DT_MiniMapNHogwartsLevelData.uasset
 const bottomZValues: {
   [level: string]: number;

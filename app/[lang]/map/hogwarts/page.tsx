@@ -1,4 +1,5 @@
 import { getNodes } from '#/lib/nodes';
+import AddNode from '#/ui/AddNode';
 import FixedBox from '#/ui/FixedBox';
 import Nodes from '#/ui/Nodes';
 import SWRFallback from '#/ui/SWRFallback';
@@ -13,10 +14,15 @@ const HOGWARTS_LEVELS = [
   42, 43, 44,
 ];
 export default async function Page({
-  params: { lang, level },
+  params: { lang },
+  searchParams: { level },
 }: {
-  params: { lang: string; level: string };
+  params: { lang: string };
+  searchParams: { level?: string };
 }) {
+  if (!level) {
+    notFound();
+  }
   const mapLevel = +level;
   if (!HOGWARTS_LEVELS.includes(mapLevel)) {
     notFound();
@@ -27,13 +33,18 @@ export default async function Page({
       <HogwartsMap level={mapLevel}>
         <FixedBox className="left-4 right-4 top-20 flex justify-center space-x-2">
           {HOGWARTS_LEVELS.map((level) => (
-            <Link key={level} href={`/${lang}/map/hogwarts/${level}`}>
+            <Link
+              key={level}
+              href={`/${lang}/map/hogwarts?level=${level}`}
+              shallow
+            >
               {level}
             </Link>
           ))}
+          <AddNode />
         </FixedBox>
         <SWRFallback fallback={{ [`nodes/hogwarts/${mapLevel}`]: nodes }}>
-          <Nodes level={mapLevel} />
+          <Nodes lang={lang} />
         </SWRFallback>
       </HogwartsMap>
     </div>
