@@ -71,6 +71,7 @@ If you are using PowerShell, you could copy it directly to clipboard:
 
 ```sh
 supabase gen types typescript --local | clip
+```
 
 ## Production-accurate data
 
