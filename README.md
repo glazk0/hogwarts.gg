@@ -71,6 +71,46 @@ If you are using PowerShell, you could copy it directly to clipboard:
 
 ```sh
 supabase gen types typescript --local | clip
+
+## Production-accurate data
+
+If you are a contributor and like to work with real-data, you can use [snaplet](https://www.snaplet.dev/) to restore snapshots of our database on localhost.
+Contact me to get access to the team.
+
+After restoring a snapshot with the [snaplet cli](https://docs.snaplet.dev/getting-started/start-here), you need to execute the following commands in your pSQL database (e.g. with the Supabase SQL editor):
+
+```sql
+NOTIFY pgrst, 'reload schema';
+
+grant usage on schema public to postgres, anon, authenticated, service_role;
+
+grant all privileges on all tables in schema public to postgres, anon, authenticated, service_role;
+grant all privileges on all functions in schema public to postgres, anon, authenticated, service_role;
+grant all privileges on all sequences in schema public to postgres, anon, authenticated, service_role;
+
+alter default privileges in schema public grant all on tables to postgres, anon, authenticated, service_role;
+alter default privileges in schema public grant all on functions to postgres, anon, authenticated, service_role;
+alter default privileges in schema public grant all on sequences to postgres, anon, authenticated, service_role;
+
+grant usage on schema storage to postgres, anon, authenticated, service_role;
+
+grant all privileges on all tables in schema storage to postgres, anon, authenticated, service_role;
+grant all privileges on all functions in schema storage to postgres, anon, authenticated, service_role;
+grant all privileges on all sequences in schema storage to postgres, anon, authenticated, service_role;
+
+alter default privileges in schema storage grant all on tables to postgres, anon, authenticated, service_role;
+alter default privileges in schema storage grant all on functions to postgres, anon, authenticated, service_role;
+alter default privileges in schema storage grant all on sequences to postgres, anon, authenticated, service_role;
+
+grant usage on schema auth to supabase_auth_admin;
+
+grant all privileges on all tables in schema auth to supabase_auth_admin;
+grant all privileges on all functions in schema auth to supabase_auth_admin;
+grant all privileges on all sequences in schema auth to supabase_auth_admin;
+
+alter default privileges in schema auth grant all on tables to supabase_auth_admin;
+alter default privileges in schema auth grant all on functions to supabase_auth_admin;
+alter default privileges in schema auth grant all on sequences to supabase_auth_admin;
 ```
 
 ## Licensing
