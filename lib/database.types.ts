@@ -59,28 +59,37 @@ export interface Database {
       };
       nodes: {
         Row: {
-          coordinates: number[];
           created_at: string;
           description: string | null;
           id: number;
           title: string;
           type: string;
+          world: string;
+          x: number;
+          y: number;
+          z: number;
         };
         Insert: {
-          coordinates: number[];
           created_at?: string;
           description?: string | null;
           id?: number;
           title: string;
           type: string;
+          world: string;
+          x: number;
+          y: number;
+          z: number;
         };
         Update: {
-          coordinates?: number[];
           created_at?: string;
           description?: string | null;
           id?: number;
           title?: string;
           type?: string;
+          world?: string;
+          x?: number;
+          y?: number;
+          z?: number;
         };
       };
       posts: {

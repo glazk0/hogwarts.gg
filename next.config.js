@@ -6,6 +6,13 @@ const nextConfig = {
     // Required:
     appDir: true,
   },
+  // https://github.com/tabler/tabler-icons/issues/359
+  modularizeImports: {
+    '@tabler/icons-react': {
+      transform: '@tabler/icons-react/dist/esm/icons/{{member}}',
+    },
+  },
+  transpilePackages: ['@tabler/icons-react'],
 };
 
 module.exports = nextConfig;

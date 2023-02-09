@@ -16,13 +16,13 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const webhook = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
+  const webhook = process.env.DISCORD_WEBHOOK_URL;
 
   if (!webhook) {
     return res.status(500).json({ error: 'No webhook URL provided' });
   }
 
-  const token = process.env.NEXT_PUBLIC_WEBHOOK_TOKEN;
+  const token = process.env.WEBHOOK_TOKEN;
 
   if (!token || req.headers.token !== token) {
     return res.status(401).json({ error: 'Unauthorized' });
