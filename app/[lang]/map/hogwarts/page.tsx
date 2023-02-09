@@ -5,9 +5,11 @@ import FixedBox from '#/ui/FixedBox';
 import HogwartsLevelSelect from '#/ui/HogwartsLevelSelect';
 import Nodes from '#/ui/Nodes';
 import SWRFallback from '#/ui/SWRFallback';
-import dynamic from 'next/dynamic';
-import { notFound } from 'next/navigation';
-const HogwartsMap = dynamic(() => import('#/ui/HogwartsMap'), { ssr: false });
+import nextDynamic from 'next/dynamic';
+import { notFound, redirect } from 'next/navigation';
+const HogwartsMap = nextDynamic(() => import('#/ui/HogwartsMap'), {
+  ssr: false,
+});
 
 export default async function Page({
   params: { lang },
@@ -17,7 +19,7 @@ export default async function Page({
   searchParams: { level?: string };
 }) {
   if (!level) {
-    notFound();
+    redirect(`/${lang}/map/hogwarts?page=1`);
   }
   const mapLevel = +level;
   if (!HOGWARTS_LEVELS.includes(mapLevel)) {
