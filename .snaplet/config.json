@@ -1,0 +1,4 @@
+{
+  "projectId": "cldsu1gar0fpmlykkimcpqsii",
+  "targetDatabaseUrl": "postgresql://postgres:postgres@localhost:54322/postgres"
+}
