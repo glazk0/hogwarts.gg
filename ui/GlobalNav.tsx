@@ -95,18 +95,16 @@ function GlobalNavItem({
   return (
     <AppLink
       onClick={onClick}
-      href={item.disabled ? '/' : `/${item.slug}`}
+      href={`/${item.slug}`}
       className={cn(
         'block rounded-md px-3 py-2 text-sm font-medium hover:text-gray-300',
         {
           'text-gray-400 hover:bg-gray-800': !isActive,
           'text-white': isActive,
-          'text-gray-600 hover:text-gray-600': item.disabled,
         },
       )}
     >
       {translations[item.name.toLowerCase()]}
-      {item.disabled && ` ${translations.comingSoon}`}
     </AppLink>
   );
 }
