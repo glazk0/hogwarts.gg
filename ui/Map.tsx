@@ -29,6 +29,9 @@ const Map = ({
       crs,
     });
     map.fitBounds(bounds);
+    map.on('contextmenu', () => {
+      // Do nothing
+    });
     setMap(map);
 
     return () => {

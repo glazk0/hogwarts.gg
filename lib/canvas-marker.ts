@@ -88,6 +88,7 @@ class CanvasMarker extends leaflet.CircleMarker {
       this._onImageLoad = () => {
         this.imageElement.removeEventListener('load', this._onImageLoad!);
         this._renderer.updateCanvasImg(this);
+        delete this._onImageLoad;
       };
       this.imageElement.addEventListener('load', this._onImageLoad);
     }

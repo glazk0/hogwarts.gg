@@ -67,6 +67,11 @@ After changing the schema, it's time to regenerate the types with [gen types](ht
 supabase gen types typescript --local > lib/database.types.ts
 ```
 
+If you are using PowerShell, you could copy it directly to clipboard:
+
+```sh
+supabase gen types typescript --local | clip
+
 ## Production-accurate data
 
 If you are a contributor and like to work with real-data, you can use [snaplet](https://www.snaplet.dev/) to restore snapshots of our database on localhost.

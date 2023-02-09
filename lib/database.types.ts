@@ -62,7 +62,7 @@ export interface Database {
           created_at: string;
           description: string | null;
           id: number;
-          title: string;
+          title: string | null;
           type: string;
           world: string;
           x: number;
@@ -73,7 +73,7 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
-          title: string;
+          title?: string | null;
           type: string;
           world: string;
           x: number;
@@ -84,7 +84,7 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
-          title?: string;
+          title?: string | null;
           type?: string;
           world?: string;
           x?: number;
