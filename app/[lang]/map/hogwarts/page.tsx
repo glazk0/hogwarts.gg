@@ -1,18 +1,14 @@
+import { HOGWARTS_LEVELS } from '#/lib/map';
 import { getNodes } from '#/lib/nodes';
 import AddNode from '#/ui/AddNode';
 import FixedBox from '#/ui/FixedBox';
+import HogwartsLevelSelect from '#/ui/HogwartsLevelSelect';
 import Nodes from '#/ui/Nodes';
 import SWRFallback from '#/ui/SWRFallback';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 const HogwartsMap = dynamic(() => import('#/ui/HogwartsMap'), { ssr: false });
 
-const HOGWARTS_LEVELS = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
-  42, 43, 44,
-];
 export default async function Page({
   params: { lang },
   searchParams: { level },
@@ -31,17 +27,11 @@ export default async function Page({
   return (
     <div className="h-full-height w-screen fixed inset-0 top-14">
       <HogwartsMap level={mapLevel}>
-        <FixedBox className="left-4 right-4 top-20 flex justify-center space-x-2">
-          {HOGWARTS_LEVELS.map((level) => (
-            <Link
-              key={level}
-              href={`/${lang}/map/hogwarts?level=${level}`}
-              shallow
-            >
-              {level}
-            </Link>
-          ))}
+        <FixedBox className="right-4 top-20 flex justify-center space-x-2">
           <AddNode />
+        </FixedBox>
+        <FixedBox className="left-4 bottom-4 flex justify-center space-x-2">
+          <HogwartsLevelSelect lang={lang} />
         </FixedBox>
         <SWRFallback fallback={{ [`nodes/hogwarts/${mapLevel}`]: nodes }}>
           <Nodes lang={lang} />
