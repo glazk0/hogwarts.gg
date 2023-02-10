@@ -2,12 +2,12 @@
 
 import { getMapTile, HOGWARTS_LEVELS } from '#/lib/map';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import AppLink from './AppLink';
 import Dialog from './Dialog';
 
-export default function HogwartsLevelSelect({ lang }: { lang: string }) {
+export default function HogwartsLevelSelect() {
   const [open, setOpen] = useState(false);
   const searchParams = useSearchParams();
   const level = +searchParams.get('level')!;
@@ -32,9 +32,9 @@ export default function HogwartsLevelSelect({ lang }: { lang: string }) {
     >
       <div className="flex gap-4 flex-wrap justify-center content-center overflow-auto h-full max-w-7xl mx-auto">
         {HOGWARTS_LEVELS.map((level) => (
-          <Link
+          <AppLink
             key={level}
-            href={`/${lang}/map/hogwarts?level=${level}`}
+            href={`/map/hogwarts?level=${level}`}
             className="relative transition hover:scale-150 hover:z-30"
             onClick={() => setOpen(false)}
           >
@@ -46,7 +46,7 @@ export default function HogwartsLevelSelect({ lang }: { lang: string }) {
               className="border rounded"
             />
             <p className="absolute right-1 bottom-1">{level}</p>
-          </Link>
+          </AppLink>
         ))}
       </div>
     </Dialog>

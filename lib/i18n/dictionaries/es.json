@@ -1,7 +1,14 @@
 {
   "home": {
     "subtitle": "Hogwarts Legacy Mapas y herramientas",
-    "underContstruction": "Este sitio web esta bajo construcción",
+    "articles": "Articles",
+    "viewBlog": "View Blog",
+    "hogwarts": "Hogwarts",
+    "viewMap": "View Map",
+    "community": "Community",
+    "joinDiscord": "Join Discord",
+    "openSource": "Open Source",
+    "openGitHub": "Open GitHub",
     "lookingForContributors": "Estamos buscando autores, creadores de contenido, y contribuyentes.",
     "pleaseJoinOur": "Por favor únete a nuestro:",
     "openSourceNote": "¡Este proyecto es Código Abierto, contribuyentes son bienvenidos!"
