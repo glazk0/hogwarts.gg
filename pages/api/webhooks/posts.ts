@@ -1,4 +1,5 @@
 import type { Post } from '#/lib/posts';
+import { getUser } from '#/lib/users';
 import { getURL } from '#/lib/utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -34,13 +35,15 @@ export default async function handler(
   }
 
   const {
-    record: { title, short, slug, published, published_at, user, language },
+    record: { title, short, slug, published, published_at, user_id, language },
     old_record: { published: old_published } = { published: false },
   } = req.body;
 
   if (!published || old_published) {
     return res.status(200).json({ message: 'Post was not published' });
   }
+
+  const user = await getUser(user_id!);
 
   const data = {
     content: null,
@@ -51,7 +54,7 @@ export default async function handler(
         url: getURL(`/${language}/blog/${slug}`),
         color: 11377794,
         footer: {
-          text: `Published by ${user.username}`,
+          text: `Published by ${user?.username || 'Unknown'}`,
         },
         timestamp: published_at!,
       },
