@@ -43,7 +43,7 @@ export default async function handler(
     return res.status(200).json({ message: 'Post was not published' });
   }
 
-  const user = await getUser(user_id!);
+  const user = await getUser(user_id);
 
   const data = {
     content: null,
