@@ -1,10 +1,12 @@
 import { loadDictionary } from '#/lib/i18n/settings';
-import Countdown from '#/ui/Countdown';
+import AppLink from '#/ui/AppLink';
 import DiscordLink from '#/ui/DiscordLink';
 import GitHubLink from '#/ui/GitHubLink';
 import Hero from '#/ui/Hero';
-
-const RELEASE_DATE = new Date('2023-02-10T00:00:00.000Z');
+import { IconArticle, IconMap } from '@tabler/icons-react';
+import Image from 'next/image';
+import discordLogo from '../../public/assets/discord.svg';
+import githubLogo from '../../public/assets/github.png';
 
 export default async function Page({
   params: { lang },
@@ -17,11 +19,38 @@ export default async function Page({
     <>
       <Hero title="Hogwart$.gg" subtitle={translations.subtitle} />
       <div className="flex flex-col items-center gap-4 text-center">
-        <Countdown
-          releaseTime={RELEASE_DATE.getTime()}
-          initialTimeLeft={RELEASE_DATE.getTime() - Date.now()}
-        />
-        <p className="italic">{translations.underContstruction}</p>
+        <section className="flex gap-4 flex-wrap justify-center">
+          <Card
+            title={translations.articles}
+            icon={<IconArticle size={72} stroke={1.5} />}
+            href="/blog"
+          >
+            {translations.viewBlog}
+          </Card>
+          <Card
+            title={translations.hogwarts}
+            icon={<IconMap size={72} stroke={1.5} />}
+            href="/map/hogwarts?level=1"
+          >
+            {translations.viewMap}
+          </Card>
+          <Card
+            title={translations.community}
+            icon={<Image src={discordLogo} alt="" height={48} />}
+            href="https://discord.gg/NTZu8Px"
+            target="_blank"
+          >
+            {translations.joinDiscord}
+          </Card>
+          <Card
+            title={translations.openSource}
+            icon={<Image src={githubLogo} alt="" height={48} />}
+            href="https://github.com/lmachens/hogwarts.gg"
+            target="_blank"
+          >
+            {translations.openGitHub}
+          </Card>
+        </section>
         <p>
           {translations.lookingForContributors}
           <br />
@@ -32,5 +61,33 @@ export default async function Page({
         <GitHubLink />
       </div>
     </>
+  );
+}
+
+function Card({
+  title,
+  icon,
+  children,
+  href,
+  target,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  href: string;
+  target?: string;
+}) {
+  return (
+    <AppLink
+      href={href}
+      className="flex items-center rounded p-4 bg-gray-900 hover:scale-125 transition gap-4 text-left"
+      target={target}
+    >
+      {icon}
+      <div className="space-y-1">
+        <h3 className="text-lg">{title}</h3>
+        <p className="text-brand-400">{children}</p>
+      </div>
+    </AppLink>
   );
 }

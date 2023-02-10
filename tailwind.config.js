@@ -24,7 +24,17 @@ module.exports = {
         gray: colors.zinc,
         'gray-1000': '#101010',
         'gray-1100': '#0e1116',
-        brand: '#ad9c82',
+        brand: {
+          100: '#fef3e4',
+          200: '#fbdcae',
+          300: '#f9c677',
+          400: '#f6af41',
+          500: '#f4980b',
+          600: '#be7609',
+          700: '#875406',
+          800: '#ad9c82',
+          900: '#1b1101',
+        },
       },
       data: {
         // https://www.radix-ui.com/docs/primitives/overview/animation#animating-with-css-animation

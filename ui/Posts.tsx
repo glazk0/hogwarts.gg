@@ -45,7 +45,7 @@ export default function Posts({
             <PostHTML html={post.short!} />
             <AppLink
               href={`/blog/${post.slug}`}
-              className="flex text-brand hover:underline"
+              className="flex text-brand-400 hover:underline"
             >
               {translations.readMore} <IconArrowNarrowRight />
             </AppLink>

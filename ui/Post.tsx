@@ -91,7 +91,10 @@ export default function Post({
             </div>
           </AppLink>
         </div>
-        <AppLink href="/blog" className="flex py-2 text-brand hover:underline">
+        <AppLink
+          href="/blog"
+          className="flex py-2 text-brand-400 hover:underline"
+        >
           <IconArrowNarrowLeft /> {translations.backToBlog}
         </AppLink>
       </div>

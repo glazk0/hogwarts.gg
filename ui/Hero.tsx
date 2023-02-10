@@ -13,7 +13,7 @@ export default function Hero({
     <>
       <div className="relative px-6border-b border-gray-800 bg-[url('/assets/bg.webp')] bg-cover bg-top">
         <div className="container mx-auto max-w-lg text-center">
-          <h1 className="relative tracking-wide font-bold font-serif text-xl sm:text-2xl text-brand">
+          <h1 className="relative tracking-wide font-bold font-serif text-xl sm:text-2xl text-brand-800">
             <Image src={LogoTemplate} alt="" />
             <span className="absolute left-0 right-0" style={{ bottom: '15%' }}>
               {title}

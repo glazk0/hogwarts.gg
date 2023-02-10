@@ -19,7 +19,7 @@ export default async function Page({
           <AddNode />
         </FixedBox>
         <FixedBox className="left-4 bottom-4 flex justify-center space-x-2">
-          <HogwartsLevelSelect lang={lang} />
+          <HogwartsLevelSelect />
         </FixedBox>
         <Nodes lang={lang} />
       </HogwartsMap>
