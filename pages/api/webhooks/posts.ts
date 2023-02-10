@@ -5,6 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 interface NextApiRequestRecord extends NextApiRequest {
   body: {
     record: Post;
+    old_record?: Post;
   };
 }
 
@@ -28,13 +29,18 @@ export default async function handler(
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  if (!req.body.record) {
+  if (!req.body.record && !req.body.old_record) {
     return res.status(400).json({ error: 'No record provided' });
   }
 
   const {
-    record: { title, short, slug, published_at, user, language },
+    record: { title, short, slug, published, published_at, user, language },
+    old_record: { published: old_published } = { published: false },
   } = req.body;
+
+  if (!published || old_published) {
+    return res.status(400).json({ error: 'Post not published yet' });
+  }
 
   const data = {
     content: null,
