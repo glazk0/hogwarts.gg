@@ -27,6 +27,8 @@ The following list shows the variables you need to set:
 | NEXT_PUBLIC_SUPABASE_ANON_KEY  | Your project's Supabase URL anon key |
 | NEXT_PUBLIC_PLAUSIBLE_API_HOST | Plausible API host (optional)        |
 | NEXT_PUBLIC_PLAUSIBLE_DOMAIN   | Plausible domain (optional)          |
+| WEBHOOK_TOKEN                  | Webhook token for auth purpose       |
+| DISCORD_WEBHOOK_URL            | Discord webhook URL                  |
 
 ## Running Locally
 
