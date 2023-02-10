@@ -29,7 +29,7 @@ export default async function handler(
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  if (!req.body.record && !req.body.old_record) {
+  if (!req.body.record || !req.body.old_record) {
     return res.status(400).json({ error: 'No record provided' });
   }
 
