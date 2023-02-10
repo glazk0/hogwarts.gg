@@ -27,27 +27,42 @@ export const nodeTypes = [
   {
     value: 'disillusionmentChest',
     title: 'Disillusionment Chest',
-    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+    icon: '/assets/icons/treasure_chest.png',
   },
   {
     value: 'conjurationsRecipeChest',
     title: 'Conjurations Recipe Chest',
-    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+    icon: '/assets/icons/treasure_chest.png',
   },
   {
     value: 'largeGoldSuperChest',
     title: 'Large Gold Super Chest',
-    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+    icon: '/assets/icons/treasure_chest.png',
   },
   {
     value: 'mediumGearChest',
     title: 'Medium Gear Chest',
-    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+    icon: '/assets/icons/treasure_chest.png',
   },
   {
     value: 'wandskinChest',
     title: 'Wandskin Chest',
-    icon: '/assets/icons/UI_T_MiniMap_TreasureChest.png',
+    icon: '/assets/icons/treasure_chest.png',
+  },
+  {
+    value: 'accioPage',
+    title: 'Accio Page',
+    icon: '/assets/icons/accio_page.png',
+  },
+  {
+    value: 'guardianLeviosa',
+    title: 'Winguardian Leviosa',
+    icon: '/assets/icons/wingardium.png',
+  },
+  {
+    value: 'mothFrame',
+    title: 'Moth Frame',
+    icon: '/assets/icons/moth_frame.svg',
   },
 ];
 
