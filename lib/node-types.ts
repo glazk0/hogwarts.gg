@@ -6,6 +6,11 @@ const unknown = {
 
 export const creatableNodeTypes = [
   {
+    value: 'text',
+    title: 'Text',
+    icon: '/assets/icons/unknown.webp',
+  },
+  {
     value: 'stairs_up',
     title: 'Stairs Up',
     icon: '/assets/icons/stairs_up.svg',
