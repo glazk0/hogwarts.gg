@@ -21,6 +21,7 @@ specifiers:
   '@types/node': 18.13.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
+  '@types/sql.js': 1.4.4
   '@typescript-eslint/eslint-plugin': 5.51.0
   '@typescript-eslint/parser': 5.51.0
   '@vercel/git-hooks': 1.0.0
@@ -41,6 +42,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-hook-form: 7.43.1
+  sql.js: 1.8.0
   supabase: 1.37.1
   swr: 2.0.3
   tailwind-merge: 1.9.1
@@ -75,6 +77,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.43.1_react@18.2.0
+  sql.js: 1.8.0
   swr: 2.0.3_react@18.2.0
   tailwind-merge: 1.9.1
   zod: 3.20.2
@@ -84,6 +87,7 @@ devDependencies:
   '@types/node': 18.13.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
+  '@types/sql.js': 1.4.4
   '@typescript-eslint/eslint-plugin': 5.51.0_b635kmla6dsb4frxfihkw4m47e
   '@typescript-eslint/parser': 5.51.0_4vsywjlpuriuw3tl5oq6zy5a64
   '@vercel/git-hooks': 1.0.0
@@ -1388,6 +1392,13 @@ packages:
       - '@tiptap/pm'
     dev: false
 
+  /@types/emscripten/1.39.6:
+    resolution:
+      {
+        integrity: sha512-H90aoynNhhkQP6DRweEjJp5vfUVdIj7tdPLsu7pq89vODD/lcugKfZOsfgwpvM6XUewEp2N5dCg1Uf3Qe55Dcg==,
+      }
+    dev: true
+
   /@types/geojson/7946.0.10:
     resolution:
       {
@@ -1482,6 +1493,16 @@ packages:
       {
         integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==,
       }
+    dev: true
+
+  /@types/sql.js/1.4.4:
+    resolution:
+      {
+        integrity: sha512-6EWU2wfiBtzgTy18WQoXZAGTreBjhZcBCfD8CDvyI1Nj0a4KNDDt41IYeAZ40cRUdfqWHb7VGx7t6nK0yBOI5A==,
+      }
+    dependencies:
+      '@types/emscripten': 1.39.6
+      '@types/node': 18.13.0
     dev: true
 
   /@types/throttle-debounce/2.1.0:
@@ -5270,6 +5291,13 @@ packages:
         integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==,
       }
     engines: { node: '>=0.10.0' }
+
+  /sql.js/1.8.0:
+    resolution:
+      {
+        integrity: sha512-3HD8pSkZL+5YvYUI8nlvNILs61ALqq34xgmF+BHpqxe68yZIJ1H+sIVIODvni25+CcxHUxDyrTJUL0lE/m7afw==,
+      }
+    dev: false
 
   /stable/0.1.8:
     resolution:
