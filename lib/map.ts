@@ -41,7 +41,7 @@ export const getLevelByZ = (z: number) => {
     return true;
   });
   if (entry) {
-    return entry[1];
+    return entry[0];
   }
   return 1;
 };

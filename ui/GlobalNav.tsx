@@ -47,7 +47,7 @@ export default function GlobalNav({
           },
         )}
       >
-        <div className="md:order-last">
+        <div className="md:order-last flex gap-2">
           <GlobalUser onClick={close} translations={translations} />
         </div>
         <nav className="flex flex-col space-y-1 md:space-y-0 md:px-0 md:py-0 md:flex-row md:h-14 md:items-center">

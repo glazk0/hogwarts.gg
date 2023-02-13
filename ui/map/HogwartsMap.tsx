@@ -7,7 +7,7 @@ import {
   HOGWARTS_LEVELS,
   SCALAR,
 } from '#/lib/map';
-import Map from '#/ui/Map';
+import Map from '#/ui/map/Map';
 import leaflet from 'leaflet';
 import { notFound, useSearchParams } from 'next/navigation';
 import type { ReactNode } from 'react';

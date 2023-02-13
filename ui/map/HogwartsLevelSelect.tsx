@@ -6,9 +6,9 @@ import { IconArrowBigDown, IconArrowBigUp } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import AppLink from './AppLink';
-import Dialog from './Dialog';
-import Tooltip from './Tooltip';
+import AppLink from '../AppLink';
+import Dialog from '../Dialog';
+import Tooltip from '../Tooltip';
 
 export default function HogwartsLevelSelect() {
   const [open, setOpen] = useState(false);
