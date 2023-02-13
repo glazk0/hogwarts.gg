@@ -37,6 +37,7 @@ export default function Player() {
 
     if (level !== playerLevel) {
       router.replace(`/${lang}/map/hogwarts?level=${playerLevel}`);
+      map.flyTo(marker.getLatLng());
     }
 
     return () => {
@@ -62,6 +63,7 @@ export default function Player() {
     }
     marker.options.rotate = player.position.yaw;
     marker.setLatLng([player.position.y, player.position.x]);
+    map.flyTo(marker.getLatLng());
   }, [player?.position]);
 
   return <></>;
