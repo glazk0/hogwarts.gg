@@ -9,7 +9,6 @@ import Script from 'next/script';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 import Button from './Button';
-import Divider from './Divider';
 import Input from './Input';
 import Popover from './Popover';
 
@@ -58,7 +57,7 @@ export default function PlayerSync() {
         </Button>
       }
     >
-      <div className="flex flex-col p-4">
+      <div className="flex flex-col gap-2 p-4">
         <p>
           Please upload your latest savefile to sync your profile and position
           on the map.
@@ -68,7 +67,6 @@ export default function PlayerSync() {
           disabled
           value="C:\Users\<user>\AppData\Local\Hogwarts Legacy\Saved\SaveGames"
         />
-        <Divider className="my-2" />
         <label
           className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-900 hover:bg-gray-700"
           onDragOver={(event) => {
@@ -121,6 +119,11 @@ export default function PlayerSync() {
             }}
           />
         </label>
+        {!me && (
+          <p className="font-bold text-orange-500">
+            You need to sign-in to use this feature.
+          </p>
+        )}
       </div>
     </Popover>
   );
