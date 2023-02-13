@@ -1,9 +1,9 @@
-import AddNode from '#/ui/AddNode';
 import FixedBox from '#/ui/FixedBox';
-import HogwartsLevelSelect from '#/ui/HogwartsLevelSelect';
-import Nodes from '#/ui/Nodes';
+import AddNode from '#/ui/map/AddNode';
+import HogwartsLevelSelect from '#/ui/map/HogwartsLevelSelect';
+import Nodes from '#/ui/map/Nodes';
 import nextDynamic from 'next/dynamic';
-const HogwartsMap = nextDynamic(() => import('#/ui/HogwartsMap'), {
+const HogwartsMap = nextDynamic(() => import('#/ui/map/HogwartsMap'), {
   ssr: false,
 });
 
