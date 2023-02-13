@@ -27,7 +27,17 @@ leaflet.Canvas.include({
       ctx.stroke();
     }
 
-    ctx.drawImage(layer.imageElement, dx, dy, imageSize, imageSize);
+    if (layer.options.rotate) {
+      ctx.save();
+
+      ctx.translate(p.x, p.y);
+      ctx.rotate((layer.options.rotate * Math.PI) / 180);
+      ctx.drawImage(layer.imageElement, -radius, -radius, imageSize, imageSize);
+      ctx.translate(-p.x, -p.y);
+      ctx.restore();
+    } else {
+      ctx.drawImage(layer.imageElement, dx, dy, imageSize, imageSize);
+    }
   },
 });
 const renderer = leaflet.canvas() as leaflet.Canvas & {
@@ -38,6 +48,7 @@ export type CanvasMarkerOptions = {
   radius: number;
   src: string;
   highlight?: boolean;
+  rotate?: number;
 };
 
 const imageElements: {

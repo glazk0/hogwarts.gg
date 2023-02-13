@@ -6,6 +6,7 @@ import { extractDatabase, extractPlayer } from '#/lib/savefiles';
 import { IconCloudUpload, IconLiveView } from '@tabler/icons-react';
 import Script from 'next/script';
 import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 import Button from './Button';
 import Divider from './Divider';
 import Input from './Input';
@@ -16,6 +17,7 @@ export default function GlobalSync() {
   const [errorMessage, setErrorMessage] = useState('');
   const [player, setPlayer] = useState<SavefilePlayer | null>(null);
   const { data: me } = useMe();
+  const { mutate } = useSWRConfig();
 
   const processFile = async (file: File) => {
     try {
@@ -32,7 +34,8 @@ export default function GlobalSync() {
       const player = extractPlayer(db);
       setPlayer(player);
       if (me) {
-        upsertPlayer(me.id, player);
+        await upsertPlayer(me.id, player);
+        mutate(`users/${me.id}/players`);
       }
     } catch (error) {
       if (error instanceof Error) {
