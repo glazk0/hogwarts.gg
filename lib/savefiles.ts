@@ -51,7 +51,7 @@ function aob(buffer: ArrayBuffer, search: Uint8Array) {
   return -1;
 }
 
-export function extractPlayer(db: Database): Player {
+export function extractPlayer(db: Database): SavefilePlayer {
   const playerSelect = db.exec(
     `SELECT DataValue FROM MiscDataDynamic WHERE DataOwner = 'Player' AND DataName IN ('HouseID', 'LocX', 'LocY', 'LocZ', 'Pitch', 'PlayerFirstName', 'PlayerLastName', 'Roll', 'World', 'Yaw', 'Year');`,
   );
@@ -65,17 +65,17 @@ export function extractPlayer(db: Database): Player {
       pitch: +values[4],
       roll: +values[7],
       yaw: +values[9],
+      world: values[8].toString(),
     },
     firstName: values[5].toString(),
     lastName: values[6].toString(),
     year: +values[10],
-    world: values[8].toString(),
   };
 
   return player;
 }
 
-export type Player = {
+export type SavefilePlayer = {
   houseId: string;
   position: {
     x: number;
@@ -84,9 +84,9 @@ export type Player = {
     pitch: number;
     roll: number;
     yaw: number;
+    world: string;
   };
   firstName: string;
   lastName: string;
   year: number;
-  world: string;
 };

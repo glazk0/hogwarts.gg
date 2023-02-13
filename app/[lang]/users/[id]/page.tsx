@@ -1,4 +1,5 @@
 import { languages, loadDictionary } from '#/lib/i18n/settings';
+import { getPlayers } from '#/lib/players';
 import { getUser, getUsers } from '#/lib/users';
 import SWRFallback from '#/ui/SWRFallback';
 import User from '#/ui/users/User';
@@ -12,14 +13,16 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const user = await getUser(id);
+  const [user, players] = await Promise.all([getUser(id), getPlayers(id)]);
   if (!user) {
     notFound();
   }
   const { user: translations } = await loadDictionary(lang);
 
   return (
-    <SWRFallback fallback={{ [`users/${id}`]: user }}>
+    <SWRFallback
+      fallback={{ [`users/${id}`]: user, [`users/${id}/players`]: players }}
+    >
       <User id={id} translations={translations} />
     </SWRFallback>
   );

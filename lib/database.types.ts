@@ -92,6 +92,56 @@ export interface Database {
           z?: number;
         };
       };
+      players: {
+        Row: {
+          created_at: string;
+          first_name: string;
+          house_id: string;
+          id: string;
+          last_name: string;
+          position_pitch: number;
+          position_roll: number;
+          position_world: string;
+          position_x: number;
+          position_y: number;
+          position_yaw: number;
+          position_z: number;
+          user_id: string;
+          year: number;
+        };
+        Insert: {
+          created_at?: string;
+          first_name: string;
+          house_id: string;
+          id: string;
+          last_name: string;
+          position_pitch: number;
+          position_roll: number;
+          position_world: string;
+          position_x: number;
+          position_y: number;
+          position_yaw: number;
+          position_z: number;
+          user_id: string;
+          year: number;
+        };
+        Update: {
+          created_at?: string;
+          first_name?: string;
+          house_id?: string;
+          id?: string;
+          last_name?: string;
+          position_pitch?: number;
+          position_roll?: number;
+          position_world?: string;
+          position_x?: number;
+          position_y?: number;
+          position_yaw?: number;
+          position_z?: number;
+          user_id?: string;
+          year?: number;
+        };
+      };
       posts: {
         Row: {
           body: string | null;

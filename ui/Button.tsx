@@ -13,7 +13,7 @@ const Button = forwardRef<
       'inline-flex gap-1 items-center justify-center rounded-lg border border-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:border-gray-400 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 disabled:opacity-50 transition-colors',
       {
         'bg-gray-900': kind === 'default',
-        'bg-brand-800': kind === 'brand',
+        'bg-brand-400': kind === 'brand',
         'bg-green-600': kind === 'accept',
         'bg-red-600': kind === 'danger',
       },

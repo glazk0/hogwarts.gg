@@ -1,5 +1,7 @@
+import { useMe } from '#/lib/hooks/use-me';
 import { getLevelByZ } from '#/lib/map';
-import type { Player } from '#/lib/savefiles';
+import { upsertPlayer } from '#/lib/players';
+import type { SavefilePlayer } from '#/lib/savefiles';
 import { extractDatabase, extractPlayer } from '#/lib/savefiles';
 import { IconCloudUpload, IconLiveView } from '@tabler/icons-react';
 import Script from 'next/script';
@@ -12,7 +14,8 @@ import Popover from './Popover';
 export default function GlobalSync() {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [player, setPlayer] = useState<Player | null>(null);
+  const [player, setPlayer] = useState<SavefilePlayer | null>(null);
+  const { data: me } = useMe();
 
   const processFile = async (file: File) => {
     try {
@@ -28,6 +31,9 @@ export default function GlobalSync() {
 
       const player = extractPlayer(db);
       setPlayer(player);
+      if (me) {
+        upsertPlayer(me.id, player);
+      }
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);
@@ -42,7 +48,7 @@ export default function GlobalSync() {
       open={isOpen}
       onOpenChange={setIsOpen}
       trigger={
-        <Button aria-label={'Sync character'}>
+        <Button aria-label={'Sync character'} kind="brand">
           <IconLiveView />
         </Button>
       }
@@ -83,7 +89,7 @@ export default function GlobalSync() {
                   <b>{player.year}th</b> year.
                 </p>
                 <p>
-                  You are in <b>{player.world}</b> at level{' '}
+                  You are in <b>{player.position.world}</b> at level{' '}
                   <b>{getLevelByZ(player.position.z)}</b>.
                 </p>
               </>
