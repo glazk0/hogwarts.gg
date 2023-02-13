@@ -18,6 +18,7 @@ const toPlayer = (player: Database['public']['Tables']['players']['Row']) => {
       yaw: player.position_yaw,
       world: player.position_world,
     },
+    updatedAt: player.updated_at,
   };
 };
 
@@ -72,7 +73,9 @@ export type Player = Pick<
   Database['public']['Tables']['players']['Row'],
   'id'
 > &
-  SavefilePlayer;
+  SavefilePlayer & {
+    updatedAt: string;
+  };
 
 export const upsertPlayer = async (userId: string, payload: SavefilePlayer) => {
   const id = `${userId}_${payload.firstName}_${payload.lastName}`;
@@ -80,5 +83,6 @@ export const upsertPlayer = async (userId: string, payload: SavefilePlayer) => {
     id,
     user_id: userId,
     ...toPlayerRow(payload),
+    updated_at: new Date().toISOString(),
   });
 };

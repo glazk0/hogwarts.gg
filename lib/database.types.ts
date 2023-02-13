@@ -94,7 +94,6 @@ export interface Database {
       };
       players: {
         Row: {
-          created_at: string;
           first_name: string;
           house_id: string;
           id: string;
@@ -106,11 +105,11 @@ export interface Database {
           position_y: number;
           position_yaw: number;
           position_z: number;
+          updated_at: string;
           user_id: string;
           year: number;
         };
         Insert: {
-          created_at?: string;
           first_name: string;
           house_id: string;
           id: string;
@@ -122,11 +121,11 @@ export interface Database {
           position_y: number;
           position_yaw: number;
           position_z: number;
+          updated_at?: string;
           user_id: string;
           year: number;
         };
         Update: {
-          created_at?: string;
           first_name?: string;
           house_id?: string;
           id?: string;
@@ -138,6 +137,7 @@ export interface Database {
           position_y?: number;
           position_yaw?: number;
           position_z?: number;
+          updated_at?: string;
           user_id?: string;
           year?: number;
         };

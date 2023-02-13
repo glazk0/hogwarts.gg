@@ -29,9 +29,8 @@ leaflet.Canvas.include({
 
     if (layer.options.rotate) {
       ctx.save();
-
       ctx.translate(p.x, p.y);
-      ctx.rotate((layer.options.rotate * Math.PI) / 180);
+      ctx.rotate(((layer.options.rotate + 90) * Math.PI) / 180);
       ctx.drawImage(layer.imageElement, -radius, -radius, imageSize, imageSize);
       ctx.translate(-p.x, -p.y);
       ctx.restore();

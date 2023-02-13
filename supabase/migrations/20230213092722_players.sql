@@ -11,7 +11,7 @@ create table
     "first_name" text not null,
     "last_name" text not null,
     "year" bigint not null,
-    "created_at" timestamp
+    "updated_at" timestamp
     with
       time zone default now() not null,
       "position_x" double precision not null,
