@@ -62,18 +62,21 @@ export interface Database {
       }
       locales: {
         Row: {
+          description: string | null
           id: number
           key: string
           language: string
           value: string
         }
         Insert: {
+          description?: string | null
           id?: number
           key: string
           language: string
           value: string
         }
         Update: {
+          description?: string | null
           id?: number
           key?: string
           language?: string

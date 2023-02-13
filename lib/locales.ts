@@ -8,35 +8,24 @@ export const getLocale = async ({
 }: {
   key: string;
   language: languages;
-}): Promise<
-  | (Locale & {
-      description: string;
-    })
-  | null
-> => {
+}): Promise<Locale | null> => {
   const request = supabase
     .from('locales')
     .select('*')
-    // TODO: use supabase match ? didn't work for me
-    .in('key', [key, `${key}_desc`])
-    .eq('language', language);
+    .match({ key, language })
+    .maybeSingle();
 
-  const { data, error } = await request;
+  const { data: locale, error } = await request;
 
   if (error) {
     throw error;
   }
 
-  if (!data) {
+  if (!locale) {
     return null;
   }
 
-  const [locale, description] = data;
-
-  return {
-    ...locale,
-    description: description?.value ?? '',
-  };
+  return locale;
 };
 
 export type Locale = Database['public']['Tables']['locales']['Row'];
