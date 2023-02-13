@@ -64,6 +64,16 @@ export const nodeTypes = [
     title: 'Moth Frame',
     icon: '/assets/icons/moth_frame.svg',
   },
+  {
+    value: 'fastTravelFireplaces',
+    title: 'Fast Travel Fireplace',
+    icon: '/assets/icons/fast_travel.png',
+  },
+  {
+    value: 'fastTravelSanctuaryHogwarts',
+    title: 'Fast Travel Sanctuary',
+    icon: '/assets/icons/sanctuary_hogwarts.png',
+  },
 ];
 
 export const getNodeType = (value: string) =>
