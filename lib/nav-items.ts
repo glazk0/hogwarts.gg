@@ -10,6 +10,6 @@ export const navItems: NavItem[] = [
   },
   {
     name: 'Map',
-    slug: 'map/hogwarts?level=1',
+    slug: 'map/hogwarts?level=10',
   },
 ];
