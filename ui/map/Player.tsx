@@ -64,7 +64,7 @@ export default function Player() {
     marker.options.rotate = player.position.yaw;
     marker.setLatLng([player.position.y, player.position.x]);
     map.flyTo(marker.getLatLng());
-  }, [player?.position]);
+  }, [player?.position.x, player?.position.y]);
 
   return <></>;
 }

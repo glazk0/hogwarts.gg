@@ -5,8 +5,9 @@ const Button = forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     kind?: 'default' | 'brand' | 'accept' | 'danger';
+    shape?: 'default' | 'round';
   }
->(({ kind = 'default', className, ...props }, ref) => (
+>(({ kind = 'default', shape = 'default', className, ...props }, ref) => (
   <button
     ref={ref}
     className={cn(
@@ -16,6 +17,7 @@ const Button = forwardRef<
         'bg-brand-400': kind === 'brand',
         'bg-green-600': kind === 'accept',
         'bg-red-600': kind === 'danger',
+        'rounded-full p-2': shape === 'round',
       },
       className,
     )}

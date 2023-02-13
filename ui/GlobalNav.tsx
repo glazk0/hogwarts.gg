@@ -11,7 +11,6 @@ import Image from 'next/image';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import AppLink from './AppLink';
-import GlobalSync from './GlobalSync';
 const GlobalUser = dynamic(() => import('./GlobalUser'), { ssr: false });
 
 export default function GlobalNav({
@@ -50,7 +49,6 @@ export default function GlobalNav({
       >
         <div className="md:order-last flex gap-2">
           <GlobalUser onClick={close} translations={translations} />
-          <GlobalSync />
         </div>
         <nav className="flex flex-col space-y-1 md:space-y-0 md:px-0 md:py-0 md:flex-row md:h-14 md:items-center">
           {navItems.map((navItem) => (

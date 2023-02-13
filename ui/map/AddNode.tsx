@@ -38,9 +38,9 @@ const AddNode = () => {
       title="Add Node"
       tooltip="Add Node"
       trigger={
-        <button>
+        <Button shape="round">
           <IconMapPin />
-        </button>
+        </Button>
       }
     >
       <NodeForm level={level} />

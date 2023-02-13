@@ -1,9 +1,10 @@
+'use client';
 import { useMe } from '#/lib/hooks/use-me';
 import { getLevelByZ } from '#/lib/map';
 import { upsertPlayer } from '#/lib/players';
 import type { SavefilePlayer } from '#/lib/savefiles';
 import { extractDatabase, extractPlayer } from '#/lib/savefiles';
-import { IconCloudUpload, IconLiveView } from '@tabler/icons-react';
+import { IconCloudUpload, IconCurrentLocation } from '@tabler/icons-react';
 import Script from 'next/script';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
@@ -12,7 +13,7 @@ import Divider from './Divider';
 import Input from './Input';
 import Popover from './Popover';
 
-export default function GlobalSync() {
+export default function PlayerSync() {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [player, setPlayer] = useState<SavefilePlayer | null>(null);
@@ -50,9 +51,10 @@ export default function GlobalSync() {
     <Popover
       open={isOpen}
       onOpenChange={setIsOpen}
+      tooltip="Sync Player Position"
       trigger={
-        <Button aria-label={'Sync character'} kind="brand">
-          <IconLiveView />
+        <Button aria-label={'Sync character'} kind="brand" shape="round">
+          <IconCurrentLocation />
         </Button>
       }
     >
