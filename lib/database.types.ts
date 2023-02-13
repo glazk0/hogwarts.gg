@@ -15,7 +15,15 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      graphql: {
+        Args: {
+          operationName: string
+          query: string
+          variables: Json
+          extensions: Json
+        }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
@@ -105,6 +113,56 @@ export interface Database {
           x?: number
           y?: number
           z?: number
+        }
+      }
+      players: {
+        Row: {
+          first_name: string
+          house_id: string
+          id: string
+          last_name: string
+          position_pitch: number
+          position_roll: number
+          position_world: string
+          position_x: number
+          position_y: number
+          position_yaw: number
+          position_z: number
+          updated_at: string
+          user_id: string
+          year: number
+        }
+        Insert: {
+          first_name: string
+          house_id: string
+          id: string
+          last_name: string
+          position_pitch: number
+          position_roll: number
+          position_world: string
+          position_x: number
+          position_y: number
+          position_yaw: number
+          position_z: number
+          updated_at?: string
+          user_id: string
+          year: number
+        }
+        Update: {
+          first_name?: string
+          house_id?: string
+          id?: string
+          last_name?: string
+          position_pitch?: number
+          position_roll?: number
+          position_world?: string
+          position_x?: number
+          position_y?: number
+          position_yaw?: number
+          position_z?: number
+          updated_at?: string
+          user_id?: string
+          year?: number
         }
       }
       posts: {
