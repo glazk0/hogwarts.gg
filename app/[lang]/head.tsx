@@ -1,4 +1,3 @@
-import type { Language } from '#/lib/i18n/settings';
 import { languages } from '#/lib/i18n/settings';
 import { getURL } from '#/lib/utils';
 import { DefaultTags } from '#/ui/DefaultTags';
@@ -6,7 +5,7 @@ import { DefaultTags } from '#/ui/DefaultTags';
 export default function Head({
   params: { lang },
 }: {
-  params: { lang: Language };
+  params: { lang: string };
 }) {
   const alternativeLangs = languages
     .filter((language) => language !== lang)
