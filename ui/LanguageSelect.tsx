@@ -3,7 +3,7 @@ import { labels, languages } from '#/lib/i18n/settings';
 import { cn } from '#/lib/utils';
 import { IconLanguage } from '@tabler/icons-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Popover from './Popover';
 
@@ -11,6 +11,7 @@ export default function LanguageSelect({ className }: { className?: string }) {
   const language = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname()!;
+  const searchParams = useSearchParams();
 
   return (
     <Popover
@@ -33,7 +34,10 @@ export default function LanguageSelect({ className }: { className?: string }) {
           .map((lang) => (
             <Link
               key={lang}
-              href={pathname.replace(/^\/\w+/, `/${lang}`)}
+              href={`${pathname.replace(
+                /^\/\w+/,
+                `/${lang}`,
+              )}?${searchParams.toString()}`}
               onClick={() => setIsOpen(false)}
               className="block px-3 py-1  rounded-md text-sm text-center text-gray-400 hover:text-gray-300"
             >

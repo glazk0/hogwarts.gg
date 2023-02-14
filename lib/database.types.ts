@@ -28,6 +28,9 @@ export interface Database {
     Enums: {
       [_ in never]: never;
     };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
   };
   public: {
     Tables: {
@@ -55,6 +58,29 @@ export interface Database {
           node_id?: number | null;
           post_id?: number | null;
           user_id?: string;
+        };
+      };
+      locales: {
+        Row: {
+          description: string | null;
+          id: number;
+          key: string;
+          language: string;
+          value: string;
+        };
+        Insert: {
+          description?: string | null;
+          id?: number;
+          key: string;
+          language: string;
+          value: string;
+        };
+        Update: {
+          description?: string | null;
+          id?: number;
+          key?: string;
+          language?: string;
+          value?: string;
         };
       };
       nodes: {
@@ -262,6 +288,9 @@ export interface Database {
         | 'comments.delete';
       app_role: 'admin' | 'moderator';
     };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
   };
   storage: {
     Tables: {
@@ -389,6 +418,9 @@ export interface Database {
       };
     };
     Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
       [_ in never]: never;
     };
   };

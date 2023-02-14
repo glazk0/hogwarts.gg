@@ -1,5 +1,6 @@
 'use client';
 
+import useLanguage from '#/lib/hooks/use-language';
 import { useMe } from '#/lib/hooks/use-me';
 import { getZRange } from '#/lib/map';
 import { creatableNodeTypes, getNodeType } from '#/lib/node-types';
@@ -53,6 +54,7 @@ export default AddNode;
 const NodeForm = ({ level }: { level: string }) => {
   const map = useMap();
   const mapCenter = map.getCenter();
+  const language = useLanguage();
 
   const {
     register,
@@ -90,7 +92,7 @@ const NodeForm = ({ level }: { level: string }) => {
       setError('title', { message: error.message });
     } else {
       reset();
-      mutate(`nodes/hogwarts/${level}`);
+      mutate(`nodes/hogwarts/${level}/${language}`);
     }
   }
   const type = watch('type');

@@ -11,7 +11,7 @@ export default function Nodes({ lang }: { lang: string }) {
   const searchParams = useSearchParams();
   const level = +searchParams.get('level')!;
   const router = useRouter();
-  const { data: nodes = [] } = useNodes({ level });
+  const { data: nodes = [] } = useNodes({ level, language: lang });
 
   return (
     <>

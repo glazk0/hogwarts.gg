@@ -65,3 +65,11 @@
     @apply text-sky-400 hover:underline;
   }
 }
+
+.leaflet-tooltip {
+  @apply !text-center !rounded !bg-gray-1100 border !border-gray-800 !text-white !p-2;
+}
+
+.leaflet-tooltip-top:before {
+  @apply !border-t-gray-1100;
+}
