@@ -1,31 +1,30 @@
-import { type languages } from '../lib/i18n/settings';
-import { type Database } from './database.types';
 import supabase from '#/lib/supabase-browser';
+import { type Database } from './database.types';
 
-export const getLocale = async ({
-  key,
+export const getLocales = async ({
+  keys,
   language,
 }: {
-  key: string;
-  language: languages;
-}): Promise<Locale | null> => {
+  keys: string[];
+  language: string;
+}): Promise<Locale[]> => {
   const request = supabase
     .from('locales')
     .select('*')
-    .match({ key, language })
-    .maybeSingle();
+    .eq('language', language)
+    .in('key', keys);
 
-  const { data: locale, error } = await request;
+  const { data: locales, error } = await request;
 
   if (error) {
     throw error;
   }
 
-  if (!locale) {
-    return null;
+  if (!locales) {
+    return [];
   }
 
-  return locale;
+  return locales;
 };
 
 export type Locale = Database['public']['Tables']['locales']['Row'];
