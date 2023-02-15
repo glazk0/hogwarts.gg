@@ -39,7 +39,7 @@ export default function Search() {
       className="w-full max-w-2xl rounded overflow-hidden flex flex-col"
     >
       <label className="flex gap-2 p-2">
-        <IconSearch className="stroke-gray-500" />{' '}
+        <IconSearch className="stroke-gray-500 shrink-0" />{' '}
         <input
           value={value}
           onChange={(event) => setValue(event.target.value)}
