@@ -39,7 +39,7 @@ export default function Search() {
       className="w-full max-w-2xl rounded overflow-hidden flex flex-col"
     >
       <label className="flex gap-2 p-2">
-        <IconSearch className="stroke-gray-500 shrink-0" />{' '}
+        <IconSearch className="stroke-gray-500" />{' '}
         <input
           value={value}
           onChange={(event) => setValue(event.target.value)}
@@ -121,7 +121,7 @@ function PostResult({ post }: { post: Post }) {
       className="p-2 flex gap-4 items-center hover:bg-gray-600"
       href={`/blog/${post.slug}`}
     >
-      <IconArticle width={50} height={50} />
+      <IconArticle width={50} height={50} className="shrink-0" />
       <div>
         <p className="font-semibold">{post.title}</p>
         <div className="flex gap-2 text-gray-400 text-sm">
@@ -155,7 +155,7 @@ function NodeResult({ node }: { node: Node }) {
         alt=""
         width={50}
         height={50}
-        className="object-contain"
+        className="object-contain shrink-0"
       />
       <div>
         <p className="font-semibold">{node.title || node.nodeType.title}</p>
