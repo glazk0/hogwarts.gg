@@ -22,7 +22,7 @@ export default function Search() {
   const close = useCallback(() => setOpen(false), []);
 
   useDidUpdate(() => {
-    const timeoutId = setTimeout(() => setSearch(value), 1000);
+    const timeoutId = setTimeout(() => setSearch(value), 100);
     return () => clearTimeout(timeoutId);
   }, [value]);
 
