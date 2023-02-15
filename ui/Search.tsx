@@ -89,7 +89,7 @@ const SearchResults = memo(function SearchResults({
       ) {
         return false;
       }
-    } else if (index > 30) {
+    } else if (index > 5) {
       return false;
     }
     return true;
