@@ -5,10 +5,10 @@ export function useNodes({
   level,
   language,
 }: {
-  level: number;
+  level?: number;
   language: string;
 }) {
-  return useSWR(`nodes/hogwarts/${level}/${language}`, () =>
+  return useSWR(`nodes/hogwarts/${level || 'all'}/${language}`, () =>
     getNodes({ level, language }),
   );
 }

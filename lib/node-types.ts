@@ -50,6 +50,11 @@ export const nodeTypes = [
     icon: '/assets/icons/treasure_chest.png',
   },
   {
+    value: 'houseChest',
+    title: 'House Chest',
+    icon: '/assets/icons/chest.png',
+  },
+  {
     value: 'accioPage',
     title: 'Accio Page',
     icon: '/assets/icons/accio_page.png',

@@ -8,7 +8,7 @@ type TooltipProps = {
 export default function Tooltip({ label, children }: TooltipProps) {
   return (
     <TooltipPrimitive.Provider disableHoverableContent>
-      <TooltipPrimitive.Root delayDuration={100}>
+      <TooltipPrimitive.Root delayDuration={150}>
         <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content

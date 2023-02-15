@@ -1,14 +1,17 @@
+import { cn } from '#/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { IconX } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 import Tooltip from './Tooltip';
 
 type DialogProps = {
-  title: ReactNode;
+  title?: ReactNode;
   tooltip: ReactNode;
   trigger: ReactNode;
   children: ReactNode;
   open?: boolean;
+  fullscreen?: boolean;
+  className?: string;
   onOpenChange?: (open: boolean) => void;
 };
 
@@ -18,6 +21,8 @@ export default function Dialog({
   trigger,
   children,
   open,
+  fullscreen,
+  className,
   onOpenChange,
 }: DialogProps) {
   return (
@@ -27,15 +32,24 @@ export default function Dialog({
       </Tooltip>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Content
-          className="p-4 bg-zinc-900 fixed inset-0 z-20 w-screen h-screen"
-          onInteractOutside={(event) => event.preventDefault()}
+          className={cn(
+            'bg-zinc-900 fixed z-20',
+            {
+              'inset-0 w-screen h-screen': fullscreen,
+              'left-1/2 -translate-x-2/4 top-16 h-fit max-h-[calc(100vh-8rem)]':
+                !fullscreen,
+            },
+            className,
+          )}
         >
-          <div className="flex justify-between">
-            {title}
-            <DialogPrimitive.Trigger>
-              <IconX />
-            </DialogPrimitive.Trigger>
-          </div>
+          {title && (
+            <div className="flex justify-between">
+              {title}
+              <DialogPrimitive.Trigger>
+                <IconX />
+              </DialogPrimitive.Trigger>
+            </div>
+          )}
           {children}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

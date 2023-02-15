@@ -11,7 +11,10 @@ import Image from 'next/image';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import AppLink from './AppLink';
-const GlobalUser = dynamic(() => import('./GlobalUser'), { ssr: false });
+
+const GlobalUser = dynamic(() => import('./GlobalUser'), {
+  ssr: false,
+});
 
 export default function GlobalNav({
   translations,
