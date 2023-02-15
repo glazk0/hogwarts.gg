@@ -95,6 +95,10 @@ export default function PlayerSync() {
                   You are in <b>{player.position.world}</b> at level{' '}
                   <b>{getLevelByZ(player.position.z)}</b>.
                 </p>
+                <p>
+                  Coordinates: x{player.position.x} y{player.position.y} z
+                  {player.position.z}
+                </p>
               </>
             ) : (
               <>

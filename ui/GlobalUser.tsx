@@ -13,6 +13,7 @@ import Avatar from './Avatar';
 import Divider from './Divider';
 import LanguageSelect from './LanguageSelect';
 import Popover from './Popover';
+import Search from './Search';
 
 export default function GlobalUser({
   onClick,
@@ -47,6 +48,7 @@ export default function GlobalUser({
 
   return (
     <>
+      <Search />
       {me ? (
         <Popover
           open={isOpen}

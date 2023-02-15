@@ -35,7 +35,11 @@ export default function Player() {
     });
     setMarker(marker);
 
-    if (level !== playerLevel) {
+    if (
+      level !== playerLevel &&
+      // Only move if the latest player update is not too old
+      Date.now() - new Date(player.updatedAt).getTime() < 5000
+    ) {
       router.replace(`/${lang}/map/hogwarts?level=${playerLevel}`);
       map.flyTo(marker.getLatLng());
     }

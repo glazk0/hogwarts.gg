@@ -131,6 +131,8 @@ const NodeForm = ({ level }: { level: string }) => {
                     tooltip={createNodeTooltip({
                       title,
                       type,
+                      description: null,
+                      nodeType,
                     })}
                     onLatLngChange={field.onChange}
                   />
