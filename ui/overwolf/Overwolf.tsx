@@ -10,8 +10,8 @@ export default function Overwolf() {
     return <></>;
   }
   return (
-    <div className="pt-14 w-[401px] flex flex-col border-l border-gray-800">
-      <div className="flex-1 border-b border-gray-800">
+    <div className="pt-14 w-[401px] h-full flex flex-col border-l border-gray-800">
+      <div className="flex-1 border-b border-gray-800 overflow-auto">
         <Status />
       </div>
       <div

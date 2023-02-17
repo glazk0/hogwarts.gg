@@ -1,9 +1,15 @@
 import { HOGWARTS_LEGACY_CLASS_ID } from './config';
 import { listenToHotkeyBinding } from './hotkeys';
+import { findSavegamesFolder } from './io';
 
 export type MESSAGE_STATUS = {
   type: string;
   toggleAppHotkeyBinding: string;
+  savegames: {
+    name: string;
+    path: string;
+    body: string;
+  }[];
 };
 
 export function communicate(iframe: HTMLIFrameElement) {
@@ -12,8 +18,10 @@ export function communicate(iframe: HTMLIFrameElement) {
   const status: MESSAGE_STATUS = {
     type: 'status',
     toggleAppHotkeyBinding: '',
+    savegames: [],
   };
-  function postStatus() {
+  async function postStatus() {
+    status.savegames = await findSavegamesFolder();
     listenToHotkeyBinding('toggle_app', (binding) => {
       status.toggleAppHotkeyBinding = binding;
       postMessage(status, '*');

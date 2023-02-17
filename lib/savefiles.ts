@@ -6,8 +6,8 @@ const DB_START = new Uint8Array([
   0x61, 0x67, 0x65,
 ]); // RawDatabaseImage
 
-export async function extractDatabase(file: File) {
-  const buffer = await file.arrayBuffer();
+export async function extractDatabase(buffer: ArrayBuffer) {
+  console.log(buffer);
   const view = new DataView(buffer);
 
   // Check magic
