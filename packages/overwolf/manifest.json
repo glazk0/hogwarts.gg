@@ -1,0 +1,73 @@
+{
+  "manifest_version": 1,
+  "type": "WebApp",
+  "meta": {
+    "name": "Hogwarts.gg-DEV",
+    "author": "Leon Machens",
+    "version": "0.0.3",
+    "minimum-overwolf-version": "0.218.0",
+    "description": "Hogwarts Legacy Map and Tools",
+    "dock_button_title": "Hogwarts.gg",
+    "icon": "icons/iconMouseOver.png",
+    "icon_gray": "icons/iconMouseNormal.png",
+    "launcher_icon": "icons/launcherIcon.ico"
+  },
+  "permissions": ["Hotkeys", "GameInfo"],
+  "data": {
+    "start_window": "controller",
+    "windows": {
+      "controller": {
+        "file": "controller.html",
+        "debug_url": "http://localhost:3031/controller.html",
+        "is_background_page": true
+      },
+      "main": {
+        "file": "index.html",
+        "debug_url": "http://localhost:3031/index.html",
+        "resizable": true,
+        "override_on_update": true,
+        "size": {
+          "width": 1200,
+          "height": 800
+        },
+        "allow_local_file_access": true,
+        "popup_blocker": true,
+        "mute": true,
+        "keep_window_location": true
+      }
+    },
+    "game_targeting": {
+      "type": "dedicated",
+      "game_ids": [22600]
+    },
+    "game_events": [22600],
+    "launch_events": [
+      {
+        "event": "GameLaunch",
+        "event_data": {
+          "game_ids": [22600]
+        },
+        "start_minimized": false
+      }
+    ],
+    "hotkeys": {
+      "toggle_app": {
+        "title": "Show/Hide App",
+        "action-type": "custom",
+        "default": "Ctrl+x"
+      }
+    },
+    "protocol_override_domains": {
+      "googlesyndication": "http"
+    },
+    "externally_connectable": {
+      "matches": ["http://localhost:3031", "https://www.hogwarts.gg"]
+    },
+    "force_browser": "user",
+    "developer": {
+      "enable_auto_refresh": true,
+      "reload_delay": 1000,
+      "filter": "*.*"
+    }
+  }
+}

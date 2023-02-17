@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@hookform/resolvers': 2.9.10
   '@next/font': 13.1.6
+  '@overwolf/types': 3.22.2
   '@radix-ui/react-dialog': 1.0.2
   '@radix-ui/react-popover': 1.0.3
   '@radix-ui/react-tooltip': 1.0.3
@@ -83,6 +84,7 @@ dependencies:
   zod: 3.20.2
 
 devDependencies:
+  '@overwolf/types': 3.22.2
   '@types/leaflet': 1.9.0
   '@types/node': 18.13.0
   '@types/react': 18.0.27
@@ -428,6 +430,13 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.14.0
+
+  /@overwolf/types/3.22.2:
+    resolution:
+      {
+        integrity: sha512-1fhuPDU3bzf8auJKo4xNWgiO+pQ3YZi1ux5P5oOctwWnmEuiwUTBCqSZNwgKwbY38OWu6XxNw+/bDH+jPrjvng==,
+      }
+    dev: true
 
   /@pkgr/utils/2.3.1:
     resolution:

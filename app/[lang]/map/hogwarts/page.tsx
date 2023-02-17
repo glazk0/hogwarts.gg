@@ -15,13 +15,13 @@ export default async function Page({
   params: { lang: string };
 }) {
   return (
-    <div className="h-full-height w-screen fixed inset-0 top-14">
+    <div className="h-full-height w-full relative">
       <HogwartsMap>
-        <FixedBox className="right-4 top-20 flex justify-center space-x-2">
+        <FixedBox className="right-4 top-4 flex justify-center space-x-2">
           <AddNode />
           <PlayerSync />
         </FixedBox>
-        <FixedBox className="left-4 bottom-4 flex justify-center space-x-2">
+        <FixedBox className="left-4 bottom-0 flex justify-center space-x-2">
           <HogwartsLevelSelect />
           <Player />
         </FixedBox>

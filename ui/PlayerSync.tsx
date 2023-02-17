@@ -50,7 +50,7 @@ export default function PlayerSync() {
     <Popover
       open={isOpen}
       onOpenChange={setIsOpen}
-      tooltip="Sync Player Position"
+      tooltip={'Sync Player Position'}
       trigger={
         <Button aria-label={'Sync character'} kind="brand" shape="round">
           <IconCurrentLocation />
