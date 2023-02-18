@@ -1,9 +1,8 @@
 import type { MESSAGE_STATUS } from './messages';
 
-let cachedFiles: string[] = [];
-const savegames: MESSAGE_STATUS['savegames'] = [];
+let cachedLatestFile: string | null = null;
 export async function listenToSavegamesFolder(
-  callback: (savegames: MESSAGE_STATUS['savegames']) => void,
+  callback: (savegames: MESSAGE_STATUS['savegame']) => void,
 ) {
   const [steamFolders, epicGamesFolders] = await Promise.all([
     listSavegames(
@@ -15,44 +14,24 @@ export async function listenToSavegamesFolder(
   ]);
 
   const files = steamFolders || epicGamesFolders || [];
-  if (cachedFiles.length !== files.length) {
-    let changed = false;
-    for (const file of files) {
-      const parts = file.split('\\');
-      const name = parts[parts.length - 1];
-
-      if (savegames.some((savegame) => savegame.name === name)) {
-        continue;
-      }
-      changed = true;
-      const body = await readFile(file);
-
-      const savegame = {
+  const latestFile = files[0];
+  if (latestFile && latestFile !== cachedLatestFile) {
+    cachedLatestFile = latestFile;
+    const parts = latestFile.split('\\');
+    const name = parts[parts.length - 1];
+    listenToFile(latestFile, (body) => {
+      const savegame: MESSAGE_STATUS['savegame'] = {
         name,
-        path: file,
+        path: latestFile,
         body,
+        lastUpdate: new Date().toISOString(),
       };
-      if (cachedFiles.length === 0) {
-        savegames.push(savegame);
-      } else {
-        savegames.unshift(savegame);
-      }
-      listenToFile(file, (body) => {
-        const savegame = savegames.find((savegame) => savegame.name === name)!;
-        savegame.body = body;
-        callback(savegames);
-      });
-    }
-
-    if (changed) {
-      cachedFiles = files;
-      callback(savegames);
-    }
+      callback(savegame);
+    });
   }
-
   setTimeout(() => {
     listenToSavegamesFolder(callback);
-  }, 5000);
+  }, 100);
 }
 
 export async function listSavegames(folderPath: string) {
@@ -108,13 +87,8 @@ async function readFile(filePath: string) {
 }
 
 function listenToFile(filePath: string, callback: (body: string) => void) {
-  let firstRun = true;
   // @ts-ignore https://github.com/overwolf/types/pull/66
   overwolf.io.watchFile(filePath, async () => {
-    if (firstRun) {
-      firstRun = false;
-      return;
-    }
     const body = await readFile(filePath);
     callback(body);
   });

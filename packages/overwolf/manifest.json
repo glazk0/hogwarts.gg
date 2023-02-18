@@ -21,11 +21,28 @@
         "debug_url": "http://localhost:3031/controller.html",
         "is_background_page": true
       },
-      "main": {
+      "desktop": {
         "file": "index.html",
         "debug_url": "http://localhost:3031/index.html",
         "resizable": true,
         "override_on_update": true,
+        "desktop_only": true,
+        "size": {
+          "width": 1200,
+          "height": 800
+        },
+        "allow_local_file_access": true,
+        "popup_blocker": true,
+        "mute": true
+      },
+      "overlay": {
+        "file": "index.html",
+        "debug_url": "http://localhost:3031/index.html",
+        "resizable": true,
+        "override_on_update": true,
+        "in_game_only": true,
+        "focus_game_takeover": "ReleaseOnLostFocus",
+        "focus_game_takeover_release_hotkey": "toggle_app",
         "size": {
           "width": 1200,
           "height": 800

@@ -1,6 +1,10 @@
+import { HOGWARTS_LEGACY_CLASS_ID } from './config';
+import { getGameIsRunning } from './games';
+
 export const WINDOWS = {
   CONTROLLER: 'controller',
-  MAIN: 'main',
+  DESKTOP: 'desktop',
+  OVERLAY: 'overlay',
 };
 
 const declaredWindows: {
@@ -61,4 +65,46 @@ export async function toggleWindow(windowName: string): Promise<void> {
   } else {
     restoreWindow(window.name);
   }
+}
+
+export async function getPreferedWindowName(): Promise<string> {
+  const preferedWindowName = localStorage.getItem('prefered-window-name');
+  if (preferedWindowName) {
+    return preferedWindowName;
+  }
+
+  const monitors = await getMonitorsList();
+  const hasSecondScreen = monitors.length > 1;
+  return hasSecondScreen ? WINDOWS.DESKTOP : WINDOWS.OVERLAY;
+}
+
+export function getMonitorsList(): Promise<overwolf.utils.Display[]> {
+  return new Promise<overwolf.utils.Display[]>((resolve) => {
+    overwolf.utils.getMonitorsList((result) => {
+      resolve(result.displays);
+    });
+  });
+}
+
+export async function togglePreferedWindow(): Promise<void> {
+  const preferedWindowName = await getPreferedWindowName();
+  const newPreferedWindowName =
+    preferedWindowName === WINDOWS.DESKTOP ? WINDOWS.OVERLAY : WINDOWS.DESKTOP;
+  localStorage.setItem('prefered-window-name', newPreferedWindowName);
+  if (newPreferedWindowName === WINDOWS.OVERLAY) {
+    const isGameRunning = await getGameIsRunning(HOGWARTS_LEGACY_CLASS_ID);
+    if (isGameRunning) {
+      await restoreWindow(WINDOWS.OVERLAY);
+      await closeWindow(WINDOWS.DESKTOP);
+    }
+  } else {
+    await restoreWindow(WINDOWS.DESKTOP);
+    await closeWindow(WINDOWS.OVERLAY);
+  }
+}
+
+export async function getCurrentWindow(): Promise<overwolf.windows.WindowInfo> {
+  return new Promise<overwolf.windows.WindowInfo>((resolve) =>
+    overwolf.windows.getCurrentWindow((result) => resolve(result.window)),
+  );
 }
