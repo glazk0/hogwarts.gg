@@ -1,26 +1,58 @@
-export async function findSavegamesFolder() {
-  const steamFolders = await listSavegames(
-    `${overwolf.io.paths.localAppData}\\Hogwarts Legacy\\Saved\\SaveGames`,
-  );
-  const epicGamesFolders = await listSavegames(
-    `${overwolf.io.paths.localAppData}\\HogwartsLegacy\\Saved\\SaveGames`,
-  );
-  const savegames = steamFolders || epicGamesFolders;
-  if (!savegames) {
-    return [];
-  }
+import type { MESSAGE_STATUS } from './messages';
 
-  return await Promise.all(
-    savegames.slice(0, 1).map(async (savegame) => {
-      const parts = savegame.split('\\');
-      const body = await readFile(savegame);
-      return {
-        name: parts[parts.length - 1],
-        path: savegame,
+let cachedFiles: string[] = [];
+const savegames: MESSAGE_STATUS['savegames'] = [];
+export async function listenToSavegamesFolder(
+  callback: (savegames: MESSAGE_STATUS['savegames']) => void,
+) {
+  const [steamFolders, epicGamesFolders] = await Promise.all([
+    listSavegames(
+      `${overwolf.io.paths.localAppData}\\Hogwarts Legacy\\Saved\\SaveGames`,
+    ),
+    listSavegames(
+      `${overwolf.io.paths.localAppData}\\HogwartsLegacy\\Saved\\SaveGames`,
+    ),
+  ]);
+
+  const files = steamFolders || epicGamesFolders || [];
+  if (cachedFiles.length !== files.length) {
+    let changed = false;
+    for (const file of files) {
+      const parts = file.split('\\');
+      const name = parts[parts.length - 1];
+
+      if (savegames.some((savegame) => savegame.name === name)) {
+        continue;
+      }
+      changed = true;
+      const body = await readFile(file);
+
+      const savegame = {
+        name,
+        path: file,
         body,
       };
-    }),
-  );
+      if (cachedFiles.length === 0) {
+        savegames.push(savegame);
+      } else {
+        savegames.unshift(savegame);
+      }
+      listenToFile(file, (body) => {
+        const savegame = savegames.find((savegame) => savegame.name === name)!;
+        savegame.body = body;
+        callback(savegames);
+      });
+    }
+
+    if (changed) {
+      cachedFiles = files;
+      callback(savegames);
+    }
+  }
+
+  setTimeout(() => {
+    listenToSavegamesFolder(callback);
+  }, 5000);
 }
 
 export async function listSavegames(folderPath: string) {
@@ -54,11 +86,15 @@ export async function listSavegames(folderPath: string) {
   });
 }
 
-export async function readFile(filePath: string) {
-  const content = await new Promise<string>((resolve, reject) => {
-    overwolf.io.readFileContents(
+async function readFile(filePath: string) {
+  const body = await new Promise<string>((resolve, reject) => {
+    overwolf.io.readBinaryFile(
       filePath,
-      overwolf.io.enums.eEncoding.UTF8,
+      {
+        encoding: overwolf.io.enums.eEncoding.UTF8,
+        maxBytesToRead: 0,
+        offset: 0,
+      },
       (result) => {
         if (typeof result.content === 'undefined') {
           reject(result.error);
@@ -68,5 +104,18 @@ export async function readFile(filePath: string) {
       },
     );
   });
-  return content;
+  return body;
+}
+
+function listenToFile(filePath: string, callback: (body: string) => void) {
+  let firstRun = true;
+  // @ts-ignore https://github.com/overwolf/types/pull/66
+  overwolf.io.watchFile(filePath, async () => {
+    if (firstRun) {
+      firstRun = false;
+      return;
+    }
+    const body = await readFile(filePath);
+    callback(body);
+  });
 }

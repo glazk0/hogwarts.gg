@@ -1,16 +1,14 @@
 'use client';
 import CanvasMarker from '#/lib/canvas-marker';
 import useLanguage from '#/lib/hooks/use-language';
-import { useMe } from '#/lib/hooks/use-me';
-import { usePlayers } from '#/lib/hooks/use-players';
+import { usePlayerPosition } from '#/lib/hooks/use-player-position';
 import { getLevelByZ } from '#/lib/map';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useMap } from './Map';
 
 export default function Player() {
-  const { data: me } = useMe();
-  const { data: players = [] } = usePlayers(me?.id);
+  const { data: playerPosition } = usePlayerPosition();
   const searchParams = useSearchParams();
   const router = useRouter();
   const lang = useLanguage();
@@ -18,37 +16,32 @@ export default function Player() {
   const map = useMap();
 
   const level = +searchParams.get('level')!;
-  const player = players.sort((a, b) =>
-    b.updatedAt.localeCompare(a.updatedAt),
-  )[0];
-  const playerLevel = player ? +getLevelByZ(player.position.z) : null;
+
+  const playerLevel = playerPosition ? +getLevelByZ(playerPosition.z) : null;
 
   useEffect(() => {
-    if (!map.getPanes().mapPane || !player) {
+    if (!map.getPanes().mapPane || !playerPosition) {
       return;
     }
 
-    const marker = new CanvasMarker([player.position.y, player.position.x], {
+    const marker = new CanvasMarker([playerPosition.y, playerPosition.x], {
       radius: 15,
       src: '/assets/icons/player.png',
-      rotate: player.position.yaw,
+      rotate: playerPosition.yaw,
     });
     setMarker(marker);
 
-    if (
-      level !== playerLevel &&
-      // Only move if the latest player update is not too old
-      Date.now() - new Date(player.updatedAt).getTime() < 5000
-    ) {
+    if (level !== playerLevel) {
       router.replace(`/${lang}/map/hogwarts?level=${playerLevel}`);
       map.flyTo(marker.getLatLng());
+      marker.bringToFront();
     }
 
     return () => {
       marker.removeFrom(map);
       setMarker(null);
     };
-  }, [map, Boolean(player), playerLevel]);
+  }, [map, Boolean(playerPosition), playerLevel]);
 
   useEffect(() => {
     if (!marker) {
@@ -62,13 +55,14 @@ export default function Player() {
   }, [marker, level, playerLevel]);
 
   useEffect(() => {
-    if (!marker) {
+    if (!marker || !playerPosition) {
       return;
     }
-    marker.options.rotate = player.position.yaw;
-    marker.setLatLng([player.position.y, player.position.x]);
+    marker.options.rotate = playerPosition.yaw;
+    marker.setLatLng([playerPosition.y, playerPosition.x]);
     map.flyTo(marker.getLatLng());
-  }, [player?.position.x, player?.position.y]);
+    marker.bringToFront();
+  }, [playerPosition?.x, playerPosition?.y]);
 
   return <></>;
 }

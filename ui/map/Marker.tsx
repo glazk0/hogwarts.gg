@@ -38,6 +38,7 @@ function Marker({
     });
     marker.addTo(map);
     setMarker(marker);
+    marker.bringToBack();
 
     return () => {
       setMarker(null);

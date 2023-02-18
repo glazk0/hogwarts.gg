@@ -1,4 +1,8 @@
-import { extractDatabase, extractPlayer } from '#/lib/savefiles';
+import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
+import { getLevelByZ } from '#/lib/map';
+import type { SavefilePlayer } from '#/lib/savefiles';
+import { bodyToFile, readSavegame } from '#/lib/savefiles';
+import { cn } from '#/lib/utils';
 import type { MESSAGE_STATUS } from '#/packages/overwolf/src/lib/messages';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -9,6 +13,10 @@ export default function Status() {
   const [status, setStatus] = useState<MESSAGE_STATUS | null>(null);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [selectedSavegame, setSelectedSavegame] = useState<
+    MESSAGE_STATUS['savegames'][number] | null
+  >(null);
+  const setPlayerPosition = useSetPlayerPosition();
 
   useEffect(() => {
     postMessage({
@@ -16,6 +24,13 @@ export default function Status() {
       href: `${pathname}?${searchParams.toString()}`,
     });
   }, [pathname, searchParams]);
+
+  useEffect(() => {
+    if (selectedSavegame) {
+      const file = bodyToFile(selectedSavegame.body);
+      readSavegame(file).then((player) => setPlayerPosition(player.position));
+    }
+  }, [selectedSavegame]);
 
   useEffect(() => {
     const handleMessage = (message: MessageEvent) => {
@@ -29,7 +44,11 @@ export default function Status() {
         return;
       }
       if (data.type === 'status') {
-        setStatus(data as MESSAGE_STATUS);
+        const status = data as MESSAGE_STATUS;
+        setStatus(status);
+        if (status.savegames[0]) {
+          setSelectedSavegame(status.savegames[0]);
+        }
       }
     };
     window.addEventListener('message', handleMessage);
@@ -38,22 +57,26 @@ export default function Status() {
   }, []);
 
   return (
-    <Stack className="p-2">
+    <Stack className="p-2 h-full">
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js" />
-      <p>
+      <p className="text-center">
         Show/Hide app:{' '}
         <span
-          className="font-mono bg-gray-900 hover:bg-gray-800 border rounded p-1 cursor-pointer"
+          className="font-mono bg-gray-900 hover:bg-gray-800 border rounded py-0.5 px-1 cursor-pointer"
           onClick={() => postMessage({ type: 'hotkey_binding' })}
         >
           {status?.toggleAppHotkeyBinding}
         </span>
       </p>
-      <h4>Savegames</h4>
-      <ul>
+      <h4 className="text-lg">Savegames</h4>
+      <ul className="flex-1 overflow-auto">
         {status?.savegames.map((savegame) => (
           <li key={savegame.name}>
-            <SaveGame savegame={savegame} />
+            <SaveGame
+              savegame={savegame}
+              active={savegame.name === selectedSavegame?.name}
+              onClick={() => setSelectedSavegame(savegame)}
+            />
           </li>
         ))}
       </ul>
@@ -67,26 +90,55 @@ function postMessage(message: { type: string; [key: string]: any }) {
 
 function SaveGame({
   savegame,
+  active,
+  onClick,
 }: {
   savegame: MESSAGE_STATUS['savegames'][number];
+  active: boolean;
+  onClick: () => void;
 }) {
+  const [player, setPlayer] = useState<SavefilePlayer | null>(null);
+
   useEffect(() => {
     (async () => {
-      const initSqlJs = window.initSqlJs;
-      const blob = new Blob([savegame.body], { type: 'text/plain' });
-      const file = new File([blob], 'savegame.sav', { type: 'text/plain' });
-
-      const rawdb = await extractDatabase(await file.arrayBuffer());
-      const SQL = await initSqlJs({
-        // Required to load the wasm binary asynchronously. Of course, you can host it wherever you want
-        // You can omit locateFile completely when running in node
-        locateFile: (file) => `https://sql.js.org/dist/${file}`,
-      });
-      const db = await new SQL.Database(rawdb);
-
-      const player = extractPlayer(db);
-      console.log(player);
+      const file = bodyToFile(savegame.body);
+      const player = await readSavegame(file);
+      setPlayer(player);
     })();
   }, [savegame]);
-  return <div>{savegame.name}</div>;
+
+  return (
+    <button
+      className={cn(
+        'flex flex-col text-left w-full outline-none hover:bg-gray-900 transition-colors border-b border-gray-800 border-l-4 p-1 border-l-transparent',
+        {
+          'border-l-brand-500': active,
+        },
+      )}
+      onClick={onClick}
+    >
+      <p>{savegame.name}</p>
+      <div>
+        {player ? (
+          <>
+            <p>
+              <b>
+                {player.firstName} {player.lastName}
+              </b>{' '}
+              | <b>{player.houseId}</b> | <b>{player.year}th</b> year
+            </p>
+            <p>
+              <b>{player.position.world}</b> level{' '}
+              <b>{getLevelByZ(player.position.z)}</b>
+            </p>
+          </>
+        ) : (
+          <>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+          </>
+        )}
+      </div>
+    </button>
+  );
 }

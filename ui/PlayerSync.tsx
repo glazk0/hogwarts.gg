@@ -1,9 +1,10 @@
 'use client';
 import { useMe } from '#/lib/hooks/use-me';
+import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
 import { getLevelByZ } from '#/lib/map';
 import { upsertPlayer } from '#/lib/players';
 import type { SavefilePlayer } from '#/lib/savefiles';
-import { extractDatabase, extractPlayer } from '#/lib/savefiles';
+import { readSavegame } from '#/lib/savefiles';
 import { IconCloudUpload, IconCurrentLocation } from '@tabler/icons-react';
 import Script from 'next/script';
 import { useState } from 'react';
@@ -18,25 +19,18 @@ export default function PlayerSync() {
   const [player, setPlayer] = useState<SavefilePlayer | null>(null);
   const { data: me } = useMe();
   const { mutate } = useSWRConfig();
+  const setPlayerPosition = useSetPlayerPosition();
 
   const processFile = async (file: File) => {
     try {
       setErrorMessage('');
-      const initSqlJs = window.initSqlJs;
-      const rawdb = await extractDatabase(await file.arrayBuffer());
-      const SQL = await initSqlJs({
-        // Required to load the wasm binary asynchronously. Of course, you can host it wherever you want
-        // You can omit locateFile completely when running in node
-        locateFile: (file) => `https://sql.js.org/dist/${file}`,
-      });
-      const db = await new SQL.Database(rawdb);
-
-      const player = extractPlayer(db);
+      const player = await readSavegame(file);
       setPlayer(player);
       if (me) {
         await upsertPlayer(me.id, player);
         mutate(`users/${me.id}/players`);
       }
+      setPlayerPosition(player.position);
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);
@@ -123,11 +117,6 @@ export default function PlayerSync() {
             }}
           />
         </label>
-        {!me && (
-          <p className="font-bold text-orange-500">
-            You need to sign-in to use this feature.
-          </p>
-        )}
       </div>
     </Popover>
   );

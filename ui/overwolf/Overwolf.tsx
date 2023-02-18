@@ -15,7 +15,7 @@ export default function Overwolf() {
         <Status />
       </div>
       <div
-        className={`w-[400px] h-[300px] bg-gray-900 bg-[url('/assets/ads-bg.jpg')] bg-cover bg-center bg-no-repeat`}
+        className={`w-[400px] h-[300px] bg-gray-900 bg-[url('/assets/ads-bg.jpg')] bg-cover bg-center bg-no-repeat grayscale brightness-75`}
       >
         {/* Reserved for Overwolf ads */}
       </div>

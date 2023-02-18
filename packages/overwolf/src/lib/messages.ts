@@ -1,6 +1,6 @@
 import { HOGWARTS_LEGACY_CLASS_ID } from './config';
 import { listenToHotkeyBinding } from './hotkeys';
-import { findSavegamesFolder } from './io';
+import { listenToSavegamesFolder } from './io';
 import { setLastIFrameHref } from './storage';
 
 export type MESSAGE_STATUS = {
@@ -13,22 +13,28 @@ export type MESSAGE_STATUS = {
   }[];
 };
 
+const status: MESSAGE_STATUS = {
+  type: 'status',
+  toggleAppHotkeyBinding: '',
+  savegames: [],
+};
+
 export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
   const postMessage = iframe.contentWindow!.postMessage;
 
-  const status: MESSAGE_STATUS = {
-    type: 'status',
-    toggleAppHotkeyBinding: '',
-    savegames: [],
-  };
   async function postStatus() {
-    status.savegames = await findSavegamesFolder();
+    listenToSavegamesFolder((savegames) => {
+      status.savegames = savegames;
+      postMessage(status, '*');
+    });
+
     listenToHotkeyBinding('toggle_app', (binding) => {
       status.toggleAppHotkeyBinding = binding;
       postMessage(status, '*');
     });
   }
 
+  let isListening = false;
   window.addEventListener('message', (message) => {
     const data = message.data as unknown;
     if (
@@ -41,7 +47,10 @@ export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
     }
     switch (data.type) {
       case 'status':
-        postStatus();
+        if (!isListening) {
+          postStatus();
+          isListening = true;
+        }
         callback();
         break;
       case 'hotkey_binding':
