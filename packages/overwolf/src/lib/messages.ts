@@ -1,6 +1,7 @@
 import { HOGWARTS_LEGACY_CLASS_ID } from './config';
 import { listenToHotkeyBinding } from './hotkeys';
 import { findSavegamesFolder } from './io';
+import { setLastIFrameHref } from './storage';
 
 export type MESSAGE_STATUS = {
   type: string;
@@ -44,6 +45,11 @@ export function communicate(iframe: HTMLIFrameElement) {
         break;
       case 'hotkey_binding':
         location.href = `overwolf://settings/games-overlay?hotkey=toggle_app&gameId=${HOGWARTS_LEGACY_CLASS_ID}`;
+        break;
+      case 'href':
+        if ('href' in data && typeof data.href === 'string') {
+          setLastIFrameHref(data.href);
+        }
         break;
     }
   });

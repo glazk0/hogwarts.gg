@@ -1,11 +1,21 @@
 import { extractDatabase, extractPlayer } from '#/lib/savefiles';
 import type { MESSAGE_STATUS } from '#/packages/overwolf/src/lib/messages';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import Stack from '../Stack';
 
 export default function Status() {
   const [status, setStatus] = useState<MESSAGE_STATUS | null>(null);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    postMessage({
+      type: 'href',
+      href: `${pathname}?${searchParams.toString()}`,
+    });
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     const handleMessage = (message: MessageEvent) => {
