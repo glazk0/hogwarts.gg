@@ -2,29 +2,53 @@ import { HOGWARTS_LEGACY_CLASS_ID } from './config';
 import { listenToHotkeyBinding } from './hotkeys';
 import { listenToSavegamesFolder } from './io';
 import { setLastIFrameHref } from './storage';
+import {
+  getPreferedWindowName,
+  togglePreferedWindow,
+  WINDOWS,
+} from './windows';
 
 export type MESSAGE_STATUS = {
   type: string;
   toggleAppHotkeyBinding: string;
-  savegames: {
+  savegame: {
     name: string;
     path: string;
     body: string;
-  }[];
+    lastUpdate: string;
+  } | null;
+  overlay: boolean;
 };
 
 const status: MESSAGE_STATUS = {
   type: 'status',
   toggleAppHotkeyBinding: '',
-  savegames: [],
+  savegame: null,
+  overlay: true,
 };
 
 export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
   const postMessage = iframe.contentWindow!.postMessage;
 
+  async function refreshPreferedWindowName() {
+    const preferedWindowName = await getPreferedWindowName();
+    status.overlay = preferedWindowName === WINDOWS.OVERLAY;
+    postMessage(status, '*');
+  }
+
+  let isListening = false;
   async function postStatus() {
-    listenToSavegamesFolder((savegames) => {
-      status.savegames = savegames;
+    if (isListening) {
+      return;
+    }
+    isListening = true;
+
+    await refreshPreferedWindowName();
+
+    listenToSavegamesFolder((savegame) => {
+      console.log('savegame', savegame);
+
+      status.savegame = savegame;
       postMessage(status, '*');
     });
 
@@ -34,7 +58,6 @@ export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
     });
   }
 
-  let isListening = false;
   window.addEventListener('message', (message) => {
     const data = message.data as unknown;
     if (
@@ -47,10 +70,7 @@ export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
     }
     switch (data.type) {
       case 'status':
-        if (!isListening) {
-          postStatus();
-          isListening = true;
-        }
+        postStatus();
         callback();
         break;
       case 'hotkey_binding':
@@ -60,6 +80,11 @@ export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
         if ('href' in data && typeof data.href === 'string') {
           setLastIFrameHref(data.href);
         }
+        break;
+      case 'overlay':
+        togglePreferedWindow().then(() => {
+          refreshPreferedWindowName();
+        });
         break;
     }
   });
