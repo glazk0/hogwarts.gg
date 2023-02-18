@@ -13,7 +13,7 @@ export type MESSAGE_STATUS = {
   }[];
 };
 
-export function communicate(iframe: HTMLIFrameElement) {
+export function communicate(iframe: HTMLIFrameElement, callback: () => void) {
   const postMessage = iframe.contentWindow!.postMessage;
 
   const status: MESSAGE_STATUS = {
@@ -42,6 +42,7 @@ export function communicate(iframe: HTMLIFrameElement) {
     switch (data.type) {
       case 'status':
         postStatus();
+        callback();
         break;
       case 'hotkey_binding':
         location.href = `overwolf://settings/games-overlay?hotkey=toggle_app&gameId=${HOGWARTS_LEGACY_CLASS_ID}`;
