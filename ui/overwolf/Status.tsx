@@ -3,11 +3,20 @@ import { getLevelByZ } from '#/lib/map';
 import type { SavefilePlayer } from '#/lib/savefiles';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
-import type { MESSAGE_STATUS } from '#/packages/overwolf/src/lib/messages';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import Stack from '../Stack';
+
+type MESSAGE_STATUS = {
+  type: string;
+  toggleAppHotkeyBinding: string;
+  savegames: {
+    name: string;
+    path: string;
+    body: string;
+  }[];
+};
 
 export default function Status() {
   const [status, setStatus] = useState<MESSAGE_STATUS | null>(null);

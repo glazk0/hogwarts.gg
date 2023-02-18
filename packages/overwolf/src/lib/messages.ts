@@ -3,7 +3,7 @@ import { listenToHotkeyBinding } from './hotkeys';
 import { listenToSavegamesFolder } from './io';
 import { setLastIFrameHref } from './storage';
 
-export type MESSAGE_STATUS = {
+type MESSAGE_STATUS = {
   type: string;
   toggleAppHotkeyBinding: string;
   savegames: {
