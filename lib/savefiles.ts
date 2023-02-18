@@ -1,5 +1,23 @@
 import type { Database } from 'sql.js';
 
+export function bodyToFile(body: string) {
+  const blob = new Blob([body], { type: 'text/plain' });
+  const file = new File([blob], 'savegame.sav', { type: 'text/plain' });
+  return file;
+}
+export async function readSavegame(file: File) {
+  const initSqlJs = window.initSqlJs;
+  const rawdb = await extractDatabase(file);
+  const SQL = await initSqlJs({
+    // Required to load the wasm binary asynchronously. Of course, you can host it wherever you want
+    // You can omit locateFile completely when running in node
+    locateFile: (file) => `https://sql.js.org/dist/${file}`,
+  });
+  const db = await new SQL.Database(rawdb);
+  const player = extractPlayer(db);
+  return player;
+}
+
 const MAGIC = new Uint8Array([0x47, 0x56, 0x41, 0x53]); // GVAS
 const DB_START = new Uint8Array([
   0x52, 0x61, 0x77, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x49, 0x6d,

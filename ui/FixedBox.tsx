@@ -6,6 +6,6 @@ type FixedBoxProps = {
   className?: string;
 };
 const FixedBox = ({ children, className }: FixedBoxProps) => {
-  return <div className={cn('fixed z-10', className)}>{children}</div>;
+  return <div className={cn('absolute z-10', className)}>{children}</div>;
 };
 export default FixedBox;

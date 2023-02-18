@@ -56,7 +56,6 @@ export default function HogwartsLevelSelect() {
         tooltip="Select Level"
         open={open}
         onOpenChange={setOpen}
-        fullscreen
         trigger={
           <button className="relative">
             <Image
@@ -71,7 +70,7 @@ export default function HogwartsLevelSelect() {
         }
         className="p-4"
       >
-        <div className="flex gap-4 flex-wrap justify-center content-center overflow-auto h-full max-w-7xl mx-auto">
+        <div className="flex gap-4 flex-wrap justify-center content-center overflow-auto h-full  mx-auto">
           {HOGWARTS_LEVELS.map((level) => (
             <AppLink
               key={level}

@@ -6,7 +6,12 @@ import GlobalNav from '#/ui/GlobalNav';
 import PlausibleTracker from '#/ui/PlausibleTracker';
 import { Work_Sans as WorkSans } from '@next/font/google';
 import localFont from '@next/font/local';
+import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
+
+const Overwolf = dynamic(() => import('#/ui/overwolf/Overwolf'), {
+  ssr: false,
+});
 
 const fontSerif = localFont({
   variable: '--font-serif',
@@ -41,9 +46,12 @@ const RootLayout = async ({
       <head>
         <PlausibleTracker />
       </head>
-      <body className="relative min-h-screen">
-        <div className="pt-14 pb-8">{children}</div>
-        <Footer />
+      <body className="flex h-screen">
+        <main className="relative min-h-screen flex-1 overflow-auto">
+          <div className="pt-14">{children}</div>
+          <Footer />
+        </main>
+        <Overwolf />
         <GlobalNav translations={translations} />
       </body>
     </html>
