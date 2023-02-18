@@ -22,7 +22,7 @@ async function initController() {
   overwolf.extensions.onAppLaunchTriggered.addListener(openApp);
 
   overwolf.settings.hotkeys.onPressed.addListener(async (event) => {
-    if (event.name === 'show_hide_app') {
+    if (event.name === 'toggle_app') {
       toggleWindow(WINDOWS.MAIN);
     }
   });

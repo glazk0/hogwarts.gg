@@ -4,7 +4,7 @@
   "meta": {
     "name": "Hogwarts.gg-DEV",
     "author": "Leon Machens",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "minimum-overwolf-version": "0.218.0",
     "description": "Hogwarts Legacy Map and Tools",
     "dock_button_title": "Hogwarts.gg",
@@ -32,8 +32,7 @@
         },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true,
-        "keep_window_location": true
+        "mute": true
       }
     },
     "game_targeting": {
@@ -54,7 +53,7 @@
       "toggle_app": {
         "title": "Show/Hide App",
         "action-type": "custom",
-        "default": "Ctrl+x"
+        "default": "F6"
       }
     },
     "protocol_override_domains": {

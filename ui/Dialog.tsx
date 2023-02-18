@@ -33,7 +33,7 @@ export default function Dialog({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Content
           className={cn(
-            'bg-zinc-900 fixed z-20',
+            'bg-zinc-900 fixed z-20 overflow-hidden flex flex-col w-10/12',
             {
               'inset-0 w-screen h-screen': fullscreen,
               'left-1/2 -translate-x-2/4 top-16 h-fit max-h-[calc(100vh-8rem)]':
