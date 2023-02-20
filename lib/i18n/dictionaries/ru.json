@@ -1,0 +1,85 @@
+{
+  "home": {
+    "subtitle": "Hogwarts Legacy Карта и инструменты",
+    "articles": "Статьи",
+    "viewBlog": "Посмотреть блог",
+    "hogwarts": "Hogwarts",
+    "viewMap": "Посмотреть карту",
+    "community": "Сообщество",
+    "joinDiscord": "Перейти в Discord",
+    "openSource": "Open Source",
+    "openGitHub": "Открыть GitHub",
+    "lookingForContributors": "Мы ищем авторов, создателей контента и контрибьюторов.",
+    "pleaseJoinOur": "Присоединяйтесь:",
+    "openSourceNote": "Это проект с открытым исходным кодом! Контрибьюторы очень приветствуются!"
+  },
+  "auth": {
+    "signIn": "Войти в аккаунт",
+    "signUp": "Создать аккаунт",
+    "discord": "Продолжить через Discord",
+    "gitHub": "Продолжить через GitHub",
+    "or": "или",
+    "awaitingConfirmation": "Ожидается подтверждение",
+    "sentEmail": "Мы отправили email на",
+    "followLink": "Перейдите по ссылке или введите код:",
+    "submit": "Отправить",
+    "email": "Email",
+    "noAccountAssociated": "Аккаунт с данным почтовым адресом не найден.",
+    "signUpQuestion": "Зарегистрироваться?",
+    "continueWithEmail": "Продолжить через Email",
+    "privacyPolicyMessage": "Нажимая продолжить, вы соглашаетесь с",
+    "privacyPolicy": "Политикой конфиденциальности",
+    "withoutAccount": "Нет аккаунта?",
+    "withAccount": "Есть аккаунт?",
+    "signInNow": "Войти сейчас",
+    "signUpNow": "Зарегистрироваться"
+  },
+  "blog": {
+    "title": "Блог",
+    "subtitle": "Последние новости о Hogwarts Legacy и Hogwarts.gg"
+  },
+  "dashboard": {
+    "posts": "Посты",
+    "writtenBy": "Written by",
+    "noPosts": "Посты не созданы",
+    "create": "Создать",
+    "back": "Назад",
+    "published": "Опубликовано",
+    "draft": "Черновик",
+    "delete": "Удалить этот пост",
+    "save": "Сохранить",
+    "title": "Заголовок",
+    "short": "Кратко",
+    "full": "Полностью",
+    "dangerZone": "Опасная зона"
+  },
+  "posts": {
+    "writtenBy": "Written by",
+    "readMore": "Читать больше"
+  },
+  "post": {
+    "writtenBy": "Written by",
+    "backToBlog": "Назад в Блог",
+    "aboutTheAuthor": "Об авторе",
+    "commentSubmit": "Отправить",
+    "commentDeleteConfirmation": "Вы уверены, что хотите удалить комментарий?"
+  },
+  "user": {
+    "editProfile": "Редактировать профиль",
+    "username": "Имя пользователя",
+    "description": "Описание",
+    "submit": "Отправить",
+    "cancel": "Отмена"
+  },
+  "globalNav": {
+    "blog": "Блог",
+    "map": "Карта",
+    "menu": "Меню",
+    "aboutMe": "Обо мне",
+    "profile": "Профиль",
+    "moderators": "Модераторы",
+    "posts": "Посты",
+    "logOut": "Выйти",
+    "signIn": "Войти"
+  }
+}
