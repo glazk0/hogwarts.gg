@@ -9,7 +9,7 @@ import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import Stack from '../Stack';
 
-type MESSAGE_STATUS = {
+export type MESSAGE_STATUS = {
   type: string;
   toggleAppHotkeyBinding: string;
   savegame: {
@@ -21,8 +21,22 @@ type MESSAGE_STATUS = {
   overlay: boolean;
 };
 
+export type MESSAGE_REALTIME = {
+  type: 'realtime';
+  hlIsRunning: boolean;
+  position: {
+    x: number;
+    y: number;
+    z: number;
+    pitch: number;
+    roll: number;
+    yaw: number;
+  };
+};
+
 export default function Status() {
   const [status, setStatus] = useState<MESSAGE_STATUS | null>(null);
+  const [realtime, setRealtime] = useState<MESSAGE_REALTIME | null>(null);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const setPlayerPosition = useSetPlayerPosition();
@@ -34,13 +48,6 @@ export default function Status() {
       href: `${pathname}?${searchParams.toString()}`,
     });
   }, [pathname, searchParams]);
-
-  useEffect(() => {
-    if (savegame) {
-      const file = bodyToFile(savegame.body);
-      readSavegame(file).then((player) => setPlayerPosition(player.position));
-    }
-  }, [savegame, setPlayerPosition]);
 
   useEffect(() => {
     const handleMessage = (message: MessageEvent) => {
@@ -56,6 +63,10 @@ export default function Status() {
       if (data.type === 'status') {
         const status = data as MESSAGE_STATUS;
         setStatus(status);
+      } else if (data.type === 'realtime') {
+        const realtime = data as MESSAGE_REALTIME;
+        setPlayerPosition(realtime.position);
+        setRealtime(realtime);
       }
     };
     window.addEventListener('message', handleMessage);
@@ -92,6 +103,20 @@ export default function Status() {
         >
           {status?.toggleAppHotkeyBinding ?? 'Unknown'}
         </button>
+      </p>
+      <h4 className="text-md">Realtime</h4>
+      <p
+        className={cn('text-sm', {
+          'text-orange-500': !realtime?.hlIsRunning,
+        })}
+      >
+        {realtime?.hlIsRunning
+          ? 'Hogwarts Legacy is running'
+          : 'Hogwarts Legacy is not running'}
+      </p>
+      <p className="text-sm text-gray-400">
+        X: {realtime?.position.x} Y: {realtime?.position.y} Z:{' '}
+        {realtime?.position.z}
       </p>
       <h4 className="text-md">Latest Savegame</h4>
       <SaveGame savegame={savegame} />
