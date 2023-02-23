@@ -31,9 +31,14 @@
           "width": 1200,
           "height": 800
         },
+        "min_size": {
+          "width": 900,
+          "height": 600
+        },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true
+        "mute": true,
+        "block_top_navigation": true
       },
       "overlay": {
         "file": "index.html",
@@ -47,9 +52,14 @@
           "width": 1200,
           "height": 800
         },
+        "min_size": {
+          "width": 900,
+          "height": 600
+        },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true
+        "mute": true,
+        "block_top_navigation": true
       }
     },
     "game_targeting": {
@@ -71,6 +81,12 @@
         "title": "Show/Hide App",
         "action-type": "custom",
         "default": "F6"
+      }
+    },
+    "extra-objects": {
+      "hlhook": {
+        "file": "plugins/HLHookNET4.dll",
+        "class": "HogwartsLegacy.Hook"
       }
     },
     "protocol_override_domains": {

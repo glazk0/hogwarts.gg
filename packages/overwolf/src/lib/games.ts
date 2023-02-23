@@ -5,3 +5,17 @@ export function getGameIsRunning(gameId: number): Promise<boolean> {
     });
   });
 }
+
+export function listenToGameInfo(
+  callback: (gameInfo: overwolf.games.RunningGameInfo | undefined) => void,
+) {
+  overwolf.games.onGameInfoUpdated.addListener((event) => {
+    if (event.gameChanged) {
+      callback(event.gameInfo);
+    }
+  });
+
+  overwolf.games.getRunningGameInfo((result) => {
+    callback(result);
+  });
+}

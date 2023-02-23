@@ -9,3 +9,4 @@ delete manifest.data.windows.overlay.debug_url;
 
 await fs.writeFile('./dist/manifest.json', JSON.stringify(manifest));
 await fs.cp('./icons/', './dist/icons/', { recursive: true });
+await fs.cp('./plugins/', './dist/plugins/', { recursive: true });
