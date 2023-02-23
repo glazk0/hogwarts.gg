@@ -31,6 +31,10 @@
           "width": 1200,
           "height": 800
         },
+        "min_size": {
+          "width": 900,
+          "height": 600
+        },
         "allow_local_file_access": true,
         "popup_blocker": true,
         "mute": true,
@@ -47,6 +51,10 @@
         "size": {
           "width": 1200,
           "height": 800
+        },
+        "min_size": {
+          "width": 900,
+          "height": 600
         },
         "allow_local_file_access": true,
         "popup_blocker": true,
