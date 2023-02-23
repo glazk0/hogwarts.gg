@@ -83,6 +83,12 @@
         "default": "F6"
       }
     },
+    "extra-objects": {
+      "hlhook": {
+        "file": "plugins/HLHookNET4.dll",
+        "class": "HogwartsLegacy.Hook"
+      }
+    },
     "protocol_override_domains": {
       "googlesyndication": "http"
     },

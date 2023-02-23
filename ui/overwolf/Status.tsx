@@ -1,13 +1,14 @@
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
-import { getLevelByZ } from '#/lib/map';
 import type { SavefilePlayer } from '#/lib/savefiles';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
+import { IconHelp } from '@tabler/icons-react';
 import { formatDistance } from 'date-fns';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import Stack from '../Stack';
+import Tooltip from '../Tooltip';
 
 export type MESSAGE_STATUS = {
   type: string;
@@ -104,23 +105,64 @@ export default function Status() {
           {status?.toggleAppHotkeyBinding ?? 'Unknown'}
         </button>
       </p>
-      <h4 className="text-md">Realtime</h4>
-      <p
-        className={cn('text-sm', {
-          'text-orange-500': !realtime?.hlIsRunning,
-        })}
+      <Section
+        title="Realtime Status"
+        tooltip="This tells you if the connection to Hogwarts Legacy is estaiblished and
+        the player position could be synced with the map."
       >
-        {realtime?.hlIsRunning
-          ? 'Hogwarts Legacy is running'
-          : 'Hogwarts Legacy is not running'}
-      </p>
-      <p className="text-sm text-gray-400">
-        X: {realtime?.position.x} Y: {realtime?.position.y} Z:{' '}
-        {realtime?.position.z}
-      </p>
-      <h4 className="text-md">Latest Savegame</h4>
-      <SaveGame savegame={savegame} />
+        <p className={'text-sm flex items-center'}>
+          <StatusIndicator
+            issue={!realtime?.hlIsRunning || !realtime.position}
+          />
+          {realtime?.hlIsRunning
+            ? 'Hogwarts Legacy is running'
+            : 'Hogwarts Legacy is not running'}
+        </p>
+
+        <p className="text-sm text-gray-400">
+          {realtime?.position
+            ? `X: ${realtime?.position.x} Y: ${realtime?.position.y} Z: ${realtime?.position.z}`
+            : 'Position is not detected'}
+        </p>
+      </Section>
+      <Section
+        title="Latest Savegame"
+        tooltip="The latest savegame is required to sync your progress and discovered nodes on the map (in development)."
+      >
+        <SaveGame savegame={savegame} />
+      </Section>
     </Stack>
+  );
+}
+
+function StatusIndicator({ issue }: { issue: boolean }) {
+  return (
+    <span
+      className={cn('inline-block w-3 h-3 mr-2 rounded-xl bg-green-500', {
+        'bg-orange-500': issue,
+      })}
+    />
+  );
+}
+
+function Section({
+  title,
+  tooltip,
+  children,
+}: {
+  title: string;
+  tooltip: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="bg-gray-800 rounded p-1">
+      <Tooltip label={<p className="text-sm">{tooltip}</p>}>
+        <h4 className="text-md flex gap-1 items-center">
+          {title} <IconHelp size={16} />
+        </h4>
+      </Tooltip>
+      {children}
+    </section>
   );
 }
 
@@ -162,13 +204,11 @@ function SaveGame({ savegame }: { savegame: MESSAGE_STATUS['savegame'] }) {
   }, [savegame]);
 
   return (
-    <div
-      className={cn(
-        'flex flex-col text-left w-full outline-none hover:bg-gray-900 transition-colors border-l-4 p-1 border-l-brand-500',
-      )}
-    >
-      <p>{savegame?.name} </p>
-      <div>
+    <div className={'flex flex-col text-left w-full'}>
+      <p className="flex items-center text-sm">
+        <StatusIndicator issue={!savegame} /> {savegame?.name}{' '}
+      </p>
+      <div className="text-sm">
         {savegame && player ? (
           <>
             <p>
@@ -177,17 +217,12 @@ function SaveGame({ savegame }: { savegame: MESSAGE_STATUS['savegame'] }) {
               </b>{' '}
               | <b>{player.houseId}</b> | <b>{player.year}th</b> year
             </p>
-            <p>
-              <b>{player.position.world}</b> level{' '}
-              <b>{getLevelByZ(player.position.z)}</b>
-            </p>
             <p className="text-sm text-gray-400">
               <time dateTime={savegame.lastUpdate}>{timeDistance}</time>
             </p>
           </>
         ) : (
           <>
-            <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
           </>
