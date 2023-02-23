@@ -33,7 +33,8 @@
         },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true
+        "mute": true,
+        "block_top_navigation": true
       },
       "overlay": {
         "file": "index.html",
@@ -49,7 +50,8 @@
         },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true
+        "mute": true,
+        "block_top_navigation": true
       }
     },
     "game_targeting": {
