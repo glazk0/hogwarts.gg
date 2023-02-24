@@ -7,6 +7,7 @@ import { loadHLHookPlugin } from './plugins';
 import { setLastIFrameHref } from './storage';
 import {
   getPreferedWindowName,
+  restoreWindow,
   togglePreferedWindow,
   WINDOWS,
 } from './windows';
@@ -64,6 +65,7 @@ export async function communicate(
 
   async function postStatus() {
     if (isListening) {
+      postMessage(status, '*');
       return;
     }
     isListening = true;
@@ -71,8 +73,6 @@ export async function communicate(
     await refreshPreferedWindowName();
 
     listenToSavegamesFolder((savegame) => {
-      console.log('savegame', savegame);
-
       status.savegame = savegame;
       postMessage(status, '*');
     });
@@ -81,6 +81,21 @@ export async function communicate(
       status.toggleAppHotkeyBinding = binding;
       postMessage(status, '*');
     });
+  }
+
+  function listToAuthWindowClose(
+    event: overwolf.windows.WindowStateChangedEvent,
+  ) {
+    if (
+      [WINDOWS.AUTH_DISCORD, WINDOWS.AUTH_GITHUB].includes(event.window_name) &&
+      event.window_state_ex === 'closed'
+    ) {
+      // Tell iframe, that the login could be successful
+      postMessage({
+        type: 'authorized',
+      });
+      overwolf.windows.onStateChanged.removeListener(listToAuthWindowClose);
+    }
   }
 
   window.addEventListener('message', (message) => {
@@ -97,7 +112,6 @@ export async function communicate(
       case 'status':
         postStatus();
         postMessage(realtime, '*');
-
         callback();
         break;
       case 'hotkey_binding':
@@ -112,6 +126,14 @@ export async function communicate(
         togglePreferedWindow().then(() => {
           refreshPreferedWindowName();
         });
+        break;
+      case 'discord':
+        restoreWindow(WINDOWS.AUTH_DISCORD);
+        overwolf.windows.onStateChanged.addListener(listToAuthWindowClose);
+        break;
+      case 'github':
+        restoreWindow(WINDOWS.AUTH_GITHUB);
+        overwolf.windows.onStateChanged.addListener(listToAuthWindowClose);
         break;
     }
   });

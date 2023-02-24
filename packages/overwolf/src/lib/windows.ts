@@ -5,6 +5,8 @@ export const WINDOWS = {
   CONTROLLER: 'controller',
   DESKTOP: 'desktop',
   OVERLAY: 'overlay',
+  AUTH_DISCORD: 'authDiscord',
+  AUTH_GITHUB: 'authGitHub',
 };
 
 const declaredWindows: {
