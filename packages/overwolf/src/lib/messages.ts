@@ -40,20 +40,13 @@ export type MESSAGE_REALTIME = {
     pitch: number;
     roll: number;
     yaw: number;
-  };
+  } | null;
 };
 
 const realtime: MESSAGE_REALTIME = {
   type: 'realtime',
   hlIsRunning: false,
-  position: {
-    x: 0,
-    y: 0,
-    z: 0,
-    pitch: 0,
-    roll: 0,
-    yaw: 0,
-  },
+  position: null,
 };
 
 export async function communicate(
