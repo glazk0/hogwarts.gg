@@ -6,7 +6,6 @@ import { cn } from '#/lib/utils';
 import { IconHelp } from '@tabler/icons-react';
 import { formatDistance } from 'date-fns';
 import { usePathname, useSearchParams } from 'next/navigation';
-import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import Stack from '../Stack';
@@ -92,7 +91,6 @@ export default function Status() {
 
   return (
     <Stack className="p-2 h-full text-left">
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js" />
       <p className="text-orange-500 text-sm">
         This app is in development! Right now, only Hogwarts map is available
         and some nodes are missing.
@@ -190,9 +188,13 @@ function SaveGame({ savegame }: { savegame: MESSAGE_STATUS['savegame'] }) {
       return;
     }
     (async () => {
-      const file = bodyToFile(savegame.body);
-      const player = await readSavegame(file);
-      setPlayer(player);
+      try {
+        const file = bodyToFile(savegame.body);
+        const player = await readSavegame(file);
+        setPlayer(player);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, [savegame]);
 

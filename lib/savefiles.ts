@@ -7,6 +7,9 @@ export function bodyToFile(body: string) {
 }
 export async function readSavegame(file: File) {
   const initSqlJs = window.initSqlJs;
+  if (!initSqlJs) {
+    throw new Error('SQL.js not initialized');
+  }
   const rawdb = await extractDatabase(file);
   const SQL = await initSqlJs({
     // Required to load the wasm binary asynchronously. Of course, you can host it wherever you want

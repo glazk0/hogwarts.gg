@@ -1,5 +1,6 @@
 'use client';
 
+import Script from 'next/script';
 import Status from './Status';
 
 const isOverwolfIframe =
@@ -11,6 +12,7 @@ export default function Overwolf() {
   }
   return (
     <div className="pt-14 w-[401px] h-full flex flex-col border-l border-gray-800">
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js" />
       <div className="flex-1 border-b border-gray-800 overflow-auto">
         <Status />
       </div>

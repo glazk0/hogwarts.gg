@@ -91,9 +91,12 @@ export async function communicate(
       event.window_state_ex === 'closed'
     ) {
       // Tell iframe, that the login could be successful
-      postMessage({
-        type: 'authorized',
-      });
+      postMessage(
+        {
+          type: 'authorized',
+        },
+        '*',
+      );
       overwolf.windows.onStateChanged.removeListener(listToAuthWindowClose);
     }
   }
