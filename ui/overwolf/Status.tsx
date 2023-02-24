@@ -32,7 +32,7 @@ export type MESSAGE_REALTIME = {
     pitch: number;
     roll: number;
     yaw: number;
-  };
+  } | null;
 };
 
 export default function Status() {
