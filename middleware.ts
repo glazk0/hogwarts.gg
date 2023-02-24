@@ -14,6 +14,9 @@ export async function middleware(req: NextRequest) {
   if (url.pathname === '/sitemap.xml') {
     return NextResponse.redirect(new URL('/api/sitemap.xml', req.url));
   }
+  if (url.pathname.startsWith('/overwolf')) {
+    return res;
+  }
   const userLanguage = getUserLanguage(req);
   const pathLanguage = getPathLanguage(req.nextUrl.pathname);
   if (!languages.includes(pathLanguage)) {

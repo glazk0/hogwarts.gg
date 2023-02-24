@@ -1,6 +1,7 @@
 'use client';
 
 import type { Translations } from '#/lib/i18n/types';
+import { postMessage } from '#/lib/messages';
 import supabase from '#/lib/supabase-browser';
 import { getURL } from '#/lib/utils';
 import type { Provider } from '@supabase/supabase-js';
@@ -18,12 +19,18 @@ export default function UserAuthForm({
   translations: Translations;
 }) {
   const signInWithOAuth = async (provider: Provider) => {
-    await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: getURL(),
-      },
-    });
+    const isOverwolfIframe =
+      window.top && navigator.userAgent.includes('OverwolfClient');
+    if (isOverwolfIframe) {
+      postMessage({ type: provider });
+    } else {
+      await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: getURL(),
+        },
+      });
+    }
   };
 
   return (

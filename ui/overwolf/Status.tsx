@@ -1,4 +1,5 @@
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
+import { postMessage } from '#/lib/messages';
 import type { SavefilePlayer } from '#/lib/savefiles';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
@@ -7,6 +8,7 @@ import { formatDistance } from 'date-fns';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import Stack from '../Stack';
 import Tooltip from '../Tooltip';
 
@@ -42,6 +44,7 @@ export default function Status() {
   const searchParams = useSearchParams();
   const setPlayerPosition = useSetPlayerPosition();
   const savegame = status?.savegame || null;
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     postMessage({
@@ -61,13 +64,25 @@ export default function Status() {
       ) {
         return;
       }
-      if (data.type === 'status') {
-        const status = data as MESSAGE_STATUS;
-        setStatus(status);
-      } else if (data.type === 'realtime') {
-        const realtime = data as MESSAGE_REALTIME;
-        setPlayerPosition(realtime.position);
-        setRealtime(realtime);
+      switch (data.type) {
+        case 'status':
+          {
+            const status = data as MESSAGE_STATUS;
+            setStatus(status);
+          }
+          break;
+        case 'realtime':
+          {
+            const realtime = data as MESSAGE_REALTIME;
+            setPlayerPosition(realtime.position);
+            setRealtime(realtime);
+          }
+          break;
+        case 'authorized':
+          {
+            mutate('me');
+          }
+          break;
       }
     };
     window.addEventListener('message', handleMessage);
@@ -164,10 +179,6 @@ function Section({
       {children}
     </section>
   );
-}
-
-function postMessage(message: { type: string; [key: string]: any }) {
-  window.top!.postMessage(message, '*');
 }
 
 function SaveGame({ savegame }: { savegame: MESSAGE_STATUS['savegame'] }) {
