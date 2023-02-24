@@ -35,7 +35,9 @@ export default function Player() {
     marker.addTo(map);
 
     if (level !== playerLevel) {
-      router.replace(`/${lang}/map/hogwarts?level=${playerLevel}`);
+      const href = `/${lang}/map/hogwarts?level=${playerLevel}`;
+      router.prefetch(href);
+      router.replace(href);
       map.panTo(marker.getLatLng());
     }
 
@@ -50,7 +52,9 @@ export default function Player() {
       return;
     }
     if (level !== playerLevel) {
-      router.replace(`/${lang}/map/hogwarts?level=${playerLevel}`);
+      const href = `/${lang}/map/hogwarts?level=${playerLevel}`;
+      router.prefetch(href);
+      router.replace(href);
     }
   }, [playerLevel]);
 

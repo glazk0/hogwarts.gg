@@ -70,7 +70,7 @@ async function readFile(filePath: string) {
     overwolf.io.readBinaryFile(
       filePath,
       {
-        encoding: overwolf.io.enums.eEncoding.UTF8,
+        encoding: 'UTF8' as overwolf.io.enums.eEncoding.UTF8,
         maxBytesToRead: 0,
         offset: 0,
       },

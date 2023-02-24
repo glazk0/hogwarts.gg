@@ -26,11 +26,14 @@ export default function HogwartsLevelSelect() {
             className={cn({
               'text-gray-500': isFirst,
             })}
-            onClick={() =>
-              router.push(
-                location.href.replace(`level=${level}`, `level=${level - 1}`),
-              )
-            }
+            onClick={() => {
+              const href =
+                location.pathname +
+                location.search.replace(`level=${level}`, `level=${level - 1}`);
+
+              router.prefetch(href);
+              router.push(href);
+            }}
           >
             <IconArrowBigDown />
           </button>
@@ -41,11 +44,14 @@ export default function HogwartsLevelSelect() {
             className={cn({
               'text-gray-500': isLast,
             })}
-            onClick={() =>
-              router.push(
-                location.href.replace(`level=${level}`, `level=${level + 1}`),
-              )
-            }
+            onClick={() => {
+              const href =
+                location.pathname +
+                location.search.replace(`level=${level}`, `level=${level + 1}`);
+
+              router.prefetch(href);
+              router.push(href);
+            }}
           >
             <IconArrowBigUp />
           </button>
