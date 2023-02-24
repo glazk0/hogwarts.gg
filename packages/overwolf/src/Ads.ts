@@ -13,9 +13,7 @@ export default function Ads() {
     }
 
     const div = document.createElement('div');
-    div.style.position = 'fixed';
-    div.style.right = '0';
-    div.style.bottom = '0';
+    div.className = 'ads';
     document.body.append(div);
 
     new window.OwAd(div, {
@@ -25,6 +23,6 @@ export default function Ads() {
   const script = document.createElement('script');
   script.src = 'https://content.overwolf.com/libs/ads/latest/owads.min.js';
   script.async = true;
-  document.body.appendChild(script);
   script.onload = onOwAdReady;
+  return script;
 }

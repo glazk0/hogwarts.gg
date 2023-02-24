@@ -27,6 +27,8 @@
         "resizable": true,
         "override_on_update": true,
         "desktop_only": true,
+        "transparent": true,
+        "native_window": true,
         "size": {
           "width": 1200,
           "height": 800
@@ -45,6 +47,7 @@
         "debug_url": "http://localhost:3031/index.html",
         "resizable": true,
         "override_on_update": true,
+        "transparent": true,
         "in_game_only": true,
         "focus_game_takeover": "ReleaseOnLostFocus",
         "focus_game_takeover_release_hotkey": "toggle_app",
