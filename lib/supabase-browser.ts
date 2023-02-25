@@ -7,10 +7,13 @@ const supabase = createBrowserSupabaseClient<Database>({
       // Workaround for 13.2 issue "Page changed from static to dynamic at runtime"
       fetch: (...args) => {
         const [path, options] = args;
-
         return fetch(path, {
           ...options,
-          cache: 'force-cache',
+          cache:
+            process.env.NODE_ENV &&
+            process.env.NEXT_PHASE !== 'phase-production-build'
+              ? 'force-cache'
+              : 'default',
         });
       },
     },
