@@ -12,7 +12,7 @@ import Tooltip from '../Tooltip';
 
 export default function HogwartsLevelSelect() {
   const [open, setOpen] = useState(false);
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const level = +searchParams.get('level')!;
   const router = useRouter();
   const isFirst = level === 1;

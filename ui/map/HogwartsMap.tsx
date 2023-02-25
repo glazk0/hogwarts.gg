@@ -22,7 +22,7 @@ function HogwartsLegacyLayer({ level }: { level: number }) {
 }
 
 export default function HogwartsMap({ children }: { children: ReactNode }) {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const level = searchParams.get('level');
 
   if (!level) {

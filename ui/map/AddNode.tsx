@@ -28,7 +28,7 @@ type FormData = z.infer<typeof nodeSchema>;
 
 const AddNode = () => {
   const { data: me } = useMe();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const level = searchParams.get('level')!;
 
   if (!me || !['admin', 'moderator'].includes(me.role)) {

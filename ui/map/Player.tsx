@@ -9,7 +9,7 @@ import PlayerMarker, { createPlayerIcon } from './PlayerMarker';
 
 export default function Player() {
   const { data: playerPosition } = usePlayerPosition();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const router = useRouter();
   const lang = useLanguage();
   const [marker, setMarker] = useState<PlayerMarker | null>(null);

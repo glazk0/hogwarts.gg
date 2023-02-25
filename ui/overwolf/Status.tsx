@@ -41,7 +41,7 @@ export default function Status() {
   const [status, setStatus] = useState<MESSAGE_STATUS | null>(null);
   const [realtime, setRealtime] = useState<MESSAGE_REALTIME | null>(null);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const setPlayerPosition = useSetPlayerPosition();
   const savegame = status?.savegame || null;
   const { mutate } = useSWRConfig();
