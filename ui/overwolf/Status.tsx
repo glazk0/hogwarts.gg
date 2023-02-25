@@ -6,6 +6,7 @@ import { cn } from '#/lib/utils';
 import { IconHelp } from '@tabler/icons-react';
 import { formatDistance } from 'date-fns';
 import { usePathname, useSearchParams } from 'next/navigation';
+import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import Stack from '../Stack';
@@ -218,6 +219,7 @@ function SaveGame({ savegame }: { savegame: MESSAGE_STATUS['savegame'] }) {
 
   return (
     <div className={'flex flex-col text-left w-full'}>
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js" />
       <p className="flex items-center text-sm">
         <StatusIndicator issue={!savegame} /> {savegame?.name}{' '}
       </p>
