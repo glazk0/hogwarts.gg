@@ -11,7 +11,7 @@ export default function LanguageSelect({ className }: { className?: string }) {
   const language = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname()!;
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
 
   return (
     <Popover
