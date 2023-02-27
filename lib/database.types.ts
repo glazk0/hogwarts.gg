@@ -28,9 +28,6 @@ export interface Database {
     Enums: {
       [_ in never]: never;
     };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
   };
   public: {
     Tables: {
@@ -39,7 +36,6 @@ export interface Database {
           body: string;
           created_at: string | null;
           id: number;
-          node_id: number | null;
           post_id: number | null;
           user_id: string;
         };
@@ -47,7 +43,6 @@ export interface Database {
           body: string;
           created_at?: string | null;
           id?: number;
-          node_id?: number | null;
           post_id?: number | null;
           user_id?: string;
         };
@@ -55,7 +50,6 @@ export interface Database {
           body?: string;
           created_at?: string | null;
           id?: number;
-          node_id?: number | null;
           post_id?: number | null;
           user_id?: string;
         };
@@ -87,7 +81,7 @@ export interface Database {
         Row: {
           created_at: string;
           description: string | null;
-          id: number;
+          id: string;
           title: string | null;
           type: string;
           world: string;
@@ -98,7 +92,7 @@ export interface Database {
         Insert: {
           created_at?: string;
           description?: string | null;
-          id?: number;
+          id: string;
           title?: string | null;
           type: string;
           world: string;
@@ -109,7 +103,7 @@ export interface Database {
         Update: {
           created_at?: string;
           description?: string | null;
-          id?: number;
+          id?: string;
           title?: string | null;
           type?: string;
           world?: string;
@@ -288,9 +282,6 @@ export interface Database {
         | 'comments.delete';
       app_role: 'admin' | 'moderator';
     };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
   };
   storage: {
     Tables: {
@@ -418,9 +409,6 @@ export interface Database {
       };
     };
     Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
       [_ in never]: never;
     };
   };
