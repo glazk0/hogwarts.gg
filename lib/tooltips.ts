@@ -1,7 +1,10 @@
 import type { Node } from './nodes';
 
 export const createNodeTooltip = (
-  node: Pick<Node, 'id' | 'title' | 'description' | 'nodeType' | 'type'>,
+  node: Pick<
+    Node,
+    'id' | 'title' | 'titleId' | 'description' | 'nodeType' | 'type'
+  >,
   discovered: boolean | null = null,
 ) => {
   let tooltip = '';
@@ -17,6 +20,10 @@ export const createNodeTooltip = (
   }
   if (process.env.NODE_ENV === 'development') {
     tooltip += `<p class="text-xs text-gray-400">${node.id}</p>`;
+  }
+
+  if (node.type === 'kio') {
+    tooltip += `<img class="block mx-auto overflow-hidden" src="/assets/UI_T_CollectionsCard_BackBorder.png" width="256" height="256" style="background-image: url(/assets/lore/UI_T_${node.titleId}.png); background-size: 246px 246px; background-repeat: no-repeat; background-position: center;"/>`;
   }
   return tooltip;
 };

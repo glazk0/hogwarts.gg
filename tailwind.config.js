@@ -8,6 +8,7 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './ui/**/*.{js,ts,jsx,tsx}',
   ],
+  safelist: ['text-discovered'],
   future: {
     hoverOnlyWhenSupported: true,
   },

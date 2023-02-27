@@ -56,15 +56,17 @@ export const getNodes = async ({
       return {
         ...result,
         title,
+        titleId,
       };
     }
     if (!titleId) {
-      return result;
+      return { ...result, titleId };
     }
     const term = terms.find((term) => term.key === titleId.toUpperCase())!;
     return {
       ...result,
       title: term.value,
+      titleId,
       description: term.description,
     };
   });
@@ -79,6 +81,7 @@ export const insertNode = async (
 export type Node = Database['public']['Tables']['nodes']['Row'] & {
   description: string | null;
   level: number;
+  titleId: string | null;
   nodeType: {
     value: string;
     title: string;
