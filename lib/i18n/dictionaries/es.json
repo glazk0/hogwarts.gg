@@ -98,6 +98,10 @@
     "positionIsNotDetected": "No se detecta la posición",
     "latestSavegame": "Último juego guardado",
     "latestSavegameDescription": "Se requiere el último juego guardado para sincronizar su progreso y los nodos descubiertos en el mapa (en desarrollo).",
-    "year": "Año"
+    "year": "Año",
+    "hogwarts": "Hogwarts",
+    "fastTravel": "Viaje rápido",
+    "chests": "Cofres",
+    "collections": "Colecciones"
   }
 }

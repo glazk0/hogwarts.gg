@@ -98,6 +98,10 @@
     "positionIsNotDetected": "La position n'est pas détectée",
     "latestSavegame": "Dernière sauvegarde",
     "latestSavegameDescription": "La dernière sauvegarde est requise pour synchroniser votre progression et les nœuds découverts sur la carte (en développement).",
-    "year": "Année"
+    "year": "Année",
+    "hogwarts": "Hogwarts",
+    "fastTravel": "Voyage rapide",
+    "chests": "Coffres",
+    "collections": "Collections"
   }
 }
