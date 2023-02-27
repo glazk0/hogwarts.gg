@@ -2,6 +2,7 @@ import type { Node } from './nodes';
 
 export const createNodeTooltip = (
   node: Pick<Node, 'title' | 'description' | 'nodeType' | 'type'>,
+  discovered: boolean | null = null,
 ) => {
   let tooltip = '';
   if (node.title) {
@@ -11,8 +12,8 @@ export const createNodeTooltip = (
     tooltip += `<p class="">${node.description}</p>`;
   }
   tooltip += `<p class="text-brand-400">${node.nodeType.title}</p>`;
-  if (['stairs_up', 'stairs_down'].includes(node.type)) {
-    tooltip += `<p class="font-bold">Right-click to transit<p>`;
+  if (discovered) {
+    tooltip += `<p class="text-bold">Discovered</p>`;
   }
   return tooltip;
 };

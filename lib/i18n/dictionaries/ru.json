@@ -98,6 +98,10 @@
     "positionIsNotDetected": "Позиция не обнаружена",
     "latestSavegame": "Последнее сохранение",
     "latestSavegameDescription": "Последнее сохранение необходимо для синхронизации вашего прогресса и обнаруженных узлов на карте (в разработке).",
-    "year": "Год"
+    "year": "Год",
+    "hogwarts": "Hogwarts",
+    "fastTravel": "Быстрое перемещение",
+    "chests": "Сундуки",
+    "collections": "Коллекции"
   }
 }

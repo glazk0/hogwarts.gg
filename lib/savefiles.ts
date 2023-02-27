@@ -93,7 +93,52 @@ export function extractPlayer(db: Database): SavefilePlayer {
     year: +values[10],
   };
 
-  return player;
+  const locations = extractMapLocationData(db);
+
+  return { ...player, locations };
+}
+
+export function extractMapLocationData(db: Database) {
+  const mapLocationData = db.exec(
+    `SELECT MapLocationID, State FROM MapLocationDataDynamic ;`,
+  );
+  const { values } = mapLocationData[0];
+  const data = values as [string, number][];
+  const fastTravelsHogwarts = data.filter((value) =>
+    value[0].startsWith('FT_HW_'),
+  );
+  const chestsHogwarts = data.filter((value) =>
+    value[0].startsWith('Chest_HW_'),
+  );
+  const collectionsHogwarts = data.filter((value) =>
+    value[0].startsWith('Collect_HW_'),
+  );
+  // const kioHogwarts = data.filter((value) =>
+  //   value[0].startsWith('KIO_HW_'),
+  // );
+
+  return {
+    hogwarts: {
+      fastTravels: {
+        values: fastTravelsHogwarts
+          .filter((value) => value[1] !== 8)
+          .map((value) => value[0]),
+        max: fastTravelsHogwarts.length,
+      },
+      chests: {
+        values: chestsHogwarts
+          .filter((value) => value[1] !== 2)
+          .map((value) => value[0]),
+        max: chestsHogwarts.length,
+      },
+      collections: {
+        values: collectionsHogwarts
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: collectionsHogwarts.length,
+      },
+    },
+  };
 }
 
 export type SavefilePlayer = {
@@ -110,4 +155,20 @@ export type SavefilePlayer = {
   firstName: string;
   lastName: string;
   year: number;
+  locations: {
+    hogwarts: {
+      fastTravels: {
+        values: string[];
+        max: number;
+      };
+      chests: {
+        values: string[];
+        max: number;
+      };
+      collections: {
+        values: string[];
+        max: number;
+      };
+    };
+  };
 };

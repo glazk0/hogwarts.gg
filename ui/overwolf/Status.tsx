@@ -1,9 +1,12 @@
 import useLanguage from '#/lib/hooks/use-language';
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
+import {
+  useSavegamePlayer,
+  useSetSavegamePlayer,
+} from '#/lib/hooks/use-savegame-player';
 import { getDateLocale } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import { postMessage } from '#/lib/messages';
-import type { SavefilePlayer } from '#/lib/savefiles';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
 import { IconHelp } from '@tabler/icons-react';
@@ -50,6 +53,7 @@ export default function Status({
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
   const setPlayerPosition = useSetPlayerPosition();
+
   const savegame = status?.savegame || null;
   const { mutate } = useSWRConfig();
 
@@ -81,7 +85,9 @@ export default function Status({
         case 'realtime':
           {
             const realtime = data as MESSAGE_REALTIME;
-            setPlayerPosition(realtime.position);
+            if (realtime.position?.x) {
+              setPlayerPosition(realtime.position);
+            }
             setRealtime(realtime);
           }
           break;
@@ -189,9 +195,10 @@ function SaveGame({
   savegame: MESSAGE_STATUS['savegame'];
   translations: Translations;
 }) {
-  const [player, setPlayer] = useState<SavefilePlayer | null>(null);
   const [timeDistance, setTimeDistance] = useState('');
   const language = useLanguage();
+  const setSavegamePlayer = useSetSavegamePlayer();
+  const { data: player } = useSavegamePlayer();
 
   useEffect(() => {
     if (!savegame) {
@@ -201,7 +208,7 @@ function SaveGame({
       try {
         const file = bodyToFile(savegame.body);
         const player = await readSavegame(file);
-        setPlayer(player);
+        setSavegamePlayer(player);
       } catch (error) {
         console.error(error);
       }
@@ -247,6 +254,22 @@ function SaveGame({
             </p>
             <p className="text-sm text-gray-400">
               <time dateTime={savegame.lastUpdate}>{timeDistance}</time>
+            </p>
+            <h5 className="font-semibold">{translations.hogwarts}</h5>
+            <p>
+              {translations.chests}:{' '}
+              {player.locations.hogwarts.chests.values.length}/
+              {player.locations.hogwarts.chests.max}
+            </p>
+            <p>
+              {translations.collections}:{' '}
+              {player.locations.hogwarts.collections.values.length}/
+              {player.locations.hogwarts.collections.max}
+            </p>
+            <p>
+              {translations.fastTravel}:{' '}
+              {player.locations.hogwarts.fastTravels.values.length}/
+              {player.locations.hogwarts.fastTravels.max}
             </p>
           </>
         ) : (

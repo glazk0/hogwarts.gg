@@ -1,6 +1,7 @@
 'use client';
 import { useMe } from '#/lib/hooks/use-me';
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
+import { useSetSavegamePlayer } from '#/lib/hooks/use-savegame-player';
 import { getLevelByZ } from '#/lib/map';
 import { upsertPlayer } from '#/lib/players';
 import type { SavefilePlayer } from '#/lib/savefiles';
@@ -20,6 +21,7 @@ export default function PlayerSync() {
   const { data: me } = useMe();
   const { mutate } = useSWRConfig();
   const setPlayerPosition = useSetPlayerPosition();
+  const setSavegamePlayer = useSetSavegamePlayer();
 
   const processFile = async (file: File) => {
     try {
@@ -31,6 +33,7 @@ export default function PlayerSync() {
         mutate(`users/${me.id}/players`);
       }
       setPlayerPosition(player.position);
+      setSavegamePlayer(player);
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);

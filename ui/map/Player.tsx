@@ -28,6 +28,7 @@ export default function Player() {
     const marker = new PlayerMarker([playerPosition.y, playerPosition.x], {
       icon,
       zIndexOffset: 9000,
+      interactive: false,
     });
     marker.rotation = playerPosition.yaw;
 

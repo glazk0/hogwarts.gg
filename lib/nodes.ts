@@ -48,23 +48,24 @@ export const getNodes = async ({
     const nodeType = getNodeType(node.type);
     const level = getLevelByZ(node.z);
 
-    const title = node.title;
+    const titleId = node.title;
     const isChest = node.type === 'mediumGearChest';
     const result = { ...node, nodeType, level };
     if (isChest) {
       const title = terms.find((term) => term.key === 'LOCK_LEVEL_1')!.value;
       return {
         ...result,
+        titleId,
         title,
       };
     }
-    if (!title) {
-      return result;
+    if (!titleId) {
+      return { ...result, titleId };
     }
-    const term = terms.find((term) => term.key === title.toUpperCase())!;
-
+    const term = terms.find((term) => term.key === titleId.toUpperCase())!;
     return {
       ...result,
+      titleId,
       title: term.value,
       description: term.description,
     };
@@ -81,6 +82,7 @@ export const insertNode = async (
 };
 
 export type Node = Database['public']['Tables']['nodes']['Row'] & {
+  titleId: string | null;
   description: string | null;
   level: number;
   nodeType: {

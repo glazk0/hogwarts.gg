@@ -98,6 +98,10 @@
     "positionIsNotDetected": "Position is not detected",
     "latestSavegame": "Latest Savegame",
     "latestSavegameDescription": "The latest savegame is required to sync your progress and discovered nodes on the map (in development).",
-    "year": "Year"
+    "year": "Year",
+    "hogwarts": "Hogwarts",
+    "fastTravel": "Fast Travel",
+    "chests": "Chests",
+    "collections": "Collections"
   }
 }

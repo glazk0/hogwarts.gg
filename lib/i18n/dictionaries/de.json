@@ -98,6 +98,10 @@
     "positionIsNotDetected": "Position wurde nicht erkannt",
     "latestSavegame": "Neuester Speicherstand",
     "latestSavegameDescription": "Der neueste Speicherstand ist erforderlich, um den Fortschritt und die entdeckten Markierungen auf der Karte zu synchronisieren (in Entwicklung).",
-    "year": "Jahr"
+    "year": "Jahr",
+    "hogwarts": "Hogwarts",
+    "fastTravel": "Schnellreise",
+    "chests": "Truhen",
+    "collections": "Sammlungen"
   }
 }

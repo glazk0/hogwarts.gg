@@ -1,28 +1,25 @@
-const unknown = {
+export type NodeType = {
+  value: string;
+  title: string;
+  icon: string;
+  discoveredIcon?: string;
+};
+
+const unknown: NodeType = {
   value: 'unknown',
   title: 'Unknown',
   icon: '/assets/icons/unknown.webp',
 };
 
-export const creatableNodeTypes = [
+export const creatableNodeTypes: NodeType[] = [
   {
     value: 'text',
     title: 'Text',
     icon: '/assets/icons/unknown.webp',
   },
-  {
-    value: 'stairs_up',
-    title: 'Stairs Up',
-    icon: '/assets/icons/stairs_up.svg',
-  },
-  {
-    value: 'stairs_down',
-    title: 'Stairs Down',
-    icon: '/assets/icons/stairs_down.svg',
-  },
 ];
 
-export const nodeTypes = [
+export const nodeTypes: NodeType[] = [
   ...creatableNodeTypes,
   {
     value: 'disillusionmentChest',
@@ -73,11 +70,13 @@ export const nodeTypes = [
     value: 'fastTravelFireplaces',
     title: 'Fast Travel Fireplace',
     icon: '/assets/icons/fast_travel.png',
+    discoveredIcon: '/assets/icons/fast_travel_discovered.png',
   },
   {
     value: 'fastTravelSanctuaryHogwarts',
     title: 'Fast Travel Sanctuary',
     icon: '/assets/icons/sanctuary_hogwarts.png',
+    discoveredIcon: '/assets/icons/sanctuary_hogwarts_discovered.png',
   },
 ];
 
