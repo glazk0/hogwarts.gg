@@ -3,6 +3,7 @@ import useLanguage from '#/lib/hooks/use-language';
 import { useNodes } from '#/lib/hooks/use-nodes';
 import { usePosts } from '#/lib/hooks/use-posts';
 import { labels } from '#/lib/i18n/settings';
+import type { Translations } from '#/lib/i18n/types';
 import type { Node } from '#/lib/nodes';
 import type { Post } from '#/lib/posts';
 import { IconArticle, IconSearch } from '@tabler/icons-react';
@@ -14,7 +15,11 @@ import Button from './Button';
 import Dialog from './Dialog';
 import Divider from './Divider';
 
-export default function Search() {
+export default function Search({
+  translations,
+}: {
+  translations: Translations;
+}) {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -32,10 +37,10 @@ export default function Search() {
       onOpenChange={setOpen}
       trigger={
         <Button className="mx-2">
-          <IconSearch size={20} /> Quick Search
+          <IconSearch size={20} /> {translations.quickSearch}
         </Button>
       }
-      tooltip="Search for nodes and posts"
+      tooltip={translations.quickSearchTooltip}
       className="w-full max-w-2xl rounded overflow-hidden flex flex-col"
     >
       <label className="flex gap-2 p-2">
@@ -45,7 +50,7 @@ export default function Search() {
           onChange={(event) => setValue(event.target.value)}
           className="flex-1 outline-0 bg-transparent"
           autoFocus
-          placeholder="Search for nodes and posts"
+          placeholder={translations.quickSearchTooltip}
         />
       </label>
       <Divider />

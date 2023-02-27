@@ -71,7 +71,7 @@
     "submit": "Отправить",
     "cancel": "Отмена"
   },
-  "globalNav": {
+  "global": {
     "blog": "Блог",
     "map": "Карта",
     "menu": "Меню",
@@ -80,6 +80,24 @@
     "moderators": "Модераторы",
     "posts": "Посты",
     "logOut": "Выйти",
-    "signIn": "Войти"
+    "signIn": "Войти",
+    "copyright": "Авторское право © 2023 hogwarts.gg. Игровой контент и ресурсы являются товарными знаками Warner Bros. Entertainment Inc.",
+    "quickSearch": "Быстрый поиск",
+    "quickSearchTooltip": "Поиск узлов и сообщений"
+  },
+  "overwolf": {
+    "inDevelopment": "Это приложение находится в разработке! В настоящее время доступна только карта Хогвартса и некоторые узлы отсутствуют.",
+    "activateOverlay": "Активировать оверлей",
+    "activateOverlayDescription": "Это окно видно только в качестве оверлея в игре. Отключите его, если хотите переместить это окно на второй экран или переключиться на другое приложение.",
+    "showHideApp": "Показать/скрыть приложение",
+    "unknown": "Неизвестно",
+    "realtimeStatus": "Статус в реальном времени",
+    "realtimeStatusToopltip": "Это сообщает вам, установлено ли соединение с Hogwarts Legacy и может ли позиция игрока быть синхронизирована с картой.",
+    "hogwartsLegacyIsRunning": "Hogwarts Legacy запущен",
+    "hogwartsLegacyIsNotRunning": "Hogwarts Legacy не запущен",
+    "positionIsNotDetected": "Позиция не обнаружена",
+    "latestSavegame": "Последнее сохранение",
+    "latestSavegameDescription": "Последнее сохранение необходимо для синхронизации вашего прогресса и обнаруженных узлов на карте (в разработке).",
+    "year": "Год"
   }
 }

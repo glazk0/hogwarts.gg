@@ -48,7 +48,7 @@ export default function GlobalUser({
 
   return (
     <>
-      <Search />
+      <Search translations={translations} />
       {me ? (
         <Popover
           open={isOpen}
