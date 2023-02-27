@@ -10,7 +10,7 @@ export default function Exit() {
 
   useEffect(() => {
     if (seconds < 1) {
-      window.close();
+      // window.close();
     }
   }, [seconds]);
 
