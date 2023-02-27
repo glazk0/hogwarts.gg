@@ -131,6 +131,7 @@ const NodeForm = ({ level }: { level: string }) => {
                     draggable
                     tooltip={createNodeTooltip({
                       id: `${type}-${title}`,
+                      titleId: `${type}-${title}`,
                       title,
                       type,
                       description: null,
