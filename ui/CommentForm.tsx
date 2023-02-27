@@ -3,7 +3,6 @@
 import { insertComment } from '#/lib/comments';
 import { useMe } from '#/lib/hooks/use-me';
 import type { Translations } from '#/lib/i18n/types';
-import type { Node } from '#/lib/nodes';
 import type { Post } from '#/lib/posts';
 import { commentSchema } from '#/lib/validations/comment';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,14 +18,10 @@ type FormData = z.infer<typeof commentSchema>;
 export default function CommentForm({
   translations,
   ...props
-}: (
-  | {
-      post: Post;
-    }
-  | {
-      node: Node;
-    }
-) & { translations: Translations }) {
+}: {
+  post: Post;
+  translations: Translations;
+}) {
   const me = useMe();
   const {
     control,
@@ -47,13 +42,10 @@ export default function CommentForm({
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
     clearErrors();
-    const idProps =
-      'post' in props
-        ? { post_id: props.post.group_id ?? props.post.id }
-        : { node_id: props.node.id };
+
     const { error } = await insertComment({
       ...data,
-      ...idProps,
+      post_id: props.post.group_id ?? props.post.id,
     });
     if (error) {
       setError('body', { message: error.message });
@@ -64,11 +56,7 @@ export default function CommentForm({
     setTimeout(() => {
       setIsValid(false);
     }, 200);
-    if ('post_id' in idProps) {
-      mutate(`comments/posts/${idProps.post_id}`);
-    } else {
-      // not implemented
-    }
+    mutate(`comments/posts/${props.post.id}`);
   }
 
   if (!me.data) {
