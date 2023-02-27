@@ -1,11 +1,13 @@
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
 
-const supabase = createBrowserSupabaseClient<Database>({
-  options: {
+const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  {
     global: {
       // Workaround for 13.2 issue "Page changed from static to dynamic at runtime"
-      fetch: (...args) => {
+      fetch: (...args: any[]) => {
         const [path, options] = args;
         return fetch(path, {
           ...options,
@@ -18,11 +20,5 @@ const supabase = createBrowserSupabaseClient<Database>({
       },
     },
   },
-});
+);
 export default supabase;
-
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  window.supabase = supabase;
-}
