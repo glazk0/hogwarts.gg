@@ -82,9 +82,9 @@ export const nodeTypes: NodeType[] = [
   },
   {
     value: 'kio',
-    title: 'Field Guide Pages (Revelio)',
-    icon: '/assets/icons/unknown.webp',
-    discoveredIcon: '/assets/icons/unknown_discovered.webp',
+    title: 'Field Guide Page (Revelio)',
+    icon: '/assets/icons/revelio.png',
+    discoveredIcon: '/assets/icons/revelio_discovered.png',
   },
 ];
 

@@ -70,6 +70,7 @@ function Marker({
       direction: 'top',
       offset: [0, -8],
       permanent: draggable,
+      opacity: 1,
     });
 
     return () => {
