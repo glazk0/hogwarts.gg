@@ -31,8 +31,8 @@ const RootLayout = async ({
   children: ReactNode;
   params: { lang: string };
 }) => {
-  const { globalNav: translations } = await loadDictionary(lang);
-
+  const { global: globalTranslations, overwolf: overwolfTranslations } =
+    await loadDictionary(lang);
   return (
     <html
       lang={lang}
@@ -49,10 +49,10 @@ const RootLayout = async ({
       <body className="flex h-screen">
         <main className="relative min-h-screen flex-1 overflow-auto">
           <div className="pt-14">{children}</div>
-          <Footer />
+          <Footer translations={globalTranslations} />
         </main>
-        <Overwolf />
-        <GlobalNav translations={translations} />
+        <Overwolf translations={overwolfTranslations} />
+        <GlobalNav translations={globalTranslations} />
       </body>
     </html>
   );

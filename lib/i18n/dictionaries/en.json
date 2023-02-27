@@ -71,7 +71,7 @@
     "submit": "Submit",
     "cancel": "Cancel"
   },
-  "globalNav": {
+  "global": {
     "blog": "Blog",
     "map": "Map",
     "menu": "Menu",
@@ -80,6 +80,24 @@
     "moderators": "Moderators",
     "posts": "Posts",
     "logOut": "Log Out",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "copyright": "Copyright © 2023 hogwarts.gg. Game content and assets are trademarks of Warner Bros. Entertainment Inc.",
+    "quickSearch": "Quick Search",
+    "quickSearchTooltip": "Search for nodes and posts"
+  },
+  "overwolf": {
+    "inDevelopment": "This app is in development! Right now, only Hogwarts map is available and some nodes are missing.",
+    "activateOverlay": "Activate Overlay",
+    "activateOverlayDescription": "This window is only visible as overlay in-game. Deactivate it, if you like to move this window to second screen or to ALT+TAB it.",
+    "showHideApp": "Show/Hide app",
+    "unknown": "Unknown",
+    "realtimeStatus": "Realtime Status",
+    "realtimeStatusToopltip": "This tells you if the connection to Hogwarts Legacy is estaiblished and the player position could be synced with the map.",
+    "hogwartsLegacyIsRunning": "Hogwarts Legacy is running",
+    "hogwartsLegacyIsNotRunning": "Hogwarts Legacy is not running",
+    "positionIsNotDetected": "Position is not detected",
+    "latestSavegame": "Latest Savegame",
+    "latestSavegameDescription": "The latest savegame is required to sync your progress and discovered nodes on the map (in development).",
+    "year": "Year"
   }
 }

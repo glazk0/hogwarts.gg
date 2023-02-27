@@ -71,7 +71,7 @@
     "submit": "Ingresar",
     "cancel": "Cancelar"
   },
-  "globalNav": {
+  "global": {
     "blog": "Blog",
     "map": "Mapa",
     "menu": "Menu",
@@ -80,6 +80,24 @@
     "moderators": "Moderadores",
     "posts": "Publicaciones",
     "logOut": "Cerrar sesión",
-    "signIn": "Iniciar sesión"
+    "signIn": "Iniciar sesión",
+    "copyright": "Derechos de autor © 2023 hogwarts.gg. El contenido del juego y los activos son marcas comerciales de Warner Bros. Entertainment Inc.",
+    "quickSearch": "Búsqueda rápida",
+    "quickSearchTooltip": "Buscar nodos y publicaciones"
+  },
+  "overwolf": {
+    "inDevelopment": "¡Esta aplicación está en desarrollo! En este momento, solo está disponible el mapa de Hogwarts y faltan algunos nodos.",
+    "activateOverlay": "Activar superposición",
+    "activateOverlayDescription": "Esta ventana solo es visible como superposición en el juego. Desactívela si desea mover esta ventana a la segunda pantalla o alternar entre ventanas con ALT + TAB.",
+    "showHideApp": "Mostrar/Ocultar aplicación",
+    "unknown": "Desconocido",
+    "realtimeStatus": "Estado en tiempo real",
+    "realtimeStatusToopltip": "Esto le indica si se ha establecido la conexión con Hogwarts Legacy y la posición del jugador podría sincronizarse con el mapa.",
+    "hogwartsLegacyIsRunning": "Hogwarts Legacy está en ejecución",
+    "hogwartsLegacyIsNotRunning": "Hogwarts Legacy no está en ejecución",
+    "positionIsNotDetected": "No se detecta la posición",
+    "latestSavegame": "Último juego guardado",
+    "latestSavegameDescription": "Se requiere el último juego guardado para sincronizar su progreso y los nodos descubiertos en el mapa (en desarrollo).",
+    "year": "Año"
   }
 }

@@ -71,7 +71,7 @@
     "submit": "Abschicken",
     "cancel": "Abbrechen"
   },
-  "globalNav": {
+  "global": {
     "blog": "Blog",
     "map": "Map",
     "menu": "Menu",
@@ -80,6 +80,24 @@
     "moderators": "Moderatoren",
     "posts": "Beiträge",
     "logOut": "Abmelden",
-    "signIn": "Anmelden"
+    "signIn": "Anmelden",
+    "copyright": "Copyright © 2023 hogwarts.gg. Spielinhalte und Grafiken sind Eigentum von Warner Bros. Entertainment Inc.",
+    "quickSearch": "Schnellsuche",
+    "quickSearchTooltip": "Suche nach Markierungen und Beiträgen"
+  },
+  "overwolf": {
+    "inDevelopment": "Diese App befindet sich in der Entwicklung! Derzeit ist nur die Hogwarts-Karte verfügbar und einige Markierungen fehlen.",
+    "activateOverlay": "Overlay aktivieren",
+    "activateOverlayDescription": "Dieses Fenster ist nur als Overlay im Spiel sichtbar. Deaktiviere es, wenn du dieses Fenster auf den zweiten Bildschirm verschieben oder ALT+TAB zum wechseln drückn möchten.",
+    "showHideApp": "App anzeigen/verstecken",
+    "unknown": "Unbekannt",
+    "realtimeStatus": "Echtzeit-Status",
+    "realtimeStatusToopltip": "Auskunft darüber, ob die Verbindung zu Hogwarts Legacy hergestellt wurde und die Spielerposition mit der Karte synchronisiert werden konnte.",
+    "hogwartsLegacyIsRunning": "Hogwarts Legacy läuft",
+    "hogwartsLegacyIsNotRunning": "Hogwarts Legacy läuft nicht",
+    "positionIsNotDetected": "Position wurde nicht erkannt",
+    "latestSavegame": "Neuester Speicherstand",
+    "latestSavegameDescription": "Der neueste Speicherstand ist erforderlich, um den Fortschritt und die entdeckten Markierungen auf der Karte zu synchronisieren (in Entwicklung).",
+    "year": "Jahr"
   }
 }
