@@ -21,5 +21,6 @@ const supabase = createBrowserSupabaseClient<Database>({
 });
 export default supabase;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 window.supabase = supabase;
