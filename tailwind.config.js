@@ -35,6 +35,7 @@ module.exports = {
           800: '#ad9c82',
           900: '#1b1101',
         },
+        discovered: '#95ef9f',
       },
       data: {
         // https://www.radix-ui.com/docs/primitives/overview/animation#animating-with-css-animation

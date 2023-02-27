@@ -12,7 +12,7 @@ import Text from './Text';
 export default function Nodes({ lang }: { lang: string }) {
   const searchParams = useSearchParams()!;
   const level = +searchParams.get('level')!;
-  const { data: nodes = [], error } = useNodes({ level, language: lang });
+  const { data: nodes = [] } = useNodes({ level, language: lang });
   const { data: player } = useSavegamePlayer();
 
   function isDiscovered(node: Node) {
@@ -24,6 +24,12 @@ export default function Nodes({ lang }: { lang: string }) {
       node.type === 'fastTravelSanctuaryHogwarts'
     ) {
       return player.locations.hogwarts.fastTravels.values.includes(node.id);
+    }
+    if (node.type === 'guardianLeviosa' || node.type === 'accioPage') {
+      return player.locations.hogwarts.collections.values.includes(node.id);
+    }
+    if (node.type === 'kio') {
+      return player.locations.hogwarts.fieldGuidePages.values.includes(node.id);
     }
     return null;
   }

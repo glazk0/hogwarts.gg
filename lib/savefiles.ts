@@ -100,7 +100,7 @@ export function extractPlayer(db: Database): SavefilePlayer {
 
 export function extractMapLocationData(db: Database) {
   const mapLocationData = db.exec(
-    `SELECT MapLocationID, State FROM MapLocationDataDynamic ;`,
+    `SELECT MapLocationID, State FROM MapLocationDataDynamic;`,
   );
   const { values } = mapLocationData[0];
   const data = values as [string, number][];
@@ -111,11 +111,9 @@ export function extractMapLocationData(db: Database) {
     value[0].startsWith('Chest_HW_'),
   );
   const collectionsHogwarts = data.filter((value) =>
-    value[0].startsWith('Collect_HW_'),
+    value[0].includes('Collect_HW_'),
   );
-  // const kioHogwarts = data.filter((value) =>
-  //   value[0].startsWith('KIO_HW_'),
-  // );
+  const kioHogwarts = data.filter((value) => value[0].startsWith('KIO_HW_'));
 
   return {
     hogwarts: {
@@ -136,6 +134,12 @@ export function extractMapLocationData(db: Database) {
           .filter((value) => value[1] !== 3)
           .map((value) => value[0]),
         max: collectionsHogwarts.length,
+      },
+      fieldGuidePages: {
+        values: kioHogwarts
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: kioHogwarts.length,
       },
     },
   };
@@ -166,6 +170,10 @@ export type SavefilePlayer = {
         max: number;
       };
       collections: {
+        values: string[];
+        max: number;
+      };
+      fieldGuidePages: {
         values: string[];
         max: number;
       };

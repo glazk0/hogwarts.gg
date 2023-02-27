@@ -55,11 +55,13 @@ export const nodeTypes: NodeType[] = [
     value: 'accioPage',
     title: 'Accio Page',
     icon: '/assets/icons/accio_page.png',
+    discoveredIcon: '/assets/icons/accio_page_discovered.png',
   },
   {
     value: 'guardianLeviosa',
     title: 'Winguardian Leviosa',
     icon: '/assets/icons/wingardium.png',
+    discoveredIcon: '/assets/icons/wingardium_discovered.png',
   },
   {
     value: 'mothFrame',
@@ -77,6 +79,12 @@ export const nodeTypes: NodeType[] = [
     title: 'Fast Travel Sanctuary',
     icon: '/assets/icons/sanctuary_hogwarts.png',
     discoveredIcon: '/assets/icons/sanctuary_hogwarts_discovered.png',
+  },
+  {
+    value: 'kio',
+    title: 'Field Guide Pages (Revelio)',
+    icon: '/assets/icons/unknown.webp',
+    discoveredIcon: '/assets/icons/unknown_discovered.webp',
   },
 ];
 

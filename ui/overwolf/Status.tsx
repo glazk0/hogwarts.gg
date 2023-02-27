@@ -258,18 +258,31 @@ function SaveGame({
             <h5 className="font-semibold">{translations.hogwarts}</h5>
             <p>
               {translations.chests}:{' '}
-              {player.locations.hogwarts.chests.values.length}/
-              {player.locations.hogwarts.chests.max}
+              <span className="text-discovered">
+                {player.locations.hogwarts.chests.values.length}
+              </span>
+              /{player.locations.hogwarts.chests.max}
             </p>
             <p>
               {translations.collections}:{' '}
-              {player.locations.hogwarts.collections.values.length}/
-              {player.locations.hogwarts.collections.max}
+              <span className="text-discovered">
+                {player.locations.hogwarts.collections.values.length}
+              </span>
+              /{player.locations.hogwarts.collections.max}
+            </p>
+            <p>
+              Field Guide Pages:{' '}
+              <span className="text-discovered">
+                {player.locations.hogwarts.fieldGuidePages.values.length}
+              </span>
+              /{player.locations.hogwarts.fieldGuidePages.max}
             </p>
             <p>
               {translations.fastTravel}:{' '}
-              {player.locations.hogwarts.fastTravels.values.length}/
-              {player.locations.hogwarts.fastTravels.max}
+              <span className="text-discovered">
+                {player.locations.hogwarts.fastTravels.values.length}
+              </span>
+              /{player.locations.hogwarts.fastTravels.max}
             </p>
           </>
         ) : (
