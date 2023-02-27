@@ -82,6 +82,7 @@ const NodeForm = ({ level }: { level: string }) => {
     setIsLoading(true);
     const node = {
       ...data,
+      id: `${data.type}-${data.title}`,
       x: coordinates[1],
       y: coordinates[0],
       z: z[0],
@@ -129,6 +130,7 @@ const NodeForm = ({ level }: { level: string }) => {
                     latLng={field.value as LatLngExpression}
                     draggable
                     tooltip={createNodeTooltip({
+                      id: `${type}-${title}`,
                       title,
                       type,
                       description: null,

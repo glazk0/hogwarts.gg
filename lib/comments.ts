@@ -3,26 +3,15 @@ import { ok } from 'assert';
 import type { Database } from './database.types';
 import type { User } from './users';
 
-export const getComments = async (
-  props:
-    | {
-        postId: number;
-      }
-    | {
-        nodeId: number;
-      },
-): Promise<Comment[]> => {
-  const hasPostId = 'postId' in props;
+export const getComments = async (props: {
+  postId: number;
+}): Promise<Comment[]> => {
   const request = supabase
     .from('comments')
     .select('*, user:users(username)')
     .order('created_at', { ascending: false });
 
-  if (hasPostId) {
-    request.eq('post_id', props.postId);
-  } else {
-    request.eq('node_id', props.nodeId);
-  }
+  request.eq('post_id', props.postId);
 
   const { data: comments, error } = await request;
 
@@ -34,27 +23,18 @@ export const getComments = async (
     return [];
   }
 
-  const result = comments.map(({ post_id, node_id, user, ...rest }) => {
+  const result = comments.map(({ post_id, user, ...rest }) => {
     // It will never be an array because the `users.id` is unique
     ok(!Array.isArray(user));
     // The author should exists
     ok(user !== null);
     // Check if it's a comment for nodes or posts
-    if (hasPostId) {
-      ok(post_id !== null);
-      return {
-        ...rest,
-        post_id: post_id,
-        user: user,
-      };
-    } else {
-      ok(node_id !== null);
-      return {
-        ...rest,
-        node_id: node_id,
-        user: user,
-      };
-    }
+    ok(post_id !== null);
+    return {
+      ...rest,
+      post_id: post_id,
+      user: user,
+    };
   });
   return result;
 };

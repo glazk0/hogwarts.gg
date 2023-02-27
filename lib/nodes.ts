@@ -55,17 +55,15 @@ export const getNodes = async ({
       const title = terms.find((term) => term.key === 'LOCK_LEVEL_1')!.value;
       return {
         ...result,
-        titleId,
         title,
       };
     }
     if (!titleId) {
-      return { ...result, titleId };
+      return result;
     }
     const term = terms.find((term) => term.key === titleId.toUpperCase())!;
     return {
       ...result,
-      titleId,
       title: term.value,
       description: term.description,
     };
@@ -73,16 +71,12 @@ export const getNodes = async ({
 };
 
 export const insertNode = async (
-  node: Omit<
-    Database['public']['Tables']['nodes']['Insert'],
-    'id' | 'created_at'
-  >,
+  node: Omit<Database['public']['Tables']['nodes']['Insert'], 'created_at'>,
 ) => {
   return await supabase.from('nodes').insert(node);
 };
 
 export type Node = Database['public']['Tables']['nodes']['Row'] & {
-  titleId: string | null;
   description: string | null;
   level: number;
   nodeType: {
