@@ -20,3 +20,6 @@ const supabase = createBrowserSupabaseClient<Database>({
   },
 });
 export default supabase;
+
+// @ts-ignore
+window.supabase = supabase;
