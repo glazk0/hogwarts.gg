@@ -10,7 +10,7 @@ export default function Exit() {
 
   useEffect(() => {
     if (seconds < 1) {
-      // window.close();
+      window.close();
     }
   }, [seconds]);
 
@@ -27,11 +27,9 @@ export default function Exit() {
   }, [me]);
 
   let content;
-  if (!isLoading) {
+  if (isLoading) {
     content = <></>;
-  }
-
-  if (!me) {
+  } else if (!me) {
     content = (
       <>
         <h1 className="text-xl">Could not sign-in 😡</h1>
