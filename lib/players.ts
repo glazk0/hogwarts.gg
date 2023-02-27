@@ -38,25 +38,7 @@ const toPlayerRow = (player: SavefilePlayer) => {
   };
 };
 
-export const getPlayer = async (id: string): Promise<Player | null> => {
-  const { data: player, error } = await supabase
-    .from('players')
-    .select('*')
-    .eq('id', id)
-    .maybeSingle();
-
-  if (error) {
-    throw error;
-  }
-
-  if (!player) {
-    return null;
-  }
-
-  return toPlayer(player);
-};
-
-export const getPlayers = async (userId: string): Promise<Player[]> => {
+export const getPlayers = async (userId: string) => {
   const { data: players, error } = await supabase
     .from('players')
     .select('*')
