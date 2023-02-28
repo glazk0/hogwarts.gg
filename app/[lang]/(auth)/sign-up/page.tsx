@@ -3,12 +3,6 @@ import UserAuthForm from '#/ui/UserAuthForm';
 
 export const metadata = {
   title: 'Sign Up',
-  openGraph: {
-    title: 'Sign Up',
-  },
-  twitter: {
-    title: 'Sign Up',
-  },
 };
 
 export default async function Page({

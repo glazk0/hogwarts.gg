@@ -1,11 +1,5 @@
 export const metadata = {
   title: 'Privacy Policy',
-  openGraph: {
-    title: 'Privacy Policy',
-  },
-  twitter: {
-    title: 'Privacy Policy',
-  },
 };
 
 export default function Page() {
