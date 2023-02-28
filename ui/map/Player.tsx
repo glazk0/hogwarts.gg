@@ -49,7 +49,7 @@ export default function Player() {
   }, [map, Boolean(playerPosition)]);
 
   useEffect(() => {
-    if (level !== playerLevel) {
+    if (level !== playerLevel && playerLevel) {
       const href = `/${lang}/map/hogwarts?level=${playerLevel}`;
       router.prefetch(href);
       router.replace(href);

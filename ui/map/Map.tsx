@@ -28,7 +28,9 @@ const Map = ({
       maxZoom: 100,
       crs,
     });
-    map.fitBounds(bounds);
+    map.fitBounds(bounds, {
+      padding: [-100, -100],
+    });
     map.on('contextmenu', () => {
       // Do nothing
     });
