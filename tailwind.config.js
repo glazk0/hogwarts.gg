@@ -8,7 +8,8 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './ui/**/*.{js,ts,jsx,tsx}',
   ],
-  safelist: ['text-discovered'],
+  // Safelist for map tooltips
+  safelist: ['text-discovered', 'whitespace-normal', 'w-80'],
   future: {
     hoverOnlyWhenSupported: true,
   },

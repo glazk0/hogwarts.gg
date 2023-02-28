@@ -12,7 +12,7 @@ export default function Tooltip({ label, children }: TooltipProps) {
         <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content
-            className="py-1 px-2 rounded bg-zinc-900 data-open:animate-fadeIn data-closed:animate-fadeOut"
+            className="py-1 px-2 rounded bg-zinc-900 data-open:animate-fadeIn data-closed:animate-fadeOut max-w-xs break-words text-justify"
             sideOffset={5}
             collisionPadding={8}
           >

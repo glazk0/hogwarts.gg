@@ -67,7 +67,7 @@
 }
 
 .leaflet-tooltip {
-  @apply !text-center !rounded !bg-gray-1100 border !border-gray-800 !text-white !p-2 !w-96 !whitespace-normal;
+  @apply !text-center !rounded !bg-gray-1100 border !border-gray-800 !text-white !p-2 !max-w-sm;
 }
 
 .leaflet-tooltip-top:before {
