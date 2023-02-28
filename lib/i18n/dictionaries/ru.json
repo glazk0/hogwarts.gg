@@ -51,7 +51,8 @@
     "title": "Заголовок",
     "short": "Кратко",
     "full": "Полностью",
-    "dangerZone": "Опасная зона"
+    "dangerZone": "Опасная зона",
+    "showOnMap": "Показать на карте"
   },
   "posts": {
     "writtenBy": "Written by",

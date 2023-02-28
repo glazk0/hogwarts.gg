@@ -102,6 +102,7 @@
     "hogwarts": "Hogwarts",
     "fastTravel": "Fast Travel",
     "chests": "Chests",
-    "collections": "Collections"
+    "collections": "Collections",
+    "showOnMap": "Show on map"
   }
 }

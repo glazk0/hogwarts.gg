@@ -74,20 +74,20 @@ export default function HogwartsLevelSelect() {
             <p className="absolute right-1 bottom-1">{level}</p>
           </button>
         }
-        className="p-4"
+        className="p-4 right-96"
       >
-        <div className="flex gap-4 flex-wrap justify-center content-center overflow-auto h-full  mx-auto">
+        <div className="flex flex-wrap justify-center content-center overflow-auto grow mx-auto">
           {HOGWARTS_LEVELS.map((level) => (
             <AppLink
               key={level}
               href={`/map/hogwarts?level=${level}`}
-              className="relative transition hover:scale-150 hover:z-30"
+              className="relative transition scale-90 hover:scale-150 hover:z-30"
               onClick={() => setOpen(false)}
             >
               <Image
                 src={getMapTile(level)}
-                width={120}
-                height={120}
+                width={100}
+                height={100}
                 alt={`Level ${level}`}
                 className="border rounded"
               />

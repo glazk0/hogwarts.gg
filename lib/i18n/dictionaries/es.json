@@ -51,7 +51,8 @@
     "title": "Titulo",
     "short": "Corto",
     "full": "Lleno",
-    "dangerZone": "Region de peligro"
+    "dangerZone": "Region de peligro",
+    "showOnMap": "Mostrar en mapa"
   },
   "posts": {
     "writtenBy": "Escrito por",

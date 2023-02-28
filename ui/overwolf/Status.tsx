@@ -1,3 +1,5 @@
+'use client';
+
 import useLanguage from '#/lib/hooks/use-language';
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
 import {
@@ -6,15 +8,17 @@ import {
 } from '#/lib/hooks/use-savegame-player';
 import { getDateLocale } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
+import { getLevelByZ } from '#/lib/map';
 import { postMessage } from '#/lib/messages';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
 import { IconHelp } from '@tabler/icons-react';
 import { formatDistance } from 'date-fns';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
+import Button from '../Button';
 import Stack from '../Stack';
 import Tooltip from '../Tooltip';
 
@@ -53,9 +57,11 @@ export default function Status({
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
   const setPlayerPosition = useSetPlayerPosition();
+  const { mutate } = useSWRConfig();
+  const router = useRouter();
+  const lang = useLanguage();
 
   const savegame = status?.savegame || null;
-  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     postMessage({
@@ -146,6 +152,20 @@ export default function Status({
             ? `X: ${realtime?.position.x} Y: ${realtime?.position.y} Z: ${realtime?.position.z}`
             : translations.positionIsNotDetected}
         </p>
+        <Button
+          size="xs"
+          className="mt-1"
+          disabled={!realtime?.position}
+          onClick={() => {
+            const href = `/${lang}/map/hogwarts?level=${getLevelByZ(
+              realtime!.position!.z,
+            )}`;
+            router.prefetch(href);
+            router.replace(href);
+          }}
+        >
+          {translations.showOnMap}
+        </Button>
       </Section>
       <Section
         title={translations.latestSavegame}

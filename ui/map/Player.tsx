@@ -49,15 +49,23 @@ export default function Player() {
   }, [map, Boolean(playerPosition)]);
 
   useEffect(() => {
-    if (!marker) {
-      return;
-    }
     if (level !== playerLevel) {
       const href = `/${lang}/map/hogwarts?level=${playerLevel}`;
       router.prefetch(href);
       router.replace(href);
     }
   }, [playerLevel]);
+
+  useEffect(() => {
+    if (!marker) {
+      return;
+    }
+    if (level !== playerLevel) {
+      marker.setOpacity(0.5);
+    } else {
+      marker.setOpacity(1);
+    }
+  }, [marker, playerLevel, level]);
 
   useEffect(() => {
     if (!marker || !playerPosition) {

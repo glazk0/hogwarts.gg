@@ -102,6 +102,7 @@
     "hogwarts": "Hogwarts",
     "fastTravel": "Schnellreise",
     "chests": "Truhen",
-    "collections": "Sammlungen"
+    "collections": "Sammlungen",
+    "showOnMap": "Auf der Karte anzeigen"
   }
 }
