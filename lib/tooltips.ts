@@ -23,7 +23,7 @@ export const createNodeTooltip = (
     tooltip += `<p class="text-bold text-discovered">Discovered</p>`;
   }
   if (process.env.NODE_ENV === 'development') {
-    tooltip += `<p class="text-xs text-gray-400">${node.id}</p>`;
+    tooltip += `<p class="text-xs text-gray-400 truncate">${node.id}</p>`;
   }
 
   return tooltip;

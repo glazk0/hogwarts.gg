@@ -42,8 +42,8 @@ async function initController() {
       event.runningChanged &&
       event.gameInfo?.classId === HOGWARTS_LEGACY_CLASS_ID
     ) {
+      const preferedWindowName = await getPreferedWindowName();
       if (event.gameInfo.isRunning) {
-        const preferedWindowName = await getPreferedWindowName();
         if (preferedWindowName === WINDOWS.OVERLAY) {
           restoreWindow(WINDOWS.OVERLAY);
           closeWindow(WINDOWS.DESKTOP);
@@ -51,7 +51,7 @@ async function initController() {
           restoreWindow(WINDOWS.DESKTOP);
           closeWindow(WINDOWS.OVERLAY);
         }
-      } else {
+      } else if (preferedWindowName === WINDOWS.OVERLAY) {
         closeMainWindow();
       }
     }
