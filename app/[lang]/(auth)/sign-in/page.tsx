@@ -1,6 +1,10 @@
 import { loadDictionary } from '#/lib/i18n/settings';
 import UserAuthForm from '#/ui/UserAuthForm';
 
+export const metadata = {
+  title: 'Sign In',
+};
+
 export default async function Page({
   params: { lang },
 }: {

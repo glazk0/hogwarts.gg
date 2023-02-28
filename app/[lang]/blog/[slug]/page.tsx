@@ -1,8 +1,44 @@
 import { loadDictionary } from '#/lib/i18n/settings';
 import { getPostBySlug, getPosts } from '#/lib/posts';
+import { getURL, replaceHTML } from '#/lib/utils';
 import Post from '#/ui/Post';
 import SWRFallback from '#/ui/SWRFallback';
+import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
+
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getPostBySlug(slug, { published: true });
+
+  if (!post) {
+    notFound();
+  }
+
+  return {
+    title: post!.title,
+    description: replaceHTML(post!.short!),
+    openGraph: {
+      title: post!.title!,
+      description: replaceHTML(post!.short!),
+      type: 'article',
+      url: getURL(`/${post!.language}/blog/${post!.slug}`),
+      images: [
+        {
+          url: getURL(post!.image!) || getURL('/assets/social.png'),
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post!.title!,
+      description: replaceHTML(post!.short!),
+      images: [getURL(post!.image!) || getURL('/assets/social.png')],
+    },
+  };
+}
 
 export default async function Page({
   params: { slug, lang },
@@ -15,11 +51,13 @@ export default async function Page({
   const { post: translations } = await loadDictionary(lang);
 
   const post = await getPostBySlug(slug, { published: true });
+
   if (!post) {
     notFound();
   }
-  if (post.language !== lang) {
-    const correctPost = post.posts.find(
+
+  if (post!.language !== lang) {
+    const correctPost = post!.posts.find(
       (post) => post.language === lang && post.published,
     );
     if (correctPost?.slug) {

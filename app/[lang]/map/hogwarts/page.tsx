@@ -9,6 +9,10 @@ const HogwartsMap = nextDynamic(() => import('#/ui/map/HogwartsMap'), {
   ssr: false,
 });
 
+export const metadata = {
+  title: 'Map',
+};
+
 export default async function Page({
   params: { lang },
 }: {

@@ -3,7 +3,25 @@ import { getPlayers } from '#/lib/players';
 import { getUser, getUsers } from '#/lib/users';
 import SWRFallback from '#/ui/SWRFallback';
 import User from '#/ui/users/User';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const user = await getUser(id);
+
+  if (!user) {
+    notFound();
+  }
+  // TODO: Handle OpenGraph and Twitter metadata (it reset if I just change the title)
+  return {
+    title: user.username,
+    description: user.description,
+  };
+}
 
 export default async function Page({
   params: { id, lang },

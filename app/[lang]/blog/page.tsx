@@ -4,6 +4,11 @@ import Hero from '#/ui/Hero';
 import Posts from '#/ui/Posts';
 import SWRFallback from '#/ui/SWRFallback';
 
+export const metadata = {
+  title: 'Blog',
+  // TODO: Handle OpenGraph and Twitter metadata (it reset if I just change the title)
+};
+
 export default async function Page({
   params: { lang },
 }: {
