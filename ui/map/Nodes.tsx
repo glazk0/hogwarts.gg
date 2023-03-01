@@ -24,15 +24,24 @@ export default function Nodes({ lang }: { lang: string }) {
       node.type === 'fastTravelSanctuaryHogwarts'
     ) {
       return (
+        player.locations.overland.fastTravels.values.includes(node.id) ||
         player.locations.hogwarts.fastTravels.values.includes(node.id) ||
-        player.locations.overland.fastTravels.values.includes(node.id)
+        player.locations.hogsmeade.fastTravels.values.includes(node.id)
       );
     }
     if (node.type === 'guardianLeviosa' || node.type === 'accioPage') {
-      return player.locations.hogwarts.collections.values.includes(node.id);
+      return (
+        player.locations.overland.collections.values.includes(node.id) ||
+        player.locations.hogwarts.collections.values.includes(node.id) ||
+        player.locations.hogsmeade.collections.values.includes(node.id)
+      );
     }
     if (node.type === 'kio') {
-      return player.locations.hogwarts.fieldGuidePages.values.includes(node.id);
+      return (
+        player.locations.overland.fieldGuidePages.values.includes(node.id) ||
+        player.locations.hogwarts.fieldGuidePages.values.includes(node.id) ||
+        player.locations.hogsmeade.fieldGuidePages.values.includes(node.id)
+      );
     }
     return false;
   }

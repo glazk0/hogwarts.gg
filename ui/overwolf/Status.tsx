@@ -10,6 +10,7 @@ import {
 import { getDateLocale } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import { postMessage } from '#/lib/messages';
+import type { MapLocations } from '#/lib/savefiles';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
 import { IconHelp } from '@tabler/icons-react';
@@ -277,43 +278,21 @@ function SaveGame({
             <p className="text-sm text-gray-400">
               <time dateTime={savegame.lastUpdate}>{timeDistance}</time>
             </p>
-            <h5 className="font-semibold">Overland</h5>
-            <p>
-              {translations.fastTravel}:{' '}
-              <span className="text-discovered">
-                {player.locations.overland.fastTravels.values.length}
-              </span>
-              /{player.locations.overland.fastTravels.max}
-            </p>
-            <h5 className="font-semibold">{translations.hogwarts}</h5>
-            <p>
-              {translations.chests}:{' '}
-              <span className="text-discovered">
-                {player.locations.hogwarts.chests.values.length}
-              </span>
-              /{player.locations.hogwarts.chests.max}
-            </p>
-            <p>
-              {translations.collections}:{' '}
-              <span className="text-discovered">
-                {player.locations.hogwarts.collections.values.length}
-              </span>
-              /{player.locations.hogwarts.collections.max}
-            </p>
-            <p>
-              Field Guide Pages:{' '}
-              <span className="text-discovered">
-                {player.locations.hogwarts.fieldGuidePages.values.length}
-              </span>
-              /{player.locations.hogwarts.fieldGuidePages.max}
-            </p>
-            <p>
-              {translations.fastTravel}:{' '}
-              <span className="text-discovered">
-                {player.locations.hogwarts.fastTravels.values.length}
-              </span>
-              /{player.locations.hogwarts.fastTravels.max}
-            </p>
+            <MapLocationsProgress
+              title="Overland"
+              translations={translations}
+              mapLocations={player.locations.overland}
+            />
+            <MapLocationsProgress
+              title={translations.hogwarts}
+              translations={translations}
+              mapLocations={player.locations.hogwarts}
+            />
+            <MapLocationsProgress
+              title="Hogsmeade"
+              translations={translations}
+              mapLocations={player.locations.hogsmeade}
+            />
           </>
         ) : (
           <>
@@ -323,5 +302,51 @@ function SaveGame({
         )}
       </div>
     </div>
+  );
+}
+
+function MapLocationsProgress({
+  title,
+  translations,
+  mapLocations,
+}: {
+  title: string;
+  translations: Translations;
+  mapLocations: MapLocations;
+}) {
+  return (
+    <>
+      <h5 className="font-semibold">{title}</h5>
+      <p>
+        {translations.chests}:{' '}
+        <span className="text-discovered">
+          {mapLocations.chests.values.length}
+        </span>
+        /{mapLocations.chests.max}
+      </p>
+      {mapLocations.collections.max > 0 && (
+        <p>
+          {translations.collections}:{' '}
+          <span className="text-discovered">
+            {mapLocations.collections.values.length}
+          </span>
+          /{mapLocations.collections.max}
+        </p>
+      )}
+      <p>
+        Field Guide Pages:{' '}
+        <span className="text-discovered">
+          {mapLocations.fieldGuidePages.values.length}
+        </span>
+        /{mapLocations.fieldGuidePages.max}
+      </p>
+      <p>
+        {translations.fastTravel}:{' '}
+        <span className="text-discovered">
+          {mapLocations.fastTravels.values.length}
+        </span>
+        /{mapLocations.fastTravels.max}
+      </p>
+    </>
   );
 }
