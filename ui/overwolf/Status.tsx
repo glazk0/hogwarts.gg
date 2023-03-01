@@ -1,5 +1,6 @@
 'use client';
 
+import { dispatchEvent } from '#/lib/hooks/use-event-listener';
 import useLanguage from '#/lib/hooks/use-language';
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
 import {
@@ -8,7 +9,6 @@ import {
 } from '#/lib/hooks/use-savegame-player';
 import { getDateLocale } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
-import { getLevelByZ } from '#/lib/map';
 import { postMessage } from '#/lib/messages';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
@@ -157,11 +157,13 @@ export default function Status({
           className="mt-1"
           disabled={!realtime?.position}
           onClick={() => {
-            const href = `/${lang}/map/hogwarts?level=${getLevelByZ(
-              realtime!.position!.z,
-            )}`;
-            router.prefetch(href);
-            router.replace(href);
+            if (!pathname?.includes('/map')) {
+              const href = `/${lang}/map/hogwarts`;
+              router.prefetch(href);
+              router.replace(href);
+            } else {
+              dispatchEvent('show-on-map');
+            }
           }}
         >
           {translations.showOnMap}
@@ -274,6 +276,14 @@ function SaveGame({
             </p>
             <p className="text-sm text-gray-400">
               <time dateTime={savegame.lastUpdate}>{timeDistance}</time>
+            </p>
+            <h5 className="font-semibold">Overland</h5>
+            <p>
+              {translations.fastTravel}:{' '}
+              <span className="text-discovered">
+                {player.locations.overland.fastTravels.values.length}
+              </span>
+              /{player.locations.overland.fastTravels.max}
             </p>
             <h5 className="font-semibold">{translations.hogwarts}</h5>
             <p>

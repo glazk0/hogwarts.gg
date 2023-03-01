@@ -6,9 +6,11 @@ import { useMap } from './Map';
 export default function ImageOverlay({
   url,
   bounds,
+  zIndex,
 }: {
   url: string;
   bounds: leaflet.LatLngBoundsExpression;
+  zIndex: number;
 }) {
   const map = useMap();
 
@@ -16,13 +18,16 @@ export default function ImageOverlay({
     if (!map) {
       return;
     }
-    const imageOverlay = leaflet.imageOverlay(url, bounds);
+    const imageOverlay = leaflet.imageOverlay(url, bounds, {
+      zIndex,
+      opacity: zIndex === 1 ? 0.5 : 1,
+    });
     imageOverlay.addTo(map);
 
     return () => {
       imageOverlay.removeFrom(map);
     };
-  }, [map, url, bounds]);
+  }, [url, bounds]);
 
   return <></>;
 }

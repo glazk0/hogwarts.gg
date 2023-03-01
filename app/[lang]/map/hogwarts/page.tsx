@@ -1,5 +1,4 @@
 import FixedBox from '#/ui/FixedBox';
-import AddNode from '#/ui/map/AddNode';
 import HogwartsLevelSelect from '#/ui/map/HogwartsLevelSelect';
 import Nodes from '#/ui/map/Nodes';
 import Player from '#/ui/map/Player';
@@ -18,7 +17,6 @@ export default async function Page({
     <div className="h-full-height w-full relative">
       <HogwartsMap>
         <FixedBox className="right-4 top-4 flex justify-center space-x-2">
-          <AddNode />
           <PlayerSync />
         </FixedBox>
         <FixedBox className="left-4 bottom-0 flex justify-center space-x-2">

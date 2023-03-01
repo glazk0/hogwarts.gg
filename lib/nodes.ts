@@ -1,27 +1,18 @@
 import type { Database } from './database.types';
 import { getLocales } from './locales';
-import { getLevelByZ, getZRange } from './map';
+import { getLevelByZ } from './map';
 import { getNodeType } from './node-types';
 import supabase from './supabase-browser';
 
 export const getNodes = async ({
-  level,
   language,
 }: {
-  level?: number;
   language: string;
 }): Promise<Node[]> => {
   const request = supabase
     .from('nodes')
     .select('*')
-    .eq('world', 'hogwarts')
     .order('created_at', { ascending: false });
-
-  if (level) {
-    const [bottomZValue, topZValue] = getZRange(level.toString());
-    request.gte('z', bottomZValue);
-    request.lt('z', topZValue);
-  }
 
   const { data: nodes, error } = await request;
 
@@ -46,7 +37,7 @@ export const getNodes = async ({
 
   return nodes.map((node) => {
     const nodeType = getNodeType(node.type);
-    const level = getLevelByZ(node.z);
+    const level = node.world === 'hogwarts' ? getLevelByZ(node.z) : null;
 
     const titleId = node.title;
     const isChest = node.type === 'mediumGearChest';
@@ -80,7 +71,7 @@ export const insertNode = async (
 
 export type Node = Database['public']['Tables']['nodes']['Row'] & {
   description: string | null;
-  level: number;
+  level: number | null;
   titleId: string | null;
   nodeType: {
     value: string;

@@ -2,22 +2,22 @@
 
 import { useNodes } from '#/lib/hooks/use-nodes';
 import { useSavegamePlayer } from '#/lib/hooks/use-savegame-player';
-import { getNodeType } from '#/lib/node-types';
+import { getZRange } from '#/lib/map';
 import type { Node } from '#/lib/nodes';
-import { createNodeTooltip } from '#/lib/tooltips';
-import { useSearchParams } from 'next/navigation';
+import { useMapStore } from '#/lib/store/map';
 import Marker from './Marker';
 import Text from './Text';
 
 export default function Nodes({ lang }: { lang: string }) {
-  const searchParams = useSearchParams()!;
-  const level = +searchParams.get('level')!;
-  const { data: nodes = [] } = useNodes({ level, language: lang });
+  const { data: nodes = [] } = useNodes({ language: lang });
   const { data: player } = useSavegamePlayer();
+  const mapStore = useMapStore();
+
+  const zRange = mapStore.hogwartsLevel && getZRange(mapStore.hogwartsLevel);
 
   function isDiscovered(node: Node) {
     if (!player) {
-      return null;
+      return false;
     }
     if (
       node.type === 'fastTravelFireplaces' ||
@@ -31,11 +31,18 @@ export default function Nodes({ lang }: { lang: string }) {
     if (node.type === 'kio') {
       return player.locations.hogwarts.fieldGuidePages.values.includes(node.id);
     }
-    return null;
+    return false;
   }
+  const visibleNodes = nodes.filter((node) => {
+    if (node.world !== 'hogwarts' || !zRange) {
+      return true;
+    }
+    const [bottomZValue, topZValue] = zRange;
+    return node.z >= bottomZValue && node.z < topZValue;
+  });
   return (
     <>
-      {nodes!.map((node) => {
+      {visibleNodes.map((node) => {
         if (node.type === 'text') {
           return (
             <Text key={node.id} latLng={[node.y, node.x]}>
@@ -44,15 +51,7 @@ export default function Nodes({ lang }: { lang: string }) {
           );
         }
         const discovered = isDiscovered(node);
-        const nodeType = getNodeType(node.type);
-        return (
-          <Marker
-            key={node.id}
-            src={(discovered && nodeType.discoveredIcon) || nodeType.icon}
-            latLng={[node.y, node.x] as [number, number]}
-            tooltip={createNodeTooltip(node, isDiscovered(node))}
-          />
-        );
+        return <Marker key={node.id} node={node} discovered={discovered} />;
       })}
     </>
   );

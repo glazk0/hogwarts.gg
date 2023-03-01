@@ -3,7 +3,5 @@ export function setLastIFrameHref(pathname: string) {
 }
 
 export function getLastIFrameHref() {
-  return (
-    localStorage.getItem('lastIFramePathname') || '/en/map/hogwarts?level=10'
-  );
+  return localStorage.getItem('lastIFramePathname') || '/en/map/hogwarts';
 }
