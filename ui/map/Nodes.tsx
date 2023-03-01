@@ -43,6 +43,13 @@ export default function Nodes({ lang }: { lang: string }) {
         player.locations.hogsmeade.fieldGuidePages.values.includes(node.id)
       );
     }
+    if (node.type.includes('Chest')) {
+      return (
+        player.locations.overland.chests.values.includes(node.id) ||
+        player.locations.hogwarts.chests.values.includes(node.id) ||
+        player.locations.hogsmeade.chests.values.includes(node.id)
+      );
+    }
     return false;
   }
   const visibleNodes = nodes.filter((node) => {

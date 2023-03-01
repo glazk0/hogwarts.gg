@@ -25,26 +25,31 @@ export const nodeTypes: NodeType[] = [
     value: 'disillusionmentChest',
     title: 'Disillusionment Chest',
     icon: '/assets/icons/treasure_chest.png',
+    discoveredIcon: '/assets/icons/treasure_chest_discovered.png',
   },
   {
     value: 'conjurationsRecipeChest',
     title: 'Conjurations Recipe Chest',
     icon: '/assets/icons/treasure_chest.png',
+    discoveredIcon: '/assets/icons/treasure_chest_discovered.png',
   },
   {
     value: 'largeGoldSuperChest',
     title: 'Large Gold Super Chest',
     icon: '/assets/icons/treasure_chest.png',
+    discoveredIcon: '/assets/icons/treasure_chest_discovered.png',
   },
   {
     value: 'mediumGearChest',
     title: 'Medium Gear Chest',
     icon: '/assets/icons/treasure_chest.png',
+    discoveredIcon: '/assets/icons/treasure_chest_discovered.png',
   },
   {
     value: 'wandskinChest',
     title: 'Wandskin Chest',
     icon: '/assets/icons/treasure_chest.png',
+    discoveredIcon: '/assets/icons/treasure_chest_discovered.png',
   },
   {
     value: 'houseChest',
