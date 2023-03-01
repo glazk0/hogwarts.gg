@@ -180,5 +180,5 @@ export async function updatePost(
 }
 
 export function toSlug(title: string) {
-  return title.replaceAll(' ', '-').toLowerCase();
+  return title.replaceAll(' ', '-').replaceAll(',', '').toLowerCase();
 }
