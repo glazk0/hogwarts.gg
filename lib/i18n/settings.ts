@@ -17,10 +17,12 @@ export const labels: {
   ru: 'Русский',
 };
 
-export const alternates = languages.reduce((acc, lang) => {
-  acc[lang] = getURL(`/${lang}`);
-  return acc;
-}, {} as Record<string, string>);
+export function getAlternates(pathname = '') {
+  return languages.reduce((acc, lang) => {
+    acc[lang] = getURL(`/${lang}${pathname}`);
+    return acc;
+  }, {} as Record<string, string>);
+}
 
 export function getDateLocale(language: string) {
   switch (language) {

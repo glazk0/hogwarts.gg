@@ -1,13 +1,24 @@
-import { loadDictionary } from '#/lib/i18n/settings';
+import { getAlternates, loadDictionary } from '#/lib/i18n/settings';
 import { getPosts } from '#/lib/posts';
+import { getURL } from '#/lib/utils';
 import Hero from '#/ui/Hero';
 import Posts from '#/ui/Posts';
 import SWRFallback from '#/ui/SWRFallback';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Blog',
-  // TODO: Handle OpenGraph and Twitter metadata (it reset if I just change the title)
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  return {
+    title: 'Blog',
+    alternates: {
+      canonical: getURL(`/${params.lang}/blog`),
+      languages: getAlternates('/blog'),
+    },
+  };
+}
 
 export default async function Page({
   params: { lang },

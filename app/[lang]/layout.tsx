@@ -1,4 +1,4 @@
-import { alternates, languages, loadDictionary } from '#/lib/i18n/settings';
+import { getAlternates, languages, loadDictionary } from '#/lib/i18n/settings';
 import { cn, getURL } from '#/lib/utils';
 import '#/styles/globals.css';
 import Footer from '#/ui/Footer';
@@ -25,73 +25,79 @@ const fontSans = WorkSans({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-    template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
-  },
-  description:
-    'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
-  manifest: getURL('/favicon/site.webmanifest'),
-  openGraph: {
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  return {
     title: {
       default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
       template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
     },
     description:
       'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
-    url: getURL(),
-    siteName: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-    images: [
-      {
-        url: getURL('/assets/social.jpg'),
-        width: 2160,
-        height: 1080,
-        alt: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
+    manifest: getURL('/favicon/site.webmanifest'),
+    openGraph: {
+      title: {
+        default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
+        template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
       },
-    ],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: {
-      default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-      template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
+      description:
+        'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
+      url: getURL(),
+      siteName: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
+      images: [
+        {
+          url: getURL('/assets/social.jpg'),
+          width: 2160,
+          height: 1080,
+          alt: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
+        },
+      ],
+      type: 'website',
     },
-    description:
-      'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
-    creator: '@leonmachens',
-    creatorId: '837613011917484033',
-    images: [getURL('/assets/social.jpg')],
-  },
-  alternates: {
-    canonical: getURL(),
-    languages: alternates,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    twitter: {
+      card: 'summary_large_image',
+      title: {
+        default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
+        template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
+      },
+      description:
+        'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
+      creator: '@leonmachens',
+      creatorId: '837613011917484033',
+      images: getURL('/assets/social.jpg'),
+    },
+    alternates: {
+      canonical: getURL(`/${params.lang}`),
+      languages: getAlternates(),
+    },
+    robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
     },
-  },
 
-  icons: {
-    icon: [
-      {
-        url: getURL('/favicon/favicon-32x32.png'),
-        sizes: '32x32',
-      },
-      {
-        url: getURL('/favicon/favicon-16x16.png'),
-        sizes: '16x16',
-      },
-    ],
-    shortcut: getURL('/favicon.ico'),
-    apple: getURL('/favicon/apple-touch-icon.png'),
-  },
-};
+    icons: {
+      icon: [
+        {
+          url: getURL('/favicon/favicon-32x32.png'),
+          sizes: '32x32',
+        },
+        {
+          url: getURL('/favicon/favicon-16x16.png'),
+          sizes: '16x16',
+        },
+      ],
+      shortcut: getURL('/favicon.ico'),
+      apple: getURL('/favicon/apple-touch-icon.png'),
+    },
+  };
+}
 
 const RootLayout = async ({
   children,

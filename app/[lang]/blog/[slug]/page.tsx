@@ -7,9 +7,9 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 
 export async function generateMetadata({
-  params: { slug },
+  params: { lang, slug },
 }: {
-  params: { slug: string };
+  params: { lang: string; slug: string };
 }): Promise<Metadata> {
   const post = await getPostBySlug(slug, { published: true });
 
@@ -17,25 +17,34 @@ export async function generateMetadata({
     notFound();
   }
 
+  const alternativeLangs = post.posts.reduce((acc, post) => {
+    acc[post.language] = getURL(`/${post.language}/blog/${post.slug}`);
+    return acc;
+  }, {} as Record<string, string>);
+
   return {
-    title: post!.title,
-    description: replaceHTML(post!.short!),
+    title: post.title,
+    description: replaceHTML(post.short!),
     openGraph: {
-      title: post!.title!,
-      description: replaceHTML(post!.short!),
+      title: post.title!,
+      description: replaceHTML(post.short!),
       type: 'article',
-      url: getURL(`/${post!.language}/blog/${post!.slug}`),
+      url: getURL(`/${post.language}/blog/${post.slug}`),
       images: [
         {
-          url: getURL(post!.image!) || getURL('/assets/social.png'),
+          url: getURL(post.image!) || getURL('/assets/social.png'),
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post!.title!,
-      description: replaceHTML(post!.short!),
-      images: [getURL(post!.image!) || getURL('/assets/social.png')],
+      title: post.title!,
+      description: replaceHTML(post.short!),
+      images: [getURL(post.image!) || getURL('/assets/social.png')],
+    },
+    alternates: {
+      canonical: getURL(`/${lang}/blog/${slug}`),
+      languages: alternativeLangs,
     },
   };
 }
@@ -56,8 +65,8 @@ export default async function Page({
     notFound();
   }
 
-  if (post!.language !== lang) {
-    const correctPost = post!.posts.find(
+  if (post.language !== lang) {
+    const correctPost = post.posts.find(
       (post) => post.language === lang && post.published,
     );
     if (correctPost?.slug) {
