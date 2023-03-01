@@ -23,7 +23,10 @@ export default function Nodes({ lang }: { lang: string }) {
       node.type === 'fastTravelFireplaces' ||
       node.type === 'fastTravelSanctuaryHogwarts'
     ) {
-      return player.locations.hogwarts.fastTravels.values.includes(node.id);
+      return (
+        player.locations.hogwarts.fastTravels.values.includes(node.id) ||
+        player.locations.overland.fastTravels.values.includes(node.id)
+      );
     }
     if (node.type === 'guardianLeviosa' || node.type === 'accioPage') {
       return player.locations.hogwarts.collections.values.includes(node.id);

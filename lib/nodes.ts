@@ -43,12 +43,13 @@ export const getNodes = async ({
     const isChest = node.type === 'mediumGearChest';
     const result = { ...node, nodeType, level };
     if (isChest) {
-      const title = terms.find((term) => term.key === 'LOCK_LEVEL_1')!.value;
-      return {
-        ...result,
-        title,
-        titleId,
-      };
+      // Not sure how to find out which lock level is correct
+      // const title = terms.find((term) => term.key === 'LOCK_LEVEL_1')!.value;
+      // return {
+      //   ...result,
+      //   title,
+      //   titleId,
+      // };
     }
     if (!titleId) {
       return { ...result, titleId };
