@@ -18,14 +18,27 @@ export const HOGWARTS_BOUNDS: leaflet.LatLngBoundsExpression = [
   [BOTTOM_LEFT[0] - HEIGHT, BOTTOM_LEFT[1] + WIDTH],
 ];
 
-export const getMapTile = (level: number) => {
-  return `/assets/map/Hogwarts/UI_T_MapMini_Hogwarts_Level_${pad(level)}_D.png`;
+export const isInHogwarts = ({ x, y }: { x: number; y: number }) => {
+  return (
+    x >= HOGWARTS_BOUNDS[0][1] &&
+    x < HOGWARTS_BOUNDS[1][1] &&
+    y >= HOGWARTS_BOUNDS[1][0] &&
+    y < HOGWARTS_BOUNDS[0][0]
+  );
+};
+
+export const getMapTile = (level?: number) => {
+  const mapLevel = level && HOGWARTS_LEVELS.includes(level) ? level : 99;
+
+  return `/assets/map/Hogwarts/UI_T_MapMini_Hogwarts_Level_${pad(
+    mapLevel,
+  )}_D.png`;
 };
 const pad = (value: number) => `0${Math.floor(value)}`.slice(-2);
 
-export const getZRange = (level: string) => {
-  const bottom = bottomZValues[level] ?? -100000;
-  const top = bottomZValues[(+level + 1).toString()] ?? 0;
+export const getZRange = (level: number) => {
+  const bottom = bottomZValues[level.toString()] ?? -100000;
+  const top = bottomZValues[(level + 1).toString()] ?? 0;
   return [bottom, top];
 };
 

@@ -1,23 +1,32 @@
 'use client';
-import useLanguage from '#/lib/hooks/use-language';
+import useEventListener from '#/lib/hooks/use-event-listener';
 import { usePlayerPosition } from '#/lib/hooks/use-player-position';
-import { getLevelByZ } from '#/lib/map';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { getLevelByZ, isInHogwarts } from '#/lib/map';
+import { useMapStore } from '#/lib/store/map';
 import { useEffect, useState } from 'react';
 import { useMap } from './Map';
 import PlayerMarker, { createPlayerIcon } from './PlayerMarker';
 
 export default function Player() {
   const { data: playerPosition } = usePlayerPosition();
-  const searchParams = useSearchParams()!;
-  const router = useRouter();
-  const lang = useLanguage();
   const [marker, setMarker] = useState<PlayerMarker | null>(null);
   const map = useMap();
 
-  const level = +searchParams.get('level')!;
+  const playerLevel = playerPosition ? +getLevelByZ(playerPosition.z) : 0;
+  const inHogwarts = playerPosition ? isInHogwarts(playerPosition) : false;
+  const mapStore = useMapStore();
 
-  const playerLevel = playerPosition ? +getLevelByZ(playerPosition.z) : null;
+  useEventListener(
+    'show-on-map',
+    () => {
+      if (!marker) {
+        return;
+      }
+      map.panTo(marker.getLatLng());
+      mapStore.setHogwartsLevel(inHogwarts ? playerLevel : 0);
+    },
+    [marker, inHogwarts, playerLevel],
+  );
 
   useEffect(() => {
     if (!map.getPanes().mapPane || !playerPosition) {
@@ -34,13 +43,7 @@ export default function Player() {
 
     setMarker(marker);
     marker.addTo(map);
-
-    if (level !== playerLevel) {
-      const href = `/${lang}/map/hogwarts?level=${playerLevel}`;
-      router.prefetch(href);
-      router.replace(href);
-      map.panTo(marker.getLatLng());
-    }
+    map.panTo(marker.getLatLng());
 
     return () => {
       marker.removeFrom(map);
@@ -49,23 +52,19 @@ export default function Player() {
   }, [map, Boolean(playerPosition)]);
 
   useEffect(() => {
-    if (level !== playerLevel && playerLevel) {
-      const href = `/${lang}/map/hogwarts?level=${playerLevel}`;
-      router.prefetch(href);
-      router.replace(href);
-    }
-  }, [playerLevel]);
+    mapStore.setHogwartsLevel(inHogwarts ? playerLevel : 0);
+  }, [inHogwarts]);
 
   useEffect(() => {
     if (!marker) {
       return;
     }
-    if (level !== playerLevel) {
+    if (mapStore.hogwartsLevel !== playerLevel && inHogwarts) {
       marker.setOpacity(0.5);
     } else {
       marker.setOpacity(1);
     }
-  }, [marker, playerLevel, level]);
+  }, [marker, playerLevel, mapStore.hogwartsLevel, inHogwarts]);
 
   useEffect(() => {
     if (!marker || !playerPosition) {

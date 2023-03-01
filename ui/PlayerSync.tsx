@@ -2,7 +2,6 @@
 import { useMe } from '#/lib/hooks/use-me';
 import { useSetPlayerPosition } from '#/lib/hooks/use-player-position';
 import { useSetSavegamePlayer } from '#/lib/hooks/use-savegame-player';
-import { getLevelByZ } from '#/lib/map';
 import { upsertPlayer } from '#/lib/players';
 import type { SavefilePlayer } from '#/lib/savefiles';
 import { readSavegame } from '#/lib/savefiles';
@@ -89,8 +88,7 @@ export default function PlayerSync() {
                   <b>{player.year}th</b> year.
                 </p>
                 <p>
-                  You are in <b>{player.position.world}</b> at level{' '}
-                  <b>{getLevelByZ(player.position.z)}</b>.
+                  You are in <b>{player.position.world}</b>.
                 </p>
                 <p>
                   Coordinates: x{player.position.x} y{player.position.y} z

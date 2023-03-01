@@ -153,7 +153,7 @@ function NodeResult({ node }: { node: Node }) {
   return (
     <AppLink
       className="p-2 flex gap-4 items-center hover:bg-gray-600"
-      href={`/map/${node.world}?level=${node.level}`}
+      href={`/map/${node.world}`}
     >
       <Image
         src={node.nodeType.icon}
@@ -166,7 +166,8 @@ function NodeResult({ node }: { node: Node }) {
         <p className="font-semibold">{node.title || node.nodeType.title}</p>
         <p className="text-brand-400 text-sm">{node.nodeType.title}</p>
         <p className="capitalize text-gray-200 text-sm">
-          {node.world} Level {node.level}
+          {node.world}
+          {node.level && ` Level ${node.level}`}
         </p>
       </div>
     </AppLink>

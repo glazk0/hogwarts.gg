@@ -1,88 +1,111 @@
 'use client';
 
 import { getMapTile, HOGWARTS_LEVELS } from '#/lib/map';
+import { useMapStore } from '#/lib/store/map';
 import { cn } from '#/lib/utils';
-import { IconArrowBigDown, IconArrowBigUp } from '@tabler/icons-react';
+import { IconArrowBigDown, IconArrowBigUp, IconX } from '@tabler/icons-react';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import AppLink from '../AppLink';
 import Dialog from '../Dialog';
 import Tooltip from '../Tooltip';
 
 export default function HogwartsLevelSelect() {
   const [open, setOpen] = useState(false);
-  const searchParams = useSearchParams()!;
-  const level = +searchParams.get('level')!;
-  const router = useRouter();
-  const isFirst = level === 1;
-  const isLast = level === HOGWARTS_LEVELS[HOGWARTS_LEVELS.length - 1];
+  const mapStore = useMapStore();
+
+  const isFirst = mapStore.hogwartsLevel === 0;
+  const isLast =
+    mapStore.hogwartsLevel === HOGWARTS_LEVELS[HOGWARTS_LEVELS.length - 1];
+
   return (
     <div>
       <div className="p-2 flex gap-1 justify-center">
-        <Tooltip label="Level Down">
+        <Tooltip label="Hogwarts Level Down">
           <button
             disabled={isFirst}
             className={cn({
-              'text-gray-500': isFirst,
+              'text-gray-400': isFirst,
             })}
-            onClick={() => {
-              const href =
-                location.pathname +
-                location.search.replace(`level=${level}`, `level=${level - 1}`);
-
-              router.prefetch(href);
-              router.push(href);
-            }}
+            onClick={mapStore.decreaseHogwartsLevel}
           >
             <IconArrowBigDown />
           </button>
         </Tooltip>
-        <Tooltip label="Level Up">
+        <Tooltip label="Hogwarts Level Up">
           <button
             disabled={isLast}
             className={cn({
-              'text-gray-500': isLast,
+              'text-gray-400': isLast,
             })}
-            onClick={() => {
-              const href =
-                location.pathname +
-                location.search.replace(`level=${level}`, `level=${level + 1}`);
-
-              router.prefetch(href);
-              router.push(href);
-            }}
+            onClick={mapStore.increaseHogwartsLevel}
           >
             <IconArrowBigUp />
           </button>
         </Tooltip>
+        <Tooltip label="Clear">
+          <button
+            disabled={!mapStore.hogwartsLevel}
+            className={cn({
+              'text-gray-400': !mapStore.hogwartsLevel,
+            })}
+            onClick={() => {
+              mapStore.setHogwartsLevel(0);
+            }}
+          >
+            <IconX />
+          </button>
+        </Tooltip>
       </div>
       <Dialog
-        title="Select Level"
-        tooltip="Select Level"
+        title="Select Hogwarts Level"
+        tooltip="Select Hogwarts Level"
         open={open}
         onOpenChange={setOpen}
         trigger={
           <button className="relative">
             <Image
-              src={getMapTile(level)}
+              src={getMapTile(mapStore.hogwartsLevel)}
               width={120}
               height={120}
               alt="Current level"
               className="border rounded"
             />
-            <p className="absolute right-1 bottom-1">{level}</p>
+            {mapStore.hogwartsLevel > 0 && (
+              <p className="absolute right-1 bottom-1">
+                {mapStore.hogwartsLevel}
+              </p>
+            )}
           </button>
         }
         className="p-4 right-96"
       >
         <div className="flex flex-wrap justify-center content-center overflow-auto grow mx-auto">
+          <button
+            className="relative transition scale-90 hover:scale-150 hover:z-30"
+            onClick={() => {
+              mapStore.setHogwartsLevel(0);
+              setOpen(false);
+            }}
+          >
+            <Image
+              src={getMapTile()}
+              width={100}
+              height={100}
+              alt={'Full'}
+              className="border rounded"
+            />
+            <p className="absolute right-1 bottom-1">
+              <IconX />
+            </p>
+          </button>
           {HOGWARTS_LEVELS.map((level) => (
-            <AppLink
+            <button
               key={level}
-              href={`/map/hogwarts?level=${level}`}
               className="relative transition scale-90 hover:scale-150 hover:z-30"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                mapStore.setHogwartsLevel(level);
+                setOpen(false);
+              }}
             >
               <Image
                 src={getMapTile(level)}
@@ -92,7 +115,7 @@ export default function HogwartsLevelSelect() {
                 className="border rounded"
               />
               <p className="absolute right-1 bottom-1">{level}</p>
-            </AppLink>
+            </button>
           ))}
         </div>
       </Dialog>

@@ -30,7 +30,7 @@ export default async function Page({
           <Card
             title={translations.hogwarts}
             icon={<IconMap size={72} stroke={1.5} />}
-            href="/map/hogwarts?level=10"
+            href="/map/hogwarts"
           >
             {translations.viewMap}
           </Card>

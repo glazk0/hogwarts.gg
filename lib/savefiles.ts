@@ -104,6 +104,9 @@ export function extractMapLocationData(db: Database) {
   );
   const { values } = mapLocationData[0];
   const data = values as [string, number][];
+  const fastTravelsOverland = data.filter((value) =>
+    value[0].startsWith('FT_OL_'),
+  );
   const fastTravelsHogwarts = data.filter((value) =>
     value[0].startsWith('FT_HW_'),
   );
@@ -114,8 +117,20 @@ export function extractMapLocationData(db: Database) {
     value[0].includes('Collect_HW_'),
   );
   const kioHogwarts = data.filter((value) => value[0].startsWith('KIO_HW_'));
-
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.data = data;
+  }
   return {
+    overland: {
+      fastTravels: {
+        values: fastTravelsOverland
+          .filter((value) => value[1] !== 8)
+          .map((value) => value[0]),
+        max: fastTravelsOverland.length,
+      },
+    },
     hogwarts: {
       fastTravels: {
         values: fastTravelsHogwarts
@@ -160,6 +175,12 @@ export type SavefilePlayer = {
   lastName: string;
   year: number;
   locations: {
+    overland: {
+      fastTravels: {
+        values: string[];
+        max: number;
+      };
+    };
     hogwarts: {
       fastTravels: {
         values: string[];
