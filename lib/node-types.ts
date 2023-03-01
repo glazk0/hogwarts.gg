@@ -86,6 +86,12 @@ export const nodeTypes: NodeType[] = [
     icon: '/assets/icons/revelio.png',
     discoveredIcon: '/assets/icons/revelio_discovered.png',
   },
+  {
+    value: 'incendioDragon',
+    title: 'Incendio',
+    icon: '/assets/icons/incendio.png',
+    discoveredIcon: '/assets/icons/incendio_discovered.png',
+  },
 ];
 
 export const getNodeType = (value: string) =>
