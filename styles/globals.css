@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  .drag-none * {
+    -webkit-user-drag: none;
+  }
+
   .post {
     @apply w-full overflow-hidden;
   }
