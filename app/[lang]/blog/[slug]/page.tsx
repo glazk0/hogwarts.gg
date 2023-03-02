@@ -29,18 +29,15 @@ export async function generateMetadata({
       title: post.title!,
       description: replaceHTML(post.short!),
       type: 'article',
+      authors: [post.user.username],
       url: getURL(`/${post.language}/blog/${post.slug}`),
-      images: [
-        {
-          url: getURL(post.image!) || getURL('/assets/social.png'),
-        },
-      ],
+      images: getURL(post.image!) || getURL('/assets/social.png'),
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title!,
       description: replaceHTML(post.short!),
-      images: [getURL(post.image!) || getURL('/assets/social.png')],
+      images: getURL(post.image!) || getURL('/assets/social.png'),
     },
     alternates: {
       canonical: getURL(`/${lang}/blog/${slug}`),

@@ -7,14 +7,15 @@ import SWRFallback from '#/ui/SWRFallback';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
-  params,
+  params: { lang },
 }: {
   params: { lang: string };
 }): Promise<Metadata> {
+  const { global: globalTranslations } = await loadDictionary(lang);
   return {
-    title: 'Blog',
+    title: globalTranslations.blog,
     alternates: {
-      canonical: getURL(`/${params.lang}/blog`),
+      canonical: getURL(`/${lang}/blog`),
       languages: getAlternates('/blog'),
     },
   };

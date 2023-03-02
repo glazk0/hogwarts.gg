@@ -1,16 +1,31 @@
+import { getAlternates, loadDictionary } from '#/lib/i18n/settings';
+import { getURL } from '#/lib/utils';
 import FixedBox from '#/ui/FixedBox';
 import HogwartsLevelSelect from '#/ui/map/HogwartsLevelSelect';
 import Nodes from '#/ui/map/Nodes';
 import Player from '#/ui/map/Player';
 import PlayerSync from '#/ui/PlayerSync';
+import type { Metadata } from 'next';
 import nextDynamic from 'next/dynamic';
 const HogwartsMap = nextDynamic(() => import('#/ui/map/HogwartsMap'), {
   ssr: false,
 });
 
-export const metadata = {
-  title: 'Map',
-};
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  const { global: globalTranslations } = await loadDictionary(lang);
+
+  return {
+    title: globalTranslations.map,
+    alternates: {
+      canonical: getURL(`/${lang}/map/hogwarts`),
+      languages: getAlternates('/map/hogwarts'),
+    },
+  };
+}
 
 export default async function Page({
   params: { lang },

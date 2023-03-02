@@ -26,51 +26,42 @@ const fontSans = WorkSans({
 });
 
 export async function generateMetadata({
-  params,
+  params: { lang },
 }: {
   params: { lang: string };
 }): Promise<Metadata> {
+  const { metadata: metadataTranslations } = await loadDictionary(lang);
   return {
     title: {
-      default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-      template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
+      default: metadataTranslations.title,
+      template: `%s - ${metadataTranslations.title}`,
     },
-    description:
-      'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
+    description: metadataTranslations.description,
     manifest: getURL('/favicon/site.webmanifest'),
     openGraph: {
       title: {
-        default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-        template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
+        default: metadataTranslations.title,
+        template: `%s - ${metadataTranslations.title}`,
       },
-      description:
-        'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
+      description: metadataTranslations.description,
       url: getURL(),
-      siteName: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-      images: [
-        {
-          url: getURL('/assets/social.jpg'),
-          width: 2160,
-          height: 1080,
-          alt: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-        },
-      ],
+      siteName: metadataTranslations.title,
+      images: getURL('/assets/social.jpg'),
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: {
-        default: 'Hogwarts Legacy Map and Tools - Hogwarts.gg',
-        template: '%s - Hogwarts Legacy Map and Tools - Hogwarts.gg',
+        default: metadataTranslations.title,
+        template: `%s - ${metadataTranslations.title}`,
       },
-      description:
-        'Get all the Hogwarts Legacy locations, secrets, chests, entrances and more.',
+      description: metadataTranslations.description,
       creator: '@leonmachens',
       creatorId: '837613011917484033',
       images: getURL('/assets/social.jpg'),
     },
     alternates: {
-      canonical: getURL(`/${params.lang}`),
+      canonical: getURL(`/${lang}`),
       languages: getAlternates(),
     },
     robots: {
@@ -81,7 +72,6 @@ export async function generateMetadata({
         follow: true,
       },
     },
-
     icons: {
       icon: [
         {
