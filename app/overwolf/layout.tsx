@@ -1,7 +1,7 @@
 import '#/styles/globals.css';
 
 import { cn } from '#/lib/utils';
-import { Work_Sans as WorkSans } from '@next/font/google';
+import { Work_Sans as WorkSans } from 'next/font/google';
 
 const fontSans = WorkSans({
   variable: '--font-sans',
