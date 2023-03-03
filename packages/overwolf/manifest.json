@@ -39,8 +39,7 @@
         },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true,
-        "block_top_window_navigation": true
+        "mute": true
       },
       "overlay": {
         "file": "index.html",
@@ -61,8 +60,7 @@
         },
         "allow_local_file_access": true,
         "popup_blocker": true,
-        "mute": true,
-        "block_top_window_navigation": true
+        "mute": true
       },
       "authDiscord": {
         "file": "auth-discord.html",

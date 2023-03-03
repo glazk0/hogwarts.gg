@@ -51,7 +51,6 @@ waitForOverwolf().then(async () => {
   );
 
   const iframe = IFrame();
-  document.body.append(iframe);
   const error = document.querySelector<HTMLElement>('.error')!;
 
   const timeoutId = setTimeout(() => {
