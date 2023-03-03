@@ -1,3 +1,4 @@
+import { HOGWARTS_LEGACY_CLASS_ID } from './lib/config';
 import { getGameIsRunning } from './lib/games';
 import { waitForOverwolf } from './lib/overwolf';
 import {
@@ -8,8 +9,6 @@ import {
   toggleWindow,
   WINDOWS,
 } from './lib/windows';
-
-const HOGWARTS_LEGACY_CLASS_ID = 22600;
 
 waitForOverwolf().then(() => {
   initController();

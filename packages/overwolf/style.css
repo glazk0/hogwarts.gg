@@ -8,6 +8,10 @@ body {
   flex-direction: column;
 }
 
+* {
+  -webkit-user-drag: none;
+}
+
 button {
   padding: 0;
   border: none;

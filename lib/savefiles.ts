@@ -110,13 +110,41 @@ export function extractMapLocationData(db: Database) {
   const fastTravelsHogwarts = data.filter((value) =>
     value[0].startsWith('FT_HW_'),
   );
+  const fastTravelsHogsmeade = data.filter((value) =>
+    value[0].startsWith('FT_Hogsmeade'),
+  );
+  const chestsOverland = data.filter(
+    (value) =>
+      value[0].startsWith('Chest_') &&
+      !value[0].startsWith('Chest_HW_') &&
+      !value[0].startsWith('Chest_HM_'),
+  );
   const chestsHogwarts = data.filter((value) =>
     value[0].startsWith('Chest_HW_'),
+  );
+  const chestsHogsmeade = data.filter((value) =>
+    value[0].startsWith('Chest_HM_'),
+  );
+  const collectionsOverland = data.filter(
+    (value) =>
+      value[0].includes('Collect_') &&
+      !value[0].includes('Collect_HW_') &&
+      !value[0].includes('Collect_HM_'),
   );
   const collectionsHogwarts = data.filter((value) =>
     value[0].includes('Collect_HW_'),
   );
+  const collectionsHogsmeade = data.filter((value) =>
+    value[0].includes('Collect_HM_'),
+  );
+  const kioOverland = data.filter((value) =>
+    value[0].startsWith('KIO_Overland_'),
+  );
   const kioHogwarts = data.filter((value) => value[0].startsWith('KIO_HW_'));
+  const kioHogsmeade = data.filter((value) =>
+    value[0].startsWith('KIO_Hogsmeade_'),
+  );
+
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -129,6 +157,24 @@ export function extractMapLocationData(db: Database) {
           .filter((value) => value[1] !== 8)
           .map((value) => value[0]),
         max: fastTravelsOverland.length,
+      },
+      chests: {
+        values: chestsOverland
+          .filter((value) => value[1] !== 2)
+          .map((value) => value[0]),
+        max: chestsOverland.length,
+      },
+      collections: {
+        values: collectionsOverland
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: collectionsOverland.length,
+      },
+      fieldGuidePages: {
+        values: kioOverland
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: kioOverland.length,
       },
     },
     hogwarts: {
@@ -157,9 +203,53 @@ export function extractMapLocationData(db: Database) {
         max: kioHogwarts.length,
       },
     },
+    hogsmeade: {
+      fastTravels: {
+        values: fastTravelsHogsmeade
+          .filter((value) => value[1] !== 8)
+          .map((value) => value[0]),
+        max: fastTravelsHogsmeade.length,
+      },
+      chests: {
+        values: chestsHogsmeade
+          .filter((value) => value[1] !== 2)
+          .map((value) => value[0]),
+        max: chestsHogsmeade.length,
+      },
+      collections: {
+        values: collectionsHogsmeade
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: collectionsHogsmeade.length,
+      },
+      fieldGuidePages: {
+        values: kioHogsmeade
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: kioHogsmeade.length,
+      },
+    },
   };
 }
 
+export type MapLocations = {
+  fastTravels: {
+    values: string[];
+    max: number;
+  };
+  chests: {
+    values: string[];
+    max: number;
+  };
+  collections: {
+    values: string[];
+    max: number;
+  };
+  fieldGuidePages: {
+    values: string[];
+    max: number;
+  };
+};
 export type SavefilePlayer = {
   houseId: string;
   position: {
@@ -175,29 +265,8 @@ export type SavefilePlayer = {
   lastName: string;
   year: number;
   locations: {
-    overland: {
-      fastTravels: {
-        values: string[];
-        max: number;
-      };
-    };
-    hogwarts: {
-      fastTravels: {
-        values: string[];
-        max: number;
-      };
-      chests: {
-        values: string[];
-        max: number;
-      };
-      collections: {
-        values: string[];
-        max: number;
-      };
-      fieldGuidePages: {
-        values: string[];
-        max: number;
-      };
-    };
+    overland: MapLocations;
+    hogwarts: MapLocations;
+    hogsmeade: MapLocations;
   };
 };
