@@ -1,12 +1,13 @@
-import { languages, loadDictionary } from '#/lib/i18n/settings';
-import { cn } from '#/lib/utils';
+import { getAlternates, languages, loadDictionary } from '#/lib/i18n/settings';
+import { cn, getURL } from '#/lib/utils';
 import '#/styles/globals.css';
 import Footer from '#/ui/Footer';
 import GlobalNav from '#/ui/GlobalNav';
 import PlausibleTracker from '#/ui/PlausibleTracker';
-import { Work_Sans as WorkSans } from '@next/font/google';
-import localFont from '@next/font/local';
+import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import { Work_Sans as WorkSans } from 'next/font/google';
+import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 
 const Overwolf = dynamic(() => import('#/ui/overwolf/Overwolf'), {
@@ -23,6 +24,70 @@ const fontSans = WorkSans({
   variable: '--font-sans',
   subsets: ['latin'],
 });
+
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  const { metadata: metadataTranslations } = await loadDictionary(lang);
+  return {
+    title: {
+      default: metadataTranslations.title,
+      template: `%s - ${metadataTranslations.title}`,
+    },
+    description: metadataTranslations.description,
+    manifest: getURL('/favicon/site.webmanifest'),
+    openGraph: {
+      title: {
+        default: metadataTranslations.title,
+        template: `%s - ${metadataTranslations.title}`,
+      },
+      description: metadataTranslations.description,
+      url: getURL(),
+      siteName: metadataTranslations.title,
+      images: getURL('/assets/social.jpg'),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: {
+        default: metadataTranslations.title,
+        template: `%s - ${metadataTranslations.title}`,
+      },
+      description: metadataTranslations.description,
+      creator: '@leonmachens',
+      creatorId: '837613011917484033',
+      images: getURL('/assets/social.jpg'),
+    },
+    alternates: {
+      canonical: getURL(`/${lang}`),
+      languages: getAlternates(),
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
+    icons: {
+      icon: [
+        {
+          url: getURL('/favicon/favicon-32x32.png'),
+          sizes: '32x32',
+        },
+        {
+          url: getURL('/favicon/favicon-16x16.png'),
+          sizes: '16x16',
+        },
+      ],
+      shortcut: getURL('/favicon.ico'),
+      apple: getURL('/favicon/apple-touch-icon.png'),
+    },
+  };
+}
 
 const RootLayout = async ({
   children,

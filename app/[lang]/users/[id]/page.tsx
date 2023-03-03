@@ -1,9 +1,31 @@
-import { languages, loadDictionary } from '#/lib/i18n/settings';
+import { getAlternates, languages, loadDictionary } from '#/lib/i18n/settings';
 import { getPlayers } from '#/lib/players';
 import { getUser, getUsers } from '#/lib/users';
+import { getURL } from '#/lib/utils';
 import SWRFallback from '#/ui/SWRFallback';
 import User from '#/ui/users/User';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+export async function generateMetadata({
+  params: { id, lang },
+}: {
+  params: { id: string; lang: string };
+}): Promise<Metadata> {
+  const user = await getUser(id);
+
+  if (!user) {
+    notFound();
+  }
+  return {
+    title: user.username,
+    description: user.description,
+    alternates: {
+      canonical: getURL(`/${lang}/users/${user.id}`),
+      languages: getAlternates(`/users/${user.id}`),
+    },
+  };
+}
 
 export default async function Page({
   params: { id, lang },

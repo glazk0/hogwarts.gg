@@ -104,5 +104,9 @@
     "fastTravel": "Viaje rápido",
     "chests": "Cofres",
     "collections": "Colecciones"
+  },
+  "metadata": {
+    "title": "Hogwarts Legacy Map & Tools",
+    "description": "Hogwarts Legacy Map & Tools is a fan-made project to help you explore Hogwarts Legacy. It includes a map, a blog and a lot of other features."
   }
 }

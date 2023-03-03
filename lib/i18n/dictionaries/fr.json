@@ -104,5 +104,9 @@
     "fastTravel": "Voyage rapide",
     "chests": "Coffres",
     "collections": "Collections"
+  },
+  "metadata": {
+    "title": "Hogwarts Legacy Map & Tools",
+    "description": "Hogwarts Legacy Map & Tools est un site web communautaire qui fournit des informations sur les nœuds, les coffres, les collections et plus encore."
   }
 }

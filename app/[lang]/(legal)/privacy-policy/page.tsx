@@ -1,3 +1,22 @@
+import { getAlternates, loadDictionary } from '#/lib/i18n/settings';
+import type { Metadata } from 'next';
+import { getURL } from '#/lib/utils';
+
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  const { auth: authTranslations } = await loadDictionary(lang);
+  return {
+    title: authTranslations.privacyPolicy,
+    alternates: {
+      canonical: getURL(`/${lang}/privacy-policy`),
+      languages: getAlternates('/privacy-policy'),
+    },
+  };
+}
+
 export default function Page() {
   return (
     <>

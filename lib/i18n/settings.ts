@@ -1,3 +1,4 @@
+import { getURL } from '../utils';
 import type { Dictionary } from './types';
 
 export const fallbackLang = 'en';
@@ -15,6 +16,13 @@ export const labels: {
   es: 'Español',
   ru: 'Русский',
 };
+
+export function getAlternates(pathname = '') {
+  return languages.reduce((acc, lang) => {
+    acc[lang] = getURL(`/${lang}${pathname}`);
+    return acc;
+  }, {} as Record<string, string>);
+}
 
 export function getDateLocale(language: string) {
   switch (language) {

@@ -1,6 +1,6 @@
 import type { Post } from '#/lib/posts';
 import { getUser } from '#/lib/users';
-import { getURL } from '#/lib/utils';
+import { getURL, replaceHTML } from '#/lib/utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface NextApiRequestRecord extends NextApiRequest {
@@ -50,7 +50,7 @@ export default async function handler(
     embeds: [
       {
         title: title,
-        description: short?.replace(/(<([^>]+)>)/gi, ''),
+        description: replaceHTML(short!),
         url: getURL(`/${language}/blog/${slug}`),
         color: 11377794,
         footer: {
