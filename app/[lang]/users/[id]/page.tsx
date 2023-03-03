@@ -1,6 +1,6 @@
-import { getAlternates, languages, loadDictionary } from '#/lib/i18n/settings';
+import { getAlternates, loadDictionary } from '#/lib/i18n/settings';
 import { getPlayers } from '#/lib/players';
-import { getUser, getUsers } from '#/lib/users';
+import { getUser } from '#/lib/users';
 import { getURL } from '#/lib/utils';
 import SWRFallback from '#/ui/SWRFallback';
 import User from '#/ui/users/User';
@@ -51,8 +51,6 @@ export default async function Page({
 }
 
 export async function generateStaticParams() {
-  const users = await getUsers();
-  return users.flatMap((user) =>
-    languages.map((lang) => ({ lang, id: user.id.toString() })),
-  );
+  // Do not generate static user profiles
+  return [];
 }
