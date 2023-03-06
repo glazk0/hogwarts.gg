@@ -1,12 +1,13 @@
-import type { Post } from '#/lib/posts';
+import type { Database } from '#/lib/database.types';
+import { getPostById } from '#/lib/posts';
 import { getUser } from '#/lib/users';
 import { getURL, replaceHTML } from '#/lib/utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface NextApiRequestRecord extends NextApiRequest {
   body: {
-    record: Post;
-    old_record?: Post;
+    // Can't grab 'post_id' from the Comments type
+    record: Database['public']['Tables']['comments']['Row'];
   };
 }
 
@@ -18,7 +19,7 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const webhook = process.env.DISCORD_POSTS_WEBHOOK_URL;
+  const webhook = process.env.DISCORD_COMMENTS_WEBHOOK_URL;
 
   if (!webhook) {
     return res.status(500).json({ error: 'No webhook URL provided' });
@@ -30,33 +31,32 @@ export default async function handler(
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  if (!req.body.record || !req.body.old_record) {
+  if (!req.body.record) {
     return res.status(400).json({ error: 'No record provided' });
   }
 
   const {
-    record: { title, short, slug, published, published_at, user_id, language },
-    old_record: { published: old_published } = { published: false },
+    record: { user_id, body, created_at, post_id },
   } = req.body;
 
-  if (!published || old_published) {
-    return res.status(200).json({ message: 'Post was not published' });
-  }
-
   const user = await getUser(user_id);
+  const post = await getPostById(post_id!.toString());
+
+  if (!user || !post) {
+    return res.status(404).json({ error: 'Could not find user or post' });
+  }
 
   const data = {
     content: null,
     embeds: [
       {
-        title: title,
-        description: replaceHTML(short!),
-        url: getURL(`/${language}/blog/${slug}`),
+        title: `New comment by "${user.username}" on "${post.title}"`,
+        description: replaceHTML(
+          body.length > 2048 ? body.slice(0, 2048) + ' ...' : body,
+        ),
+        url: getURL(`/${post.language}/blog/${post_id}`),
         color: 11377794,
-        footer: {
-          text: `Published by ${user?.username || 'Unknown'}`,
-        },
-        timestamp: published_at!,
+        timestamp: created_at,
       },
     ],
     username: 'Hogwarts.gg',
