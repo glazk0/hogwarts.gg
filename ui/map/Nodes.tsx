@@ -51,7 +51,7 @@ export default function Nodes({ lang }: { lang: string }) {
       );
     }
     if (node.type === 'sphinxPuzzle') {
-      return player.locations.overland.sphinxPuzzles!.values.includes(node.id);
+      return player.locations.overland.sphinxPuzzles.values.includes(node.id);
     }
     return false;
   }

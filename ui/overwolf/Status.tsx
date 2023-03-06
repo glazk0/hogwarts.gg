@@ -10,7 +10,7 @@ import {
 import { getDateLocale } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import { postMessage } from '#/lib/messages';
-import type { MapLocations } from '#/lib/savefiles';
+import type { SavefilePlayer } from '#/lib/savefiles';
 import { bodyToFile, readSavegame } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
 import { IconHelp } from '@tabler/icons-react';
@@ -312,7 +312,10 @@ function MapLocationsProgress({
 }: {
   title: string;
   translations: Translations;
-  mapLocations: MapLocations;
+  mapLocations:
+    | SavefilePlayer['locations']['overland']
+    | SavefilePlayer['locations']['hogwarts']
+    | SavefilePlayer['locations']['hogsmeade'];
 }) {
   return (
     <>
@@ -347,6 +350,15 @@ function MapLocationsProgress({
         </span>
         /{mapLocations.fastTravels.max}
       </p>
+      {'sphinxPuzzles' in mapLocations && (
+        <p>
+          Merlin Trials:{' '}
+          <span className="text-discovered">
+            {mapLocations.sphinxPuzzles.values.length}
+          </span>
+          /{mapLocations.sphinxPuzzles.max}
+        </p>
+      )}
     </>
   );
 }

@@ -259,10 +259,6 @@ export type MapLocations = {
     values: string[];
     max: number;
   };
-  sphinxPuzzles?: {
-    values: string[];
-    max: number;
-  };
 };
 export type SavefilePlayer = {
   houseId: string;
@@ -279,7 +275,12 @@ export type SavefilePlayer = {
   lastName: string;
   year: number;
   locations: {
-    overland: MapLocations;
+    overland: MapLocations & {
+      sphinxPuzzles: {
+        values: string[];
+        max: number;
+      };
+    };
     hogwarts: MapLocations;
     hogsmeade: MapLocations;
   };
