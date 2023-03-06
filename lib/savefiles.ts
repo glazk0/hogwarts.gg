@@ -145,6 +145,10 @@ export function extractMapLocationData(db: Database) {
     value[0].startsWith('KIO_Hogsmeade_'),
   );
 
+  const sphinxPuzzlesOverland = data.filter((value) =>
+    value[0].startsWith('SphinxPuzzle'),
+  );
+
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -175,6 +179,12 @@ export function extractMapLocationData(db: Database) {
           .filter((value) => value[1] !== 3)
           .map((value) => value[0]),
         max: kioOverland.length,
+      },
+      sphinxPuzzles: {
+        values: sphinxPuzzlesOverland
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: sphinxPuzzlesOverland.length,
       },
     },
     hogwarts: {
@@ -246,6 +256,10 @@ export type MapLocations = {
     max: number;
   };
   fieldGuidePages: {
+    values: string[];
+    max: number;
+  };
+  sphinxPuzzles?: {
     values: string[];
     max: number;
   };
