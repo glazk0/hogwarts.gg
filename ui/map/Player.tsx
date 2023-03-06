@@ -53,7 +53,7 @@ export default function Player() {
 
   useEffect(() => {
     mapStore.setHogwartsLevel(inHogwarts ? playerLevel : 0);
-  }, [inHogwarts]);
+  }, [inHogwarts, playerLevel]);
 
   useEffect(() => {
     if (!marker) {
