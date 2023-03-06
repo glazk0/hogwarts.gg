@@ -18,7 +18,7 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const webhook = process.env.DISCORD_WEBHOOK_URL;
+  const webhook = process.env.DISCORD_POSTS_WEBHOOK_URL;
 
   if (!webhook) {
     return res.status(500).json({ error: 'No webhook URL provided' });
