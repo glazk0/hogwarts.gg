@@ -27,7 +27,7 @@ export const getUser = async (userId: string): Promise<User | null> => {
   // It will never be an array because the `user_roles.user_id` is unique
   ok(!Array.isArray(user.user_role));
 
-  const role = user.user_role ? user.user_role.role : 'User';
+  const role = user.user_role ? user.user_role.role : 'user';
   return {
     ...user,
     role,

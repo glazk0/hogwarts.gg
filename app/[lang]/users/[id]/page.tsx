@@ -50,9 +50,13 @@ export default async function Page({
   );
 }
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const users = await getUsers();
-  return users.flatMap((user) =>
-    languages.map((lang) => ({ lang, id: user.id.toString() })),
-  );
+  return users
+    .filter((user) => ['admin', 'moderator'].includes(user.role))
+    .flatMap((user) =>
+      languages.map((lang) => ({ lang, id: user.id.toString() })),
+    );
 }
