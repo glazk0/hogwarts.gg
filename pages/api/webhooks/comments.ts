@@ -54,7 +54,7 @@ export default async function handler(
         description: replaceHTML(
           body.length > 2048 ? body.slice(0, 2048) + ' ...' : body,
         ),
-        url: getURL(`/${post.language}/blog/${post_id}`),
+        url: getURL(`/${post.language}/blog/${post.slug}`),
         color: 11377794,
         timestamp: created_at,
       },
