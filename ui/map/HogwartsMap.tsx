@@ -29,7 +29,7 @@ function OverlandLayer() {
   const size = 44100 * 16;
   return (
     <ImageOverlay
-      url="/assets/map/T_Map_OverlandPaper_D.png"
+      url="/assets/map/T_Map_OverlandPaper_D.webp"
       bounds={[
         [y - size, x + size],
         [y, x],
