@@ -32,7 +32,7 @@ export const getMapTile = (level?: number) => {
 
   return `/assets/map/Hogwarts/UI_T_MapMini_Hogwarts_Level_${pad(
     mapLevel,
-  )}_D.png`;
+  )}_D.webp`;
 };
 const pad = (value: number) => `0${Math.floor(value)}`.slice(-2);
 
